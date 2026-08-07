@@ -34,7 +34,7 @@ const homeCategories = ['All Featured', 'Fruits', 'Spices and Herbs', 'Plantatio
 export default function Home() {
   const [selectedApp, setSelectedApp] = useState(null);
   const [activeCategory, setActiveCategory] = useState('All Featured');
-  const springConfig = { damping: 25, stiffness: 100, mass: 0.15, restDelta: 0.001 };
+  const springConfig = { damping: 28, stiffness: 85, mass: 0.18, restDelta: 0.001 };
 
   const heroRef = useRef(null);
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ['start start', 'end start'] });
@@ -67,7 +67,7 @@ export default function Home() {
     target: testiFaqSectionRef,
     offset: ['start end', 'end start'],
   });
-  const smoothTestiFaqScroll = useSpring(testiFaqScroll, { damping: 26, stiffness: 85, mass: 0.15, restDelta: 0.001 });
+  const smoothTestiFaqScroll = useSpring(testiFaqScroll, { damping: 20, stiffness: 150, mass: 0.1, restDelta: 0.001 });
 
   // Multi-layer Parallax transforms with spring-smoothed motion
   const parallaxBlobY1 = useTransform(smoothTestiFaqScroll, [0, 1], [-120, 160]);
@@ -79,10 +79,6 @@ export default function Home() {
   const cardsOddY = useTransform(smoothTestiFaqScroll, [0.05, 0.45, 0.8], [40, 0, -70]);
   const cardsEvenY = useTransform(smoothTestiFaqScroll, [0.05, 0.45, 0.8], [80, 0, -35]);
 
-  const faqSectionY = useTransform(smoothTestiFaqScroll, [0.3, 0.75], [120, 0]);
-  const faqScale = useTransform(smoothTestiFaqScroll, [0.3, 0.75], [0.93, 1]);
-  const faqOpacity = useTransform(smoothTestiFaqScroll, [0.3, 0.55, 0.95], [0.15, 1, 1]);
-  const faqAccordionY = useTransform(smoothTestiFaqScroll, [0.35, 0.8], [70, 0]);
 
   const displayedCrops = activeCategory === 'All Featured'
     ? applications.slice(0, 12)
@@ -274,7 +270,7 @@ export default function Home() {
         <SectionHeading
           eyebrow="Built to Dry Anything"
           title="Featured Crops and Applications"
-          subtitle="From commercial cash crops and spices to tropical fruits and medicinal herbs, CALOR MEGA adapts to your produce."
+          subtitle="From crops and spices to tropical fruits and medicinal herbs, CALOR MEGA adapts to your produce."
           className="mb-5 sm:mb-6 max-w-3xl mx-auto text-center"
         />
 
@@ -284,11 +280,10 @@ export default function Home() {
             <button
               key={cat}
               onClick={() => setActiveCategory(cat)}
-              className={`px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-semibold transition-all duration-300 ${
-                activeCategory === cat
-                  ? 'bg-accent text-primary shadow-md shadow-accent/25 scale-105'
-                  : 'bg-white/70 dark:bg-white/5 border border-primary/10 dark:border-white/10 text-primary/70 dark:text-paper/70 hover:bg-accent/10 hover:text-accent'
-              }`}
+              className={`px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-semibold transition-all duration-300 ${activeCategory === cat
+                ? 'bg-accent text-primary shadow-md shadow-accent/25 scale-105'
+                : 'bg-white/70 dark:bg-white/5 border border-primary/10 dark:border-white/10 text-primary/70 dark:text-paper/70 hover:bg-accent/10 hover:text-accent'
+                }`}
             >
               {cat}
             </button>
@@ -304,10 +299,10 @@ export default function Home() {
         </motion.div>
 
         <div className="mt-8 sm:mt-10 flex flex-col sm:flex-row items-center justify-center gap-4 text-center">
-          <Button 
-            as={Link} 
-            to="/applications" 
-            variant="accent" 
+          <Button
+            as={Link}
+            to="/applications"
+            variant="accent"
             icon={FaArrowRight}
             className="shadow-lg shadow-accent/25 hover:shadow-accent/40 text-sm sm:text-base px-8 py-3.5"
           >
@@ -333,7 +328,9 @@ export default function Home() {
         />
 
         {/* TESTIMONIALS */}
-        <section className="relative z-10 flex flex-col justify-center items-center px-4 sm:px-6 md:px-8 lg:px-10 2xl:px-12 pt-14 sm:pt-20 pb-10 sm:pb-14">
+        <section 
+          className="relative z-10 flex flex-col justify-center items-center px-4 sm:px-6 md:px-8 lg:px-10 2xl:px-12 pt-14 sm:pt-20 pb-10 sm:pb-14 transform-gpu"
+        >
           <div className="w-full max-w-[1600px] mx-auto">
             <motion.div style={{ y: testiHeadingY, opacity: testiHeadingOpacity }} className="transform-gpu">
               <SectionHeading
@@ -358,20 +355,23 @@ export default function Home() {
           </div>
         </section>
 
-        {/* FAQ WITH PARALLAX CURTAIN ELEVATION */}
+        {/* FAQ SECTION (FAST ARRIVAL) */}
         <motion.section
-          style={{ y: faqSectionY, scale: faqScale, opacity: faqOpacity }}
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: false, amount: 0.15 }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
           className="relative z-20 flex w-full flex-col justify-center items-center px-4 sm:px-6 md:px-8 lg:px-10 2xl:px-12 pt-8 sm:pt-14 pb-16 sm:pb-20 bg-white/60 dark:bg-white/[0.02] backdrop-blur-md border-t border-primary/5 dark:border-white/10 shadow-[0_-20px_50px_-20px_rgba(0,0,0,0.06)] dark:shadow-[0_-20px_50px_-20px_rgba(0,0,0,0.5)] transform-gpu"
         >
           <div className="w-full max-w-[1600px] mx-auto flex flex-col justify-center items-center">
-            <SectionHeading 
-              eyebrow="Questions and Answers" 
-              title="Frequently Asked Questions" 
+            <SectionHeading
+              eyebrow="Questions and Answers"
+              title="Frequently Asked Questions"
               className="mb-6 sm:mb-8 max-w-3xl mx-auto text-center"
             />
-            <motion.div style={{ y: faqAccordionY }} className="w-full transform-gpu">
+            <div className="w-full transform-gpu">
               <FAQAccordion items={faqs} />
-            </motion.div>
+            </div>
           </div>
         </motion.section>
       </div>

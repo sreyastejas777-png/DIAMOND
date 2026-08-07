@@ -106,10 +106,11 @@ export default function MachineOverview() {
         eyebrow="Inside the Machine"
         title="Interactive Engineering Explorer"
         subtitle="Click any &ldquo;+&rdquo; pin to trace the component and view its engineering specs."
+        className="mb-4 sm:mb-6"
       />
 
       {/* SHOWCASE WRAPPER */}
-      <div className="relative mx-auto mt-10 w-full flex flex-col items-center overflow-visible">
+      <div className="relative mx-auto mt-2 w-full flex flex-col items-center overflow-visible">
         {/* CENTRALIZED PHOTO FRAME */}
         <div
           ref={imageRef}

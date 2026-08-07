@@ -52,19 +52,20 @@
   min-height: 92svh;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
+  padding-left: clamp(0px, 1.5vw, 20px);
   z-index: 40;
   pointer-events: none;
 }
 
 .hero-center-block {
   text-align: left;
-  max-width: 680px;
+  max-width: 800px;
   width: 100%;
   padding: 0 clamp(20px, 3vw, 40px);
   pointer-events: auto;
   will-change: transform, opacity;
-  transform: translateX(-22.5vw);
+  transform: translateY(5vh);
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -82,7 +83,7 @@
 
 .headline {
   font-family: var(--font-heading, 'Playfair Display', serif);
-  font-size: clamp(2.6rem, 4.8vw, 4.2rem);
+  font-size: clamp(2.9rem, 5vw, 4.5rem);
   font-weight: 800;
   line-height: 1.15;
   color: var(--text-primary);

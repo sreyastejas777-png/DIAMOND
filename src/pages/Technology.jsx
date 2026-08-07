@@ -98,7 +98,7 @@ export default function Technology() {
     scene.fog = new THREE.FogExp2(bgHex, 0.035);
 
     const camera = new THREE.PerspectiveCamera(39, window.innerWidth / window.innerHeight, 0.1, 100);
-    camera.position.set(0, 1.35, 12.6);
+    camera.position.set(0, 1.35, 11.8);
     camera.lookAt(0, 1.25, 0);
 
     const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
@@ -378,8 +378,8 @@ export default function Technology() {
           gsap.set('.hero-center-block', { y: '-18vh' });
           gsap.set('#webgl-canvas', { opacity: 1, y: '8vh' });
         } else {
-          gsap.set('.hero-center-block', { x: '-22.5vw' });
-          gsap.set('#webgl-canvas', { opacity: 1, x: '22.5vw' });
+          gsap.set('.hero-center-block', { x: '0', y: '5vh' });
+          gsap.set('#webgl-canvas', { opacity: 1, x: '25vw' });
         }
 
         // -- HOLD STATE FOR FIRST SCROLL (Allowing user to read text before phase transitions start) --
@@ -394,7 +394,7 @@ export default function Technology() {
         }
         mainTl.to(machineGroup.scale, { x: 1.0, y: 1.0, z: 1.0, duration: 0.8, ease: 'power1.inOut' }, 1.8);
         mainTl.to(machineGroup.position, { y: -1.2, duration: 0.8, ease: 'power1.inOut' }, 1.8);
-        mainTl.to(camera.position, { x: 0, y: 1.4, z: 14.2, duration: 0.8, ease: 'power1.inOut' }, 1.8);
+        mainTl.to(camera.position, { x: 0, y: 1.4, z: 13.0, duration: 0.8, ease: 'power1.inOut' }, 1.8);
 
         // 2. Phase 1: Structure & Controls (Model & Parts Callouts Appear TOGETHER)
         // Model rotates to center
@@ -410,7 +410,7 @@ export default function Technology() {
 
         // 3. Phase 2: Thermal Engine & Airflow (Rotate to angled view, thermal pulse)
         mainTl.to(machineGroup.rotation, { y: -0.45, duration: 1.2 }, 4.0);
-        mainTl.to(camera.position, { x: 0.4, z: 14.2, y: 1.4, duration: 1.2 }, 4.0);
+        mainTl.to(camera.position, { x: 0.4, z: 13.0, y: 1.4, duration: 1.2 }, 4.0);
         mainTl.call(() => { machineGroup.userData.thermalActive = true; }, null, 4.5);
 
         // 4. Phase 3: The Dynamic ROI Engine & Smart Control (Close doors, pull back, disable thermal)
@@ -428,7 +428,7 @@ export default function Technology() {
         mainTl.to(internalLightL, { intensity: 0, duration: 0.5 }, 7.0);
         mainTl.to(internalLightR, { intensity: 0, duration: 0.5 }, 7.0);
         mainTl.to(machineGroup.rotation, { y: 0, duration: 1.0 }, 7.0);
-        mainTl.to(camera.position, { x: 0, z: 14.8, y: 1.3, duration: 1.0 }, 7.0);
+        mainTl.to(camera.position, { x: 0, z: 13.5, y: 1.3, duration: 1.0 }, 7.0);
 
         // ─── UI UX Boxes (Phase Groups) Synchronized with 3D Timeline ───
         // Phase 1 (Delay slightly so it appears as doors are opening)
@@ -485,11 +485,11 @@ export default function Technology() {
       {/* Hero Section Container (Pinned) */}
       <div id="hero-scroll-container" ref={containerRef} className="hero">
         {/* WebGL 3D Canvas */}
-        <canvas id="webgl-canvas" ref={canvasRef} style={{ opacity: 1, transform: typeof window !== 'undefined' && window.innerWidth < 768 ? 'translateY(8vh)' : 'translateX(22.5vw)' }} />
+        <canvas id="webgl-canvas" ref={canvasRef} style={{ opacity: 1, transform: typeof window !== 'undefined' && window.innerWidth < 768 ? 'translateY(8vh)' : 'translateX(25vw)' }} />
 
         {/* Fixed Hero Wrapper (Moved outside pin container to prevent flicker) */}
         <div className="fixed-hero-wrapper">
-          <div className="hero-center-block" ref={centerBlockRef} style={{ transform: typeof window !== 'undefined' && window.innerWidth < 768 ? 'translateY(-18vh)' : 'translateX(-22.5vw)' }}>
+          <div className="hero-center-block" ref={centerBlockRef} style={{ transform: typeof window !== 'undefined' && window.innerWidth < 768 ? 'translateY(-18vh)' : 'translateY(5vh)' }}>
             <h1 className="headline">
               Preserve Today.<br />
               <span>Profit Tomorrow.</span>
