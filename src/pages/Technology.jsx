@@ -529,27 +529,27 @@ export default function Technology() {
           {/* Phase 1 Group - Appears TOGETHER with 3D model appearance */}
           <div className="phase-group phase-1-group">
             <div className="card-column left">
-              <div className="ui-card card-shell line-right">
+              <div className="ui-card card-shell line-right" style={{ transform: 'translateY(-20px)', '--line-reach': '190px' }}>
                 <h4>SS 304 Stainless Steel Shell</h4>
                 <p>10x10 foot premium food-grade construction. Zero contamination.</p>
               </div>
-              <div className="ui-card card-foam line-right">
-                <h4>Thermal Insulation</h4>
-                <p>High-density foam retains 99% of internal heat for maximum energy efficiency.</p>
-              </div>
-              <div className="ui-card card-panel line-right">
+              <div className="ui-card card-panel line-right" style={{ transform: 'translateY(15px)', '--line-reach': '140px' }}>
                 <h4>Siemens PLC Control</h4>
                 <p>Precision PID temperature and humidity control via 10" HMI interface.</p>
               </div>
+              <div className="ui-card card-foam line-right" style={{ transform: 'translateY(50px)', '--line-reach': '170px' }}>
+                <h4>Thermal Insulation</h4>
+                <p>High-density foam retains 99% of internal heat for maximum energy efficiency.</p>
+              </div>
             </div>
             <div className="card-column right">
-              <div className="ui-card card-trays line-left">
-                <h4>Drying Trays and Coils</h4>
-                <p>Precision electric heating elements and uniform cross-flow blower fans.</p>
-              </div>
-              <div className="ui-card card-fans line-left">
+              <div className="ui-card card-fans line-left" style={{ transform: 'translateY(-40px)', '--line-reach': '160px' }}>
                 <h4>Dual Centrifugal Fans</h4>
                 <p>High-velocity uniform cross-flow aerodynamics for consistent drying.</p>
+              </div>
+              <div className="ui-card card-trays line-left" style={{ transform: 'translateY(40px)', '--line-reach': '180px' }}>
+                <h4>Drying Trays and Coils</h4>
+                <p>Precision electric heating elements and uniform cross-flow blower fans.</p>
               </div>
             </div>
           </div>
