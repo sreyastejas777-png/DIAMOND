@@ -598,30 +598,35 @@
   .card-shell {
     top: 15%;
     left: 8vw;
+    --line-reach: 170px;
   }
 
-  /* Foam Insulation (Left Middle) */
-  .card-foam {
-    top: 35%;
-    left: 8vw;
-  }
-
-  /* PLC Control (Left Bottom) */
+  /* PLC Control (Left Middle) */
   .card-panel {
-    top: 65%;
+    top: 48%;
     left: 8vw;
+    --line-reach: 330px;
+  }
+
+  /* Foam Insulation (Left Bottom) */
+  .card-foam {
+    top: 75%;
+    left: 8vw;
+    --line-reach: 170px;
   }
 
   /* Fans (Right Top) */
   .card-fans {
     top: 15%;
     right: 8vw;
+    --line-reach: 170px;
   }
 
   /* Trays (Right Bottom) */
   .card-trays {
-    top: 55%;
+    top: 65%;
     right: 8vw;
+    --line-reach: 170px;
   }
 
   /* ========================================================
