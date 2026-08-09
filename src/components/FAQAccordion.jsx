@@ -6,7 +6,7 @@ export default function FAQAccordion({ items, className = '' }) {
   const [openIndex, setOpenIndex] = useState(0);
 
   return (
-    <div className={`mx-auto w-full max-w-5xl lg:max-w-6xl xl:max-w-7xl divide-y divide-primary/10 dark:divide-white/10 rounded-2xl sm:rounded-3xl bg-white dark:bg-white/5 shadow-soft border border-primary/5 dark:border-white/10 ${className}`}>
+    <div className={`mx-auto w-full max-w-5xl lg:max-w-6xl xl:max-w-[95vw] divide-y divide-primary/10 dark:divide-white/10 rounded-2xl sm:rounded-3xl bg-white dark:bg-white/5 shadow-soft border border-primary/5 dark:border-white/10 ${className}`}>
       {items.map((item, index) => {
         const isOpen = openIndex === index;
         return (

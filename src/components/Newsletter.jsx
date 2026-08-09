@@ -15,7 +15,13 @@ export default function Newsletter({ className = '' }) {
   };
 
   return (
-    <div className={`relative overflow-hidden rounded-3xl sm:rounded-[2.5rem] bg-gradient-to-br from-primary via-[#0e271f] to-primary text-white shadow-2xl p-8 sm:p-12 md:p-16 lg:p-20 text-center border border-white/10 w-full ${className}`}>
+    <motion.div 
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.15 }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+      className={`relative overflow-hidden rounded-3xl sm:rounded-[2.5rem] bg-gradient-to-br from-primary via-[#0e271f] to-primary text-white shadow-2xl p-8 sm:p-12 md:p-16 lg:p-20 text-center border border-white/10 w-full ${className}`}
+    >
       {/* Ambient background glows */}
       <div className="absolute -top-24 -right-24 h-96 w-96 rounded-full bg-accent/20 blur-3xl pointer-events-none" />
       <div className="absolute -bottom-24 -left-24 h-96 w-96 rounded-full bg-secondary/25 blur-3xl pointer-events-none" />
@@ -73,6 +79,6 @@ export default function Newsletter({ className = '' }) {
           </span>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }

@@ -101,7 +101,7 @@ export default function MachineOverview() {
   }, [activeId, activeHotspot, isLeft, clampedY]);
 
   return (
-    <section className="relative mx-auto flex min-h-[100svh] w-full max-w-[1600px] flex-col justify-center px-4 py-14 sm:px-6 md:px-8 overflow-visible">
+    <section className="relative mx-auto flex min-h-[100svh] min-[1600px]:min-h-0 w-full max-w-[1600px] min-[1600px]:max-w-[98vw] flex-col justify-center px-4 py-14 sm:px-6 md:px-8 overflow-visible">
       <SectionHeading
         eyebrow="Inside the Machine"
         title="Interactive Engineering Explorer"

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Shield, Users, Landmark, Award, Milestone } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 export default function About() {
   const timelineEvents = [
@@ -11,10 +12,17 @@ export default function About() {
 
   return (
     <div className="w-full pt-2 pb-16 px-6 md:px-12 bg-bg transition-colors duration-300 min-h-[calc(100svh-144px)]">
-      <div className="max-w-[1440px] mx-auto flex flex-col gap-16">
+      <div className="max-w-[1440px] min-[1600px]:max-w-[98vw] mx-auto flex flex-col gap-16">
         
         {/* 1. VISION & MISSION HERO */}
-        <div id="vision" className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center scroll-mt-28">
+        <motion.div 
+          id="vision" 
+          className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center scroll-mt-28"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.7 }}
+        >
           {/* Text content */}
           <div className="lg:col-span-8 flex flex-col gap-6">
             <span className="text-[18px] font-black uppercase text-accent tracking-wider">
@@ -44,10 +52,17 @@ export default function About() {
               <div className="absolute w-[140px] h-[140px] border border-accent/40 bg-accent/5 transform rotate-x-[-90deg] translate-z-[120px]"></div>
             </div>
           </div>
-        </div>
+        </motion.div>
 
         {/* 2. WHY HUMIDITY CONTROL MATTERS */}
-        <div id="humidity-control" className="p-5 md:p-6 rounded-3xl bg-brand-light border border-border shadow-skeuo-in grid grid-cols-1 md:grid-cols-2 gap-8 items-start transition-colors duration-300 scroll-mt-28">
+        <motion.div 
+          id="humidity-control" 
+          className="p-5 md:p-6 rounded-3xl bg-brand-light border border-border shadow-skeuo-in grid grid-cols-1 md:grid-cols-2 gap-8 items-start transition-colors duration-300 scroll-mt-28"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.7 }}
+        >
           <div className="flex flex-col gap-4">
             <h2 className="text-3xl font-extrabold font-outfit text-primary-text">
               Why Humidity Control Matters
@@ -72,10 +87,17 @@ export default function About() {
               </div>
             </div>
           </div>
-        </div>
+        </motion.div>
 
         {/* 3. QUALITY, CERTIFICATIONS & SUSTAINABILITY */}
-        <div id="standards" className="flex flex-col gap-8 scroll-mt-28">
+        <motion.div 
+          id="standards" 
+          className="flex flex-col gap-8 scroll-mt-28"
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.7 }}
+        >
           <div className="text-center max-w-[800px] mx-auto flex flex-col gap-4">
             <h2 className="text-3xl font-extrabold font-outfit text-primary-text">
               Standards & Certifications
@@ -110,10 +132,17 @@ export default function About() {
               </p>
             </div>
           </div>
-        </div>
+        </motion.div>
 
         {/* 4. COMPANY TIMELINE */}
-        <div id="journey" className="flex flex-col gap-12 border-t border-border pt-12 scroll-mt-28">
+        <motion.div 
+          id="journey" 
+          className="flex flex-col gap-12 border-t border-border pt-12 scroll-mt-28"
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.7 }}
+        >
           <h2 className="text-3xl font-extrabold font-outfit text-primary-text text-center">
             Our Journey & Growth
           </h2>
@@ -136,7 +165,7 @@ export default function About() {
               </div>
             ))}
           </div>
-        </div>
+        </motion.div>
 
       </div>
     </div>

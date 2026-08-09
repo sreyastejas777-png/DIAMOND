@@ -48,7 +48,7 @@ export default function Products() {
 
   return (
     <div className="w-full py-16 px-6 md:px-12 bg-bg transition-colors duration-300">
-      <div className="max-w-[1440px] mx-auto flex flex-col gap-12">
+      <div className="max-w-[1440px] min-[1600px]:max-w-[98vw] mx-auto flex flex-col gap-12">
         {/* Header */}
         <div className="text-center max-w-[800px] mx-auto flex flex-col gap-4">
           <h1 className="text-4xl md:text-5xl font-black font-outfit text-primary-text">

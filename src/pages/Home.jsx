@@ -57,10 +57,10 @@ export default function Home() {
     offset: ['start end', 'center center'],
   });
   const smoothWhyProgress = useSpring(whyScrollProgress, springConfig);
-  const whyY = useTransform(smoothWhyProgress, [0, 1], [40, 0]);
-  const whyScale = useTransform(smoothWhyProgress, [0, 1], [0.97, 1]);
-  const whyOpacity = useTransform(smoothWhyProgress, [0, 0.3, 1], [0.5, 0.9, 1]);
-  const whyRotateBg = useTransform(smoothWhyProgress, [0, 1], [-15, 15]);
+  const whyY = useTransform(whyScrollProgress, [0, 1], [40, 0]);
+  const whyScale = useTransform(whyScrollProgress, [0, 1], [0.97, 1]);
+  const whyOpacity = useTransform(whyScrollProgress, [0, 0.3, 1], [0.5, 0.9, 1]);
+  const whyRotateBg = useTransform(whyScrollProgress, [0, 1], [-15, 15]);
 
   const testiFaqSectionRef = useRef(null);
   const { scrollYProgress: testiFaqScroll } = useScroll({
@@ -89,13 +89,13 @@ export default function Home() {
       {/* HERO */}
       <section
         ref={heroRef}
-        className="relative flex min-h-[100svh] items-center justify-center overflow-hidden bg-gradient-to-br from-transparent to-secondary/5 pt-24 pb-14"
+        className="relative flex min-h-[100svh] min-[1600px]:min-h-[75svh] items-center justify-center overflow-hidden bg-gradient-to-br from-transparent to-secondary/5 pt-24 pb-14"
       >
         <div className="dot-grid absolute inset-0 opacity-60" />
         <GradientBlobs variant="hero" />
         <ParticlesBackground />
 
-        <div className="mx-auto grid w-full max-w-[1760px] items-center gap-8 lg:gap-12 xl:gap-16 2xl:gap-20 pl-4 sm:pl-6 md:pl-8 lg:pl-10 xl:pl-12 2xl:pl-14 pr-6 sm:pr-8 lg:pr-12 xl:pr-16 2xl:pr-20 lg:grid-cols-[1.12fr_0.88fr]">
+        <div className="mx-auto grid w-full max-w-[1760px] min-[1600px]:max-w-[98vw] items-center gap-8 lg:gap-12 xl:gap-16 2xl:gap-20 pl-4 sm:pl-6 md:pl-8 lg:pl-10 xl:pl-12 2xl:pl-14 pr-6 sm:pr-8 lg:pr-12 xl:pr-16 2xl:pr-20 lg:grid-cols-[1.12fr_0.88fr]">
           <motion.div
             style={{ y: heroTextY }}
             initial={{ opacity: 0, x: -40 }}
@@ -197,7 +197,7 @@ export default function Home() {
       {/* STATS */}
       <section
         ref={statsRef}
-        className="relative z-10 w-full max-w-[1600px] mx-auto px-4 sm:px-6 md:px-8 lg:px-10 2xl:px-12 pt-8 sm:pt-12 pb-4 sm:pb-6 overflow-hidden"
+        className="relative z-10 w-full max-w-[1600px] min-[1600px]:max-w-[98vw] mx-auto px-4 sm:px-6 md:px-8 lg:px-10 2xl:px-12 pt-8 sm:pt-12 pb-4 sm:pb-6 overflow-hidden"
       >
         {/* Subtle Ambient Golden Bloom */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3/4 h-3/4 bg-secondary/10 dark:bg-accent/10 blur-[130px] rounded-full pointer-events-none" />
@@ -249,7 +249,7 @@ export default function Home() {
 
         <motion.div
           style={{ y: whyY, scale: whyScale, opacity: whyOpacity }}
-          className="relative z-10 w-full max-w-[1500px] mx-auto"
+          className="relative z-10 w-full max-w-[1500px] min-[1600px]:max-w-[98vw] mx-auto"
         >
           <SectionHeading
             eyebrow="The CALOR MEGA Difference"
@@ -266,7 +266,7 @@ export default function Home() {
       </section>
 
       {/* APPLICATIONS */}
-      <section className="relative mx-auto flex min-h-[100svh] w-full max-w-[1600px] flex-col justify-center px-4 sm:px-6 md:px-8 lg:px-10 2xl:px-12 py-8 sm:py-10">
+      <section className="relative mx-auto flex min-h-[100svh] min-[1600px]:min-h-0 w-full max-w-[1600px] min-[1600px]:max-w-[98vw] flex-col justify-center px-4 sm:px-6 md:px-8 lg:px-10 2xl:px-12 py-8 sm:py-10">
         <SectionHeading
           eyebrow="Built to Dry Anything"
           title="Featured Crops and Applications"
@@ -331,7 +331,7 @@ export default function Home() {
         <section 
           className="relative z-10 flex flex-col justify-center items-center px-4 sm:px-6 md:px-8 lg:px-10 2xl:px-12 pt-14 sm:pt-20 pb-10 sm:pb-14 transform-gpu"
         >
-          <div className="w-full max-w-[1600px] mx-auto">
+          <div className="w-full max-w-[1600px] min-[1600px]:max-w-[98vw] mx-auto">
             <motion.div style={{ y: testiHeadingY, opacity: testiHeadingOpacity }} className="transform-gpu">
               <SectionHeading
                 eyebrow="Why Farmers Trust Us"
@@ -361,15 +361,15 @@ export default function Home() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: false, amount: 0.15 }}
           transition={{ duration: 0.4, ease: "easeOut" }}
-          className="relative z-20 flex w-full flex-col justify-center items-center px-4 sm:px-6 md:px-8 lg:px-10 2xl:px-12 pt-8 sm:pt-14 pb-16 sm:pb-20 bg-white/60 dark:bg-white/[0.02] backdrop-blur-md border-t border-primary/5 dark:border-white/10 shadow-[0_-20px_50px_-20px_rgba(0,0,0,0.06)] dark:shadow-[0_-20px_50px_-20px_rgba(0,0,0,0.5)] transform-gpu"
+          className="relative z-20 flex w-full flex-col justify-center items-center px-4 sm:px-6 md:px-8 lg:px-10 2xl:px-12 xl:min-h-[80svh] pt-8 sm:pt-14 pb-16 sm:pb-20 bg-white/60 dark:bg-white/[0.02] backdrop-blur-md border-t border-primary/5 dark:border-white/10 shadow-[0_-20px_50px_-20px_rgba(0,0,0,0.06)] dark:shadow-[0_-20px_50px_-20px_rgba(0,0,0,0.5)] transform-gpu"
         >
-          <div className="w-full max-w-[1600px] mx-auto flex flex-col justify-center items-center">
+          <div className="w-full xl:max-w-[98vw] mx-auto flex flex-col justify-center items-center h-full">
             <SectionHeading
               eyebrow="Questions and Answers"
               title="Frequently Asked Questions"
               className="mb-6 sm:mb-8 max-w-3xl mx-auto text-center"
             />
-            <div className="w-full transform-gpu">
+            <div className="w-full transform-gpu flex-1 flex flex-col justify-center">
               <FAQAccordion items={faqs} />
             </div>
           </div>
@@ -378,7 +378,7 @@ export default function Home() {
 
       {/* NEWSLETTER */}
       <section className="relative flex w-full flex-col justify-center items-center px-4 sm:px-6 md:px-8 lg:px-10 2xl:px-12 py-12 sm:py-16 md:py-20 overflow-hidden">
-        <div className="relative z-10 w-full max-w-[1600px] mx-auto">
+        <div className="relative z-10 w-full max-w-[1600px] min-[1600px]:max-w-[98vw] mx-auto">
           <Newsletter />
         </div>
       </section>

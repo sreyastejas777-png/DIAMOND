@@ -13,6 +13,7 @@ export default function ApplicationCard({ application, index = 0, onSelect, disa
       initial={disableEntranceAnimation ? false : { opacity: 0, scale: 0.9 }}
       whileInView={disableEntranceAnimation ? undefined : { opacity: 1, scale: 1 }}
       viewport={disableEntranceAnimation ? undefined : { once: true }}
+      exit={{ opacity: 0, scale: 0.9, transition: { duration: 0.2, delay: 0 } }}
       transition={{
         default: { duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: index * 0.03 },
         hover: { type: 'spring', stiffness: 300, damping: 22 },

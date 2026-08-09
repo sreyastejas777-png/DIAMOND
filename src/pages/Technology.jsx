@@ -622,7 +622,7 @@ export default function Technology() {
 
       {/* Technical Data Sheet Section */}
       <section id="datasheet" className="datasheet-section">
-        <div className="mx-auto max-w-[1500px] px-6">
+        <div className="mx-auto max-w-[1500px] min-[1600px]:max-w-[95vw] px-6">
           <div className="datasheet-header">
             <div className="engineering-label">Engineering Specs</div>
             <h2>Technical Data Sheet</h2>

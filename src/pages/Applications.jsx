@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import SectionHeading from '../components/SectionHeading';
 import ApplicationCard from '../components/ApplicationCard';
 import ApplicationModal from '../components/ApplicationModal';
-import Newsletter from '../components/Newsletter';
+
 import { applications } from '../data/applications';
 
 const categories = [
@@ -26,7 +26,7 @@ export default function Applications() {
     : applications.filter(app => app.category === activeCategory);
 
   return (
-    <section className="mx-auto max-w-[1600px] px-4 sm:px-6 md:px-8 lg:px-10 2xl:px-12 py-10 md:py-16">
+    <section className="mx-auto max-w-[1600px] min-[1600px]:max-w-[98vw] px-4 sm:px-6 md:px-8 lg:px-10 2xl:px-12 py-10 md:py-16">
       <SectionHeading
         eyebrow="One Machine, Endless Produce"
         title="Applications and Processing"
@@ -55,7 +55,7 @@ export default function Applications() {
         layout
         className="grid grid-cols-2 gap-4 sm:gap-5 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6"
       >
-        <AnimatePresence>
+        <AnimatePresence mode="popLayout">
           {filteredApps.map((app, i) => (
             <ApplicationCard
               key={app.title}
@@ -67,9 +67,7 @@ export default function Applications() {
         </AnimatePresence>
       </motion.div>
 
-      <div className="mt-20">
-        <Newsletter />
-      </div>
+
 
       <ApplicationModal
         application={selectedApp}

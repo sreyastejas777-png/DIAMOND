@@ -128,7 +128,7 @@ export default function ProductDetail() {
 
   return (
     <div className="w-full py-16 px-6 md:px-12 bg-bg transition-colors duration-300">
-      <div className="max-w-[1440px] mx-auto flex flex-col gap-12">
+      <div className="max-w-[1440px] min-[1600px]:max-w-[98vw] mx-auto flex flex-col gap-12">
         
         {/* Navigation Breadcrumb */}
         <div className="text-[18px] text-secondary-text font-bold">
