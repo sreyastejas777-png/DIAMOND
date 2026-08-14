@@ -66,14 +66,14 @@ h4,
 }
 
 .glass {
-  background: rgba(245, 240, 230, 0.99);
+  background: rgba(235, 228, 216, 0.99);
   backdrop-filter: blur(60px);
   -webkit-backdrop-filter: blur(60px);
   border: 1px solid rgba(224, 159, 62, 0.15);
 }
 
 html.dark .glass {
-  background: rgba(5, 5, 5, 0.99);
+  background: rgba(2, 2, 2, 0.99);
   border: 1px solid rgba(255, 255, 255, 0.08);
 }
 

@@ -23,10 +23,8 @@ export default function Navbar() {
 
   return (
     <header
-      className={`fixed top-0 z-50 w-full navbar-transition ${
-        scrolled
-          ? 'glass shadow-soft py-3'
-          : 'bg-transparent py-5'
+      className={`fixed top-0 z-50 w-full navbar-transition glass ${
+        scrolled ? 'shadow-soft py-3' : 'py-5'
       }`}
     >
       <div className="mx-auto flex w-full max-w-[1760px] min-[1600px]:max-w-[95vw] items-center justify-between px-5 md:px-8 xl:px-12">
