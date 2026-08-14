@@ -29,7 +29,7 @@ export default function Navbar() {
           : 'bg-transparent py-5'
       }`}
     >
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-5 md:px-8">
+      <div className="mx-auto flex w-full max-w-[1760px] min-[1600px]:max-w-[95vw] items-center justify-between px-5 md:px-8 xl:px-12">
         <Link to="/" className="font-display text-xl md:text-2xl font-bold tracking-wide text-primary dark:text-paper">
           CALOR <span className="text-accent">MEGA</span>
         </Link>

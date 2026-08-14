@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { FaFileDownload, FaWhatsapp, FaArrowRight, FaChevronDown, FaUndo } from 'react-icons/fa';
+import { FaFileDownload, FaWhatsapp, FaArrowRight, FaChevronDown } from 'react-icons/fa';
 import './Technology.css';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -12,8 +12,6 @@ export default function Technology() {
   const containerRef = useRef(null);
   const centerBlockRef = useRef(null);
   const [isScrolledToBottom, setIsScrolledToBottom] = useState(false);
-  const [isReversing, setIsReversing] = useState(false);
-  const [showRestartPhases, setShowRestartPhases] = useState(false);
 
   // ─── ZOOM LOCK (Applies strictly to Technology page) ───
   useEffect(() => {
@@ -361,14 +359,6 @@ export default function Technology() {
             onUpdate: (self) => {
               const p = self.progress;
               setIsScrolledToBottom(p >= 0.98);
-              setShowRestartPhases(p > 0.03 && p < 0.98);
-
-              // Track reverse scrolling direction
-              if (self.direction === -1 && p > 0.1 && p < 0.95) {
-                setIsReversing(true);
-              } else if (self.direction === 1 || p <= 0.1 || p >= 0.95) {
-                setIsReversing(false);
-              }
             }
           }
         });
@@ -473,11 +463,6 @@ export default function Technology() {
       const pinDistance = window.innerHeight * 3.5;
       window.scrollTo({ top: pinDistance + 100, behavior: 'smooth' });
     }
-  };
-
-  const handleRestartPhases = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    setIsReversing(false);
   };
 
   return (
@@ -605,20 +590,6 @@ export default function Technology() {
 
         </div>
       </div>
-
-      {/* Floating Restart Phase Option (Visible during all 3D phases, hidden in datasheet) */}
-      <div className={`phase-nav-pill-bar ${showRestartPhases && !isScrolledToBottom ? 'visible' : ''}`}>
-        <button
-          onClick={handleRestartPhases}
-          className="phase-restart-btn"
-          title="Restart 3D Phase Animation from the Beginning"
-          aria-label="Restart 3D Phase Animation"
-        >
-          <FaUndo className="phase-restart-icon" />
-          <span>Restart Phases</span>
-        </button>
-      </div>
-
 
       {/* Technical Data Sheet Section */}
       <section id="datasheet" className="datasheet-section">

@@ -101,7 +101,7 @@ export default function MachineOverview() {
   }, [activeId, activeHotspot, isLeft, clampedY]);
 
   return (
-    <section className="relative mx-auto flex min-h-[100svh] min-[1600px]:min-h-0 w-full max-w-[1600px] min-[1600px]:max-w-[98vw] flex-col justify-center px-4 py-14 sm:px-6 md:px-8 overflow-visible">
+    <section className="relative mx-auto flex min-h-[100svh] w-full max-w-[1600px] min-[1600px]:max-w-[98vw] flex-col justify-center px-4 py-14 sm:px-6 md:px-8 overflow-visible">
       <SectionHeading
         eyebrow="Inside the Machine"
         title="Interactive Engineering Explorer"
@@ -114,7 +114,7 @@ export default function MachineOverview() {
         {/* CENTRALIZED PHOTO FRAME */}
         <div
           ref={imageRef}
-          className="group relative aspect-[2.15/1] w-full max-w-[680px] lg:max-w-[740px] xl:max-w-[820px] 2xl:max-w-[880px] rounded-3xl border-2 border-accent/30 bg-slate-950 p-1 shadow-2xl backdrop-blur-md dark:border-white/15 overflow-visible"
+          className="group relative aspect-[2.15/1] w-full max-w-[680px] lg:max-w-[740px] xl:max-w-[820px] 2xl:max-w-[880px] min-[2000px]:max-w-[980px] min-[2300px]:max-w-[1100px] rounded-3xl border-2 border-accent/30 bg-slate-950 p-1 shadow-2xl backdrop-blur-md dark:border-white/15 overflow-visible"
         >
           {/* Inner Image Container with rounded corners */}
           <div className="relative h-full w-full overflow-hidden rounded-[22px]">
@@ -210,7 +210,7 @@ export default function MachineOverview() {
           <div
             className={`z-40 ${
               isDesktop
-                ? `absolute w-[270px] sm:w-[285px] xl:w-[310px] ${
+                ? `absolute w-[270px] sm:w-[285px] xl:w-[310px] min-[2000px]:w-[344px] min-[2300px]:w-[387px] ${
                     isLeft
                       ? 'right-[calc(100%+18px)]'
                       : 'left-[calc(100%+18px)]'

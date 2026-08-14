@@ -89,19 +89,19 @@ export default function Home() {
       {/* HERO */}
       <section
         ref={heroRef}
-        className="relative flex min-h-[100svh] min-[1600px]:min-h-[75svh] items-center justify-center overflow-hidden bg-gradient-to-br from-transparent to-secondary/5 pt-24 pb-14"
+        className="relative flex min-h-[100svh] items-center justify-center overflow-hidden bg-gradient-to-br from-transparent to-secondary/5 pt-24 pb-14"
       >
         <div className="dot-grid absolute inset-0 opacity-60" />
         <GradientBlobs variant="hero" />
         <ParticlesBackground />
 
-        <div className="mx-auto grid w-full max-w-[1760px] min-[1600px]:max-w-[98vw] items-center gap-8 lg:gap-12 xl:gap-16 2xl:gap-20 pl-4 sm:pl-6 md:pl-8 lg:pl-10 xl:pl-12 2xl:pl-14 pr-6 sm:pr-8 lg:pr-12 xl:pr-16 2xl:pr-20 lg:grid-cols-[1.12fr_0.88fr]">
+        <div className="mx-auto grid w-full max-w-[1760px] min-[1600px]:max-w-[98vw] items-center gap-8 lg:gap-12 xl:gap-16 2xl:gap-20 pl-2 sm:pl-4 md:pl-6 lg:pl-6 xl:pl-8 2xl:pl-10 pr-6 sm:pr-8 lg:pr-12 xl:pr-16 2xl:pr-20 lg:grid-cols-[1.12fr_0.88fr]">
           <motion.div
             style={{ y: heroTextY }}
             initial={{ opacity: 0, x: -40 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
-            className="flex flex-col justify-center items-start text-left"
+            className="flex flex-col justify-center items-start text-left lg:-ml-2 xl:-ml-3"
           >
             <h1 className="font-display text-4xl sm:text-5xl md:text-5xl lg:text-6xl xl:text-6xl 2xl:text-7xl font-bold uppercase leading-[1.03] tracking-tight text-primary dark:text-paper">
               Premium Drying
