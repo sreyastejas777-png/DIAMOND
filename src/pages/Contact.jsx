@@ -23,7 +23,7 @@ export default function Contact() {
   };
 
   return (
-    <section className="mx-auto max-w-[1400px] w-[90%] px-5 py-10 md:px-8">
+    <section className="mx-auto w-full max-w-[1400px] min-[1600px]:max-w-[90vw] px-5 py-10 md:px-8">
       <SectionHeading
         eyebrow="Get In Touch"
         title="Contact Us"
