@@ -23,7 +23,7 @@ export default function Navbar() {
 
   return (
     <header
-      className={`fixed top-0 z-50 w-full transition-[padding,background-color,border-color,box-shadow] duration-300 ${
+      className={`fixed top-0 z-50 w-full navbar-transition ${
         scrolled
           ? 'glass shadow-soft py-3'
           : 'bg-transparent py-5'
