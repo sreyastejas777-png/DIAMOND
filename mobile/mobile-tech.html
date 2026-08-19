@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Technology | CALORMEGA Mobile</title>
+    <meta name="description" content="Explore the advanced engineering of CALORMEGA. Premium SS 304 food-grade construction for industrial dehydration.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/technology-webgl.css">
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.3.0/model-viewer.min.js"></script>
+    <link rel="stylesheet" href="css/chatbot.css?v=1">
+</head>
+<body>
+    <!-- Global Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="index.html#main" class="logo-left-group" style="text-decoration: none; color: inherit;">
+                <div style="width: 38px; height: 38px; display: flex; align-items: center; justify-content: center;">
+                    <model-viewer src="https://modelviewer.dev/shared-assets/models/RobotExpressive.glb" camera-controls
+                        auto-rotate auto-rotate-delay="0" rotation-per-second="30deg" disable-zoom
+                        interaction-prompt="none" style="width: 100%; height: 100%; background-color: transparent;"
+                        alt="3D Robot Logo">
+                    </model-viewer>
+                </div>
+                <div class="logo-brand">CALOR<span>MEGA</span></div>
+            </a>
+            <button class="mobile-menu-btn" aria-label="Toggle Mobile Menu">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#FFF" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Navigation Drawer -->
+    <div id="mobile-drawer" class="mobile-drawer">
+        <div class="drawer-overlay"></div>
+        <div class="drawer-panel">
+            <div class="drawer-header">
+                <div class="logo-brand">CALOR<span>MEGA</span></div>
+                <button class="drawer-close-btn" aria-label="Close Menu">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+            </div>
+            <nav class="drawer-nav">
+                <a href="index.html" class="drawer-link">Home</a>
+                <a href="technology.html" class="drawer-link active">Technology</a>
+                <a href="applications.html" class="drawer-link">Applications</a>
+                <a href="about.html" class="drawer-link">About</a>
+                <a href="gallery.html" class="drawer-link">Gallery</a>
+                <a href="calculator.html" class="drawer-link">Calculator</a>
+                <a href="contact.html" class="drawer-link">Contact</a>
+            </nav>
+            <a href="https://wa.me/1234567890?text=Hello%2C%20I%20am%20interested%20in%20CALOR%20MEGA." class="drawer-cta" target="_blank" rel="noopener">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                Get a Quote
+            </a>
+        </div>
+    </div>
+
+    <!-- Living Blueprint WebGL Canvas -->
+    <canvas id="webgl-canvas"></canvas>
+
+    <!-- Scroll Timeline -->
+    <div id="scroll-container">
+        
+        <!-- Phase 1: X-Ray Teardown -->
+        <div class="scroll-phase" id="phase-xray">
+            <div class="phase-content">
+                <div class="title-container">
+                    <div class="tech-badge">The Living Blueprint</div>
+                    <h1 class="blueprint-title">CALOR MEGA</h1>
+                    <div class="scroll-indicator">
+                        <span>Scroll to Inspect</span>
+                        <div class="scroll-line"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Exploded View UI Cards (Faded in via GSAP) -->
+            <div class="ui-card card-shell">
+                <h4>SS 304 Shell</h4>
+                <p>10x10 foot premium food-grade construction. Zero contamination.</p>
+            </div>
+            <div class="ui-card card-foam">
+                <h4>Thermal Insulation</h4>
+                <p>High-density foam retains 99% of internal heat for maximum energy efficiency.</p>
+            </div>
+            <div class="ui-card card-trays">
+                <h4>Drying Trays & Coils</h4>
+                <p>Precision electric heating elements and uniform cross-flow blower fans.</p>
+            </div>
+        </div>
+
+        <!-- Phase 2: Thermal Dynamics Engine -->
+        <div class="scroll-phase" id="phase-thermal"></div>
+
+        <!-- Fixed UI overlays (Mobile friendly positioning) -->
+        <div id="fixed-ui-overlay">
+            <div class="thermal-card ui-card">
+                <h3 style="color: #ff4e00;">Thermal Dynamics Engine</h3>
+                <p>Live heat-mapping proves uniform thermal distribution across all trays. No cold spots.</p>
+            </div>
+            <div class="command-card ui-card">
+                <h3 style="color: #ffcc00;">Precision Command Center</h3>
+                <p>Industrial-grade digital controllers, intuitive LED readouts, and fail-safe analog pressure gauges.</p>
+            </div>
+            <div class="roi-card ui-card">
+                <h3 style="color: #00e676;">Maximum Efficiency</h3>
+                <p>Dual ventilation grilles optimize cross-flow aerodynamics. Superior heat retention translates to faster ROI.</p>
+            </div>
+        </div>
+
+        <!-- Phase 3: The Haptic Command Center -->
+        <div class="scroll-phase" id="phase-command"></div>
+        
+        <!-- Phase 4: The Dynamic ROI Engine -->
+        <div class="scroll-phase" id="phase-roi"></div>
+
+        <!-- Phase 5: The Conversion Horizon (CTA & Footer) -->
+        <div class="scroll-phase" id="phase-conversion">
+            <div class="conversion-content">
+                <div id="lottie-container" style="width: 100%; height: 200px; display: flex; justify-content: center; align-items: center; margin-bottom: 10px;"></div>
+                <h2>Ready to Upgrade?</h2>
+                <p>Consult with our engineers to configure the perfect heating and airflow system for your specific dehydration needs.</p>
+                <a href="https://wa.me/1234567890?text=Hello%2C%20I%20want%20to%20book%20a%20Technical%20Consultation." class="cta-btn" target="_blank" rel="noopener">
+                    Book a Technical Consultation
+                </a>
+            </div>
+
+            <footer id="mobile-footer">
+                <div class="footer-logo">CALOR<span>MEGA</span></div>
+                <nav class="footer-links">
+                    <a href="index.html">Home</a>
+                    <a href="technology.html">Technology</a>
+                    <a href="applications.html">Applications</a>
+                    <a href="about.html">About</a>
+                </nav>
+                <div class="footer-divider"></div>
+                <div class="footer-bottom">
+                    <div class="footer-legal-links">
+                        <a href="../privacy-policy.html">Privacy Policy</a>
+                        <a href="../terms.html">Terms of Service</a>
+                    </div>
+                    <p class="footer-copy">&copy; 2026 CALOR MEGA. All rights reserved.</p>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <!-- Vertical Timeline Progress -->
+    <div class="progress-wayfinding">
+        <div class="progress-step active"></div>
+        <div class="progress-step"></div>
+        <div class="progress-step"></div>
+        <div class="progress-step"></div>
+        <div class="progress-step"></div>
+        <div class="progress-line"><div class="progress-fill"></div></div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var animation = lottie.loadAnimation({
+                container: document.getElementById('lottie-container'), 
+                renderer: 'svg',
+                loop: true,
+                autoplay: true,
+                path: 'animations/update.json'
+            });
+            
+            // Slow down the animation so it rotates slowly and gently
+            animation.setSpeed(0.5); 
+        });
+    </script>
+
+    <script src="js/technology-webgl.js"></script>
+    <script src="js/chatbot.js?v=1"></script>
+</body>
+</html>
