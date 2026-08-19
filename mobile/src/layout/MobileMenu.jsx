@@ -23,7 +23,7 @@ export default function MobileMenu({ isOpen, onClose }) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="fixed inset-0 bg-primary/60 backdrop-blur-sm z-40"
+            className="fixed inset-0 bg-zinc-900/40 backdrop-blur-md z-40"
           />
 
           {/* Drawer */}
@@ -32,7 +32,7 @@ export default function MobileMenu({ isOpen, onClose }) {
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
             transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-            className="fixed top-0 right-0 bottom-16 w-3/4 max-w-sm bg-surface shadow-2xl z-40 border-l border-border/50 flex flex-col"
+            className="fixed top-0 right-0 bottom-16 w-3/4 max-w-sm bg-white/60 dark:bg-zinc-900/60 backdrop-blur-2xl shadow-[0_0_40px_rgba(0,0,0,0.2)] z-40 border-l border-white/20 dark:border-white/10 flex flex-col"
           >
             <div className="p-6 border-b border-border/30 flex items-center justify-between">
               <div>

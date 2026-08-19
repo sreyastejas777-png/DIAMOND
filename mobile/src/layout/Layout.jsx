@@ -4,6 +4,8 @@ import MobileHeader from './MobileHeader';
 import BottomNav from './BottomNav';
 import MobileMenu from './MobileMenu';
 import { useLocation } from 'react-router-dom';
+import AIChatbotPopup from '../components/AIChatbotPopup';
+import WhatsAppButton from '../components/WhatsAppButton';
 
 export default function Layout() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -24,6 +26,9 @@ export default function Layout() {
       <BottomNav toggleMenu={() => setIsMenuOpen(!isMenuOpen)} isMenuOpen={isMenuOpen} />
       
       <MobileMenu isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
+      
+      <WhatsAppButton />
+      <AIChatbotPopup />
     </div>
   );
 }

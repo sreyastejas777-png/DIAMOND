@@ -33,70 +33,70 @@ export default function ApplicationModal({ application, onClose, onSelectRelated
               exit={{ opacity: 0, transition: { duration: 0.1 } }}
               className="max-h-[85svh] w-full overflow-y-auto"
             >
-              <div className="relative bg-gradient-to-br from-primary to-secondary px-8 pb-8 pt-10 text-center text-white">
+              <div className="relative bg-gradient-to-br from-primary to-secondary px-5 pb-5 pt-6 text-center text-white">
                 <button
                   onClick={onClose}
                   aria-label="Close"
-                  className="absolute right-5 top-5 flex h-9 w-9 items-center justify-center rounded-full bg-white/10 hover:bg-white/20 transition-colors"
+                  className="absolute right-4 top-4 flex h-8 w-8 items-center justify-center rounded-full bg-white/10 hover:bg-white/20 transition-colors"
                 >
-                  <FaTimes />
+                  <FaTimes className="text-sm" />
                 </button>
-                <p className="text-xs font-bold uppercase tracking-[0.25em] text-accent">CALOR MEGA Performance</p>
-                <h3 className="mt-2 font-display text-3xl font-bold">{app.title}</h3>
+                <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-accent">CALOR MEGA Performance</p>
+                <h3 className="mt-1 font-display text-2xl font-bold">{app.title}</h3>
               </div>
 
-              <div className="p-8">
-                <div className="flex items-center justify-center gap-6">
-                  <div className="flex flex-col items-center gap-2">
-                    <span className="flex h-14 w-14 items-center justify-center rounded-full bg-success/15 text-2xl text-success">
+              <div className="p-5">
+                <div className="flex items-center justify-center gap-4">
+                  <div className="flex flex-col items-center gap-1.5">
+                    <span className="flex h-10 w-10 items-center justify-center rounded-full bg-success/15 text-xl text-success">
                       <FaLeaf />
                     </span>
-                    <span className="text-sm font-semibold text-primary dark:text-paper">Fresh</span>
+                    <span className="text-[11px] font-semibold text-primary dark:text-paper">Fresh</span>
                   </div>
-                  <FaArrowRight className="text-xl text-accent" />
-                  <div className="flex flex-col items-center gap-2">
-                    <span className="flex h-14 w-14 items-center justify-center rounded-full bg-accent/15 text-2xl text-accent">
+                  <FaArrowRight className="text-lg text-accent" />
+                  <div className="flex flex-col items-center gap-1.5">
+                    <span className="flex h-10 w-10 items-center justify-center rounded-full bg-accent/15 text-xl text-accent">
                       <GiFallingLeaf />
                     </span>
-                    <span className="text-sm font-semibold text-primary dark:text-paper">Dehydrated</span>
+                    <span className="text-[11px] font-semibold text-primary dark:text-paper">Dehydrated</span>
                   </div>
                 </div>
 
-                <div className="mt-8 grid grid-cols-2 gap-4">
-                  <div className="rounded-2xl bg-primary/5 dark:bg-white/5 p-5 text-center">
-                    <p className="text-xs font-bold uppercase tracking-wider text-primary/50 dark:text-paper/50">
+                <div className="mt-6 grid grid-cols-2 gap-3">
+                  <div className="rounded-xl bg-primary/5 dark:bg-white/5 p-3 text-center">
+                    <p className="text-[10px] font-bold uppercase tracking-wider text-primary/50 dark:text-paper/50">
                       Moisture Reduction
                     </p>
-                    <p className="mt-2 flex items-center justify-center gap-2 font-display text-xl font-bold text-primary dark:text-paper">
-                      {app.moistureBefore}% <FaArrowRight className="text-sm text-accent" /> {app.moistureAfter}%
+                    <p className="mt-1 flex items-center justify-center gap-1.5 font-display text-lg font-bold text-primary dark:text-paper">
+                      {app.moistureBefore}% <FaArrowRight className="text-[10px] text-accent" /> {app.moistureAfter}%
                     </p>
                   </div>
-                  <div className="rounded-2xl bg-primary/5 dark:bg-white/5 p-5 text-center">
-                    <p className="text-xs font-bold uppercase tracking-wider text-primary/50 dark:text-paper/50">
+                  <div className="rounded-xl bg-primary/5 dark:bg-white/5 p-3 text-center">
+                    <p className="text-[10px] font-bold uppercase tracking-wider text-primary/50 dark:text-paper/50">
                       Shelf Life Extension
                     </p>
-                    <p className="mt-2 flex items-center justify-center gap-1.5 font-display text-lg font-bold text-primary dark:text-paper">
-                      {app.shelfBefore} <FaArrowRight className="text-sm text-accent shrink-0" /> {app.shelfAfter}
+                    <p className="mt-1 flex items-center justify-center gap-1 font-display text-base font-bold text-primary dark:text-paper">
+                      {app.shelfBefore} <FaArrowRight className="text-[10px] text-accent shrink-0" /> {app.shelfAfter}
                     </p>
                   </div>
                 </div>
 
-                <div className="mt-8 grid grid-cols-2 gap-6">
+                <div className="mt-6 grid grid-cols-2 gap-4">
                   <div>
-                    <p className="mb-3 font-bold text-primary dark:text-paper">Possible Products</p>
-                    <ul className="space-y-2">
+                    <p className="mb-2 text-xs font-bold text-primary dark:text-paper">Possible Products</p>
+                    <ul className="space-y-1.5">
                       {app.products.map((p) => (
-                        <li key={p} className="flex items-center gap-2 text-sm text-primary/75 dark:text-paper/75">
+                        <li key={p} className="flex items-center gap-1.5 text-[11px] leading-snug text-primary/75 dark:text-paper/75">
                           <FaCheckCircle className="text-accent shrink-0" /> {p}
                         </li>
                       ))}
                     </ul>
                   </div>
                   <div>
-                    <p className="mb-3 font-bold text-primary dark:text-paper">Business Benefits</p>
-                    <ul className="space-y-2">
+                    <p className="mb-2 text-xs font-bold text-primary dark:text-paper">Business Benefits</p>
+                    <ul className="space-y-1.5">
                       {app.benefits.map((b) => (
-                        <li key={b} className="flex items-center gap-2 text-sm text-primary/75 dark:text-paper/75">
+                        <li key={b} className="flex items-center gap-1.5 text-[11px] leading-snug text-primary/75 dark:text-paper/75">
                           <FaCheckCircle className="text-accent shrink-0" /> {b}
                         </li>
                       ))}
@@ -105,11 +105,11 @@ export default function ApplicationModal({ application, onClose, onSelectRelated
                 </div>
 
                 {related && (
-                  <div className="mt-8 border-t border-primary/10 dark:border-white/10 pt-6">
-                    <p className="mb-3 font-bold text-primary dark:text-paper">Explore Related</p>
+                  <div className="mt-6 border-t border-primary/10 dark:border-white/10 pt-5">
+                    <p className="mb-2 text-xs font-bold text-primary dark:text-paper">Explore Related</p>
                     <button
                       onClick={() => onSelectRelated(related)}
-                      className="rounded-full bg-primary/5 dark:bg-white/5 px-4 py-2 text-sm font-semibold text-primary dark:text-paper hover:bg-accent hover:text-primary transition-colors"
+                      className="rounded-full bg-primary/5 dark:bg-white/5 px-3 py-1.5 text-[11px] font-semibold text-primary dark:text-paper hover:bg-accent hover:text-primary transition-colors"
                     >
                       {related.title}
                     </button>

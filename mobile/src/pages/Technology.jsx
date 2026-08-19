@@ -259,7 +259,7 @@ export default function Technology() {
           scrollTrigger: {
             trigger: scrollContainerRef.current,
             start: 'top top',
-            end: '+=600%',
+            end: '+=700%',
             pin: true,
             scrub: 1,
           }
@@ -328,7 +328,7 @@ export default function Technology() {
       tl.to(camera.position, { x: -2.2, y: 1.8, z: 12, duration: 1, ease: "power2.inOut" }, 8.5);
       
       tl.to('.dot-5', { opacity: 1, duration: 0.3 }, 8.8);
-      tl.to('.command-pillar-overlay', { autoAlpha: 1, duration: 0.6, ease: "power2.out" }, 8.8);
+      tl.fromTo('.command-pillar-overlay', { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.6, ease: "power2.out" }, 8.8);
       tl.to('.card-command', { autoAlpha: 1, x: 0, duration: 0.6, ease: "power2.out" }, 9.0);
 
       // Transition 5 -> 6 (ROI) - Doors close, rotation back to front
@@ -354,8 +354,23 @@ export default function Technology() {
       tl.to('.dot-6', { opacity: 1, duration: 0.3 }, 11.5);
       tl.to('.card-roi', { autoAlpha: 1, x: 0, duration: 0.6, ease: "power2.out" }, 11.5);
       
-      // Hold the last frame before unpinning (keep ROI card visible!)
-      tl.set({}, {}, 13.0);
+      // Fade out the ROI box and dots so the panel is empty for the transition
+      tl.to('.card-roi', { autoAlpha: 0, y: -20, duration: 0.5, ease: "power2.in" }, 12.5);
+      tl.to('.dot-container', { autoAlpha: 0, duration: 0.5 }, 12.5);
+      
+      // Morph the info panel to a solid background BEFORE the slide up begins.
+      // This ensures when the native scroll takes over, there is no transparency glitch.
+      tl.to('#info-panel', { 
+        backgroundColor: 'var(--bg-color)',
+        borderTopColor: 'transparent',
+        boxShadow: 'none',
+        duration: 0.5, 
+        ease: 'power2.inOut' 
+      }, 12.5);
+
+      // Pad timeline to give 2.5s of 'empty' scroll for the #datasheet (with mt-[-100svh]) to perfectly slide up in sync!
+      // Because #datasheet is moved by the user's native scroll (not GSAP scrub), there is ZERO lag!
+      tl.set({}, {}, 15.5);
     }, scrollContainerRef);
     ScrollTrigger.refresh();
   }, 500);
@@ -398,7 +413,7 @@ export default function Technology() {
           </div>
           
           {/* Scroll Indicator (Fades out) */}
-          <div className="absolute bottom-12 left-0 w-full flex flex-col items-center z-10 pointer-events-none scroll-indicator animate-pulse opacity-80">
+          <div className="absolute bottom-[32%] left-0 w-full flex flex-col items-center z-10 pointer-events-none scroll-indicator animate-pulse opacity-80">
               <span className="text-sm font-medium tracking-wide mb-2 text-primary-text">Scroll down to explore</span>
               <div className="w-px h-10 bg-accent/30"></div>
               <svg className="w-5 h-5 mt-2 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -467,7 +482,7 @@ export default function Technology() {
       </div>
 
       {/* Technical Data Sheet Section (From Desktop Version) */}
-      <section id="datasheet" className="bg-bg text-primary-text py-16 px-4">
+      <section id="datasheet" className="bg-bg text-primary-text py-16 px-4 relative z-30 mt-[-100svh] rounded-t-[2rem]">
         <div className="mx-auto max-w-sm">
           <div className="mb-8 text-center">
             <div className="inline-block px-3 py-1 mb-3 bg-accent/10 text-accent rounded-full text-xs font-bold tracking-wider uppercase border border-accent/20">Engineering Specs</div>

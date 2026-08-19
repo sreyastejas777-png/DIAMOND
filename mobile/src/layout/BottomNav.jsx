@@ -12,7 +12,7 @@ export default function BottomNav({ toggleMenu, isMenuOpen }) {
   ];
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 h-16 bg-surface/90 backdrop-blur-md border-t border-border/50 z-50 flex items-center justify-around px-2 shadow-[0_-4px_20px_rgba(0,0,0,0.1)]">
+    <nav className="fixed bottom-0 left-0 right-0 h-[72px] bg-white/85 dark:bg-[#1a1a1a]/85 backdrop-blur-lg border-t border-primary/10 dark:border-white/10 z-[60] flex items-center justify-around px-2 shadow-[0_-4px_20px_rgba(0,0,0,0.05)]">
       {navItems.map((item) => {
         const Icon = item.icon;
         const isActive = location.pathname === item.path || (item.path !== '/' && location.pathname.startsWith(item.path));

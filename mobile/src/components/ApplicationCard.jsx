@@ -31,7 +31,7 @@ export default function ApplicationCard({ application, index = 0, onSelect, disa
           <Icon />
         </motion.div>
         <h3 className="mb-1 text-sm sm:text-base font-semibold tracking-tight">{title}</h3>
-        <p className="text-[11px] sm:text-xs leading-relaxed text-white/75 line-clamp-3">{description}</p>
+        <p className="text-[10px] sm:text-[11px] leading-snug text-white/75 line-clamp-2">{description}</p>
       </div>
     </motion.div>
   );
