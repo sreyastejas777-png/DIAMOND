@@ -403,7 +403,7 @@ export default function Technology() {
           
           {/* Command Center 2D Image Overlay (Phase 5) */}
           <div className="absolute top-[20%] left-6 w-32 h-[50%] z-10 pointer-events-none command-pillar-overlay opacity-0 flex items-center">
-              <img src="/assets/command-center-pillar.png" alt="Command Center" className="w-full h-full object-contain drop-shadow-[0_10px_20px_rgba(0,0,0,0.4)] relative z-10" />
+              <img src="./assets/command-center-pillar.png" alt="Command Center" className="w-full h-full object-contain drop-shadow-[0_10px_20px_rgba(0,0,0,0.4)] relative z-10" />
               
               {/* Elegant Connector Line pointing to the 3D machine */}
               <div className="absolute left-[90%] top-1/2 w-[35vw] max-w-[140px] h-[2px] bg-gradient-to-r from-accent/80 to-transparent flex items-center z-0">
