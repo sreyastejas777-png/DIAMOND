@@ -128,7 +128,7 @@ export default function Home() {
             className="flex flex-col justify-center items-center text-center lg:items-start lg:text-left lg:-ml-2 xl:-ml-3"
           >
             <div className="relative inline-block">
-              <h1 className="font-source sm:font-display text-[2.1rem] leading-[1.05] sm:text-[3.5rem] md:text-6xl lg:text-7xl xl:text-7xl 2xl:text-8xl font-black sm:font-bold uppercase sm:leading-[1.03] tracking-wide sm:tracking-tight text-primary dark:text-paper relative z-10">
+              <h1 className="font-source sm:font-display text-[2.4rem] leading-[1.05] sm:text-[3.5rem] md:text-6xl lg:text-7xl xl:text-7xl 2xl:text-8xl font-black sm:font-bold uppercase sm:leading-[1.03] tracking-wide sm:tracking-tight text-primary dark:text-paper relative z-10">
                 Premium Drying
                 <br />
                 Solutions.
@@ -208,7 +208,7 @@ export default function Home() {
                 autoplay={{ delay: 3500, disableOnInteraction: false }}
                 pagination={{ clickable: true }}
                 loop
-                className="hero-swiper relative aspect-[6/7] sm:aspect-square w-full min-w-0 rounded-[2.25rem] shadow-xl"
+                className="hero-swiper relative aspect-[5/6] sm:aspect-square w-full min-w-0 rounded-[2.25rem] shadow-xl"
               >
                 <SwiperSlide className="flex items-center justify-center bg-white dark:bg-white/5">
                   <img

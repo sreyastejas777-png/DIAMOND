@@ -45,8 +45,8 @@ export default function MobileMenu({ isOpen, onClose }) {
             initial={{ x: '100%' }}
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
-            transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-            className="fixed top-0 right-0 bottom-0 w-3/4 max-w-sm bg-slate-100/95 dark:bg-zinc-900/98 backdrop-blur-3xl shadow-[0_0_40px_rgba(0,0,0,0.3)] z-[70] border-l border-white/20 dark:border-white/10 flex flex-col"
+            transition={{ type: 'tween', ease: [0.32, 0.72, 0, 1], duration: 0.35 }}
+            className="fixed top-0 right-0 bottom-0 w-3/4 max-w-sm bg-slate-100 dark:bg-zinc-900 shadow-[0_0_40px_rgba(0,0,0,0.3)] z-[70] border-l border-white/20 dark:border-white/10 flex flex-col"
           >
             <div className="p-6 border-b border-border/30 flex items-center justify-between">
               <div>
