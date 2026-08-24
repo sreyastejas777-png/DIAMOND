@@ -171,7 +171,7 @@ export default function MachineOverview() {
         </motion.div>
 
         {/* DETAILS BOX BELOW PILLS */}
-        <div className="z-40 relative mt-2 mb-32 sm:mb-16 mx-auto w-full max-w-lg px-4 sm:px-0">
+        <div className="z-40 relative -mt-2 sm:mt-2 mb-28 sm:mb-16 mx-auto w-full max-w-lg px-4 sm:px-0">
           <AnimatePresence mode="popLayout">
             <motion.div
               key={activeHotspot.id}
@@ -179,10 +179,10 @@ export default function MachineOverview() {
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.94 }}
               transition={{ duration: 0.2, ease: 'easeOut' }}
-              className="relative rounded-2xl border-2 border-accent/40 bg-white/95 dark:border-accent/40 dark:bg-[#151518]/95 p-3 sm:p-4.5 shadow-2xl backdrop-blur-xl ring-1 ring-black/10 dark:ring-white/10"
+              className="relative rounded-2xl border-2 border-accent/40 bg-white/95 dark:border-accent/40 dark:bg-[#151518]/95 p-2.5 sm:p-4.5 shadow-2xl backdrop-blur-xl ring-1 ring-black/10 dark:ring-white/10"
             >
               {/* Header: Category Badge & Steppers */}
-              <div className="flex items-center justify-between border-b border-secondary/15 dark:border-white/10 pb-2">
+              <div className="flex items-center justify-between border-b border-secondary/15 dark:border-white/10 pb-1.5 sm:pb-2">
                 <div className="flex items-center gap-1.5">
                   <span className="flex h-5 w-5 items-center justify-center rounded-lg bg-accent/20 text-accent dark:bg-accent/30 shadow-sm">
                     <ActiveIcon className="h-3.5 w-3.5" />
@@ -216,7 +216,7 @@ export default function MachineOverview() {
               </div>
 
               {/* Title & Short Description */}
-              <div className="my-2">
+              <div className="my-1.5 sm:my-2">
                 <h4 className="font-display text-[13px] sm:text-base font-bold text-primary dark:text-paper leading-snug">
                   {activeHotspot.title}
                 </h4>
@@ -232,7 +232,7 @@ export default function MachineOverview() {
 
               {/* Mini Specifications Chips */}
               {activeHotspot.specs && (
-                <div className="mt-2 pt-1.5 border-t border-secondary/10 dark:border-white/5 space-y-1">
+                <div className="mt-1.5 sm:mt-2 pt-1 sm:pt-1.5 border-t border-secondary/10 dark:border-white/5 space-y-1">
                   {activeHotspot.specs.slice(0, 2).map((spec) => (
                     <div
                       key={spec.label}

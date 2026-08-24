@@ -261,7 +261,7 @@ export default function Technology() {
             start: 'top top',
             end: '+=700%',
             pin: true,
-            scrub: 1,
+            scrub: 2.5,
           }
         });
 

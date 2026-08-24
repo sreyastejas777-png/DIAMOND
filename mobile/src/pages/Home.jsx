@@ -39,7 +39,7 @@ export default function Home() {
   const [activeCategory, setActiveCategory] = useState('All Featured');
   const [showDiamondFlash, setShowDiamondFlash] = useState(false);
   const [showScrollPrompt, setShowScrollPrompt] = useState(false);
-  const springConfig = { damping: 28, stiffness: 85, mass: 0.18, restDelta: 0.001 };
+  const springConfig = { damping: 40, stiffness: 60, mass: 0.5, restDelta: 0.001 };
 
   const heroRef = useRef(null);
   const heroInView = useInView(heroRef, { amount: 0.1 });
@@ -91,7 +91,7 @@ export default function Home() {
     target: testiFaqSectionRef,
     offset: ['start end', 'end start'],
   });
-  const smoothTestiFaqScroll = useSpring(testiFaqScroll, { damping: 20, stiffness: 150, mass: 0.1, restDelta: 0.001 });
+  const smoothTestiFaqScroll = useSpring(testiFaqScroll, { damping: 40, stiffness: 60, mass: 0.5, restDelta: 0.001 });
 
   // Multi-layer Parallax transforms with spring-smoothed motion
   const parallaxBlobY1 = useTransform(smoothTestiFaqScroll, [0, 1], [-120, 160]);
