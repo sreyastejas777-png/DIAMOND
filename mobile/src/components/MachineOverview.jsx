@@ -97,7 +97,7 @@ export default function MachineOverview() {
         {/* CENTRALIZED PHOTO FRAME */}
         <div
           ref={imageRef}
-          className="group relative aspect-[2.15/1] w-full max-w-[680px] lg:max-w-[740px] xl:max-w-[820px] 2xl:max-w-[880px] min-[2000px]:max-w-[980px] min-[2300px]:max-w-[1100px] rounded-3xl border-2 border-accent/30 bg-slate-950 p-1 shadow-2xl backdrop-blur-md dark:border-white/15 overflow-visible"
+          className="group relative aspect-[2.15/1] w-full max-w-[680px] lg:max-w-[740px] xl:max-w-[820px] 2xl:max-w-[880px] min-[2000px]:max-w-[980px] min-[2300px]:max-w-[1100px] rounded-3xl border-2 border-accent/30 bg-slate-950 p-1 shadow-2xl backdrop-blur-md dark:border-white/15 overflow-hidden"
         >
           {/* Inner Image Container with rounded corners */}
           <div className="relative h-full w-full overflow-hidden rounded-[22px]">
@@ -137,144 +137,120 @@ export default function MachineOverview() {
               )}
             </AnimatePresence>
           </div>
+        </div>
 
-          {/* DETAILS BOX BELOW THE PHOTO FRAME */}
-          <div className="z-40 relative mt-6 mx-auto w-full max-w-lg px-4 sm:px-0">
-            <AnimatePresence mode="popLayout">
-              <motion.div
-                key={activeHotspot.id}
-                initial={{ opacity: 0, scale: 0.94 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.94 }}
-                transition={{ duration: 0.2, ease: 'easeOut' }}
-                className="relative rounded-2xl border-2 border-accent/40 bg-white/95 dark:border-accent/40 dark:bg-[#151518]/95 p-3 sm:p-4.5 shadow-2xl backdrop-blur-xl ring-1 ring-black/10 dark:ring-white/10"
-              >
-                {/* Header: Category Badge & Steppers */}
-                <div className="flex items-center justify-between border-b border-secondary/15 dark:border-white/10 pb-2">
-                  <div className="flex items-center gap-1.5">
-                    <span className="flex h-5 w-5 items-center justify-center rounded-lg bg-accent/20 text-accent dark:bg-accent/30 shadow-sm">
-                      <ActiveIcon className="h-3.5 w-3.5" />
-                    </span>
-                    <span className="text-[10px] font-extrabold tracking-wider uppercase text-accent">
-                      {activeHotspot.category}
-                    </span>
-                  </div>
-
-                  <div className="flex items-center gap-1">
-                    <span className="text-[10px] font-bold text-primary/50 dark:text-paper/50 mr-1">
-                      {String(activeIndex + 1).padStart(2, '0')}/{String(hotspots.length).padStart(2, '0')}
-                    </span>
-                    <button
-                      type="button"
-                      onClick={handlePrev}
-                      className="flex h-5.5 w-5.5 items-center justify-center rounded-full border border-secondary/20 dark:border-white/10 bg-white/70 dark:bg-white/5 text-primary dark:text-paper hover:bg-accent hover:text-primary transition-colors"
-                      aria-label="Previous feature"
-                    >
-                      <ChevronLeft className="h-3.5 w-3.5" />
-                    </button>
-                    <button
-                      type="button"
-                      onClick={handleNext}
-                      className="flex h-5.5 w-5.5 items-center justify-center rounded-full border border-secondary/20 dark:border-white/10 bg-white/70 dark:bg-white/5 text-primary dark:text-paper hover:bg-accent hover:text-primary transition-colors"
-                      aria-label="Next feature"
-                    >
-                      <ChevronRight className="h-3.5 w-3.5" />
-                    </button>
-                  </div>
-                </div>
-
-                {/* Title & Short Description */}
-                <div className="my-2">
-                  <h4 className="font-display text-[13px] sm:text-base font-bold text-primary dark:text-paper leading-snug">
-                    {activeHotspot.title}
-                  </h4>
-                  {activeHotspot.subtitle && (
-                    <p className="text-[11px] font-semibold text-accent mt-0.5">
-                      {activeHotspot.subtitle}
-                    </p>
-                  )}
-                  <p className="mt-1 text-[11px] sm:text-xs leading-relaxed text-primary/75 dark:text-paper/75">
-                    {activeHotspot.description}
-                  </p>
-                </div>
-
-                {/* Mini Specifications Chips */}
-                {activeHotspot.specs && (
-                  <div className="mt-2 pt-1.5 border-t border-secondary/10 dark:border-white/5 space-y-1">
-                    {activeHotspot.specs.slice(0, 2).map((spec) => (
-                      <div
-                        key={spec.label}
-                        className="flex items-center justify-between rounded-md bg-secondary/5 dark:bg-white/[0.03] px-2.5 py-1 text-[11px]"
-                      >
-                        <span className="flex items-center gap-1 font-medium text-primary/70 dark:text-paper/70">
-                          <CheckCircle2 className="h-3 w-3 text-accent flex-shrink-0" />
-                          {spec.label}
-                        </span>
-                        <span className="font-bold text-primary dark:text-paper">
-                          {spec.val}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </motion.div>
-            </AnimatePresence>
+        {/* QUICK FEATURE SELECTOR PILLS (Horizontal Scroll on Mobile) */}
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.15 }}
+          className="mt-6 w-full max-w-3xl px-4 sm:px-6"
+        >
+          <div className="flex overflow-x-auto pb-4 pt-1 gap-3 snap-x scrollbar-hide w-full" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+            {hotspots.map((h) => {
+              const Icon = iconMap[h.id] || Sparkles;
+              const isCurrent = h.id === activeId;
+              return (
+                <button
+                  key={h.id}
+                  type="button"
+                  onClick={() => handleHotspotClick(h.id)}
+                  className={`flex-shrink-0 flex items-center gap-2 rounded-full px-4 py-2 text-[13px] font-semibold transition-all duration-200 border shadow-sm snap-start ${
+                    isCurrent
+                      ? 'border-accent bg-accent text-primary shadow-md ring-2 ring-accent/30'
+                      : 'border-secondary/20 dark:border-white/10 bg-white/60 dark:bg-white/[0.04] text-primary/85 dark:text-paper/85'
+                  }`}
+                >
+                  <Icon className="h-4 w-4 text-secondary dark:text-accent" />
+                  <span className="whitespace-nowrap">{h.title.replace(' (Left Bay)', '').replace(' (Right Bay)', '')}</span>
+                </button>
+              );
+            })}
           </div>
-        </div>
-      </motion.div>
+        </motion.div>
 
-      {/* QUICK FEATURE SELECTOR PILLS BELOW */}
-      <motion.div
-        initial={{ opacity: 0, y: 15 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5, delay: 0.15 }}
-        className="mt-6 sm:mt-12 flex flex-col items-center justify-center gap-2 sm:gap-3.5"
-      >
-        {/* Row 1: Structural & Enclosure Controls */}
-        <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3">
-          {hotspots.slice(0, 5).map((h) => {
-            const Icon = iconMap[h.id] || Sparkles;
-            const isCurrent = h.id === activeId;
-            return (
-              <button
-                key={h.id}
-                type="button"
-                onClick={() => handleHotspotClick(h.id)}
-                className={`flex items-center gap-2.5 rounded-full px-4 sm:px-5 py-2 sm:py-2.5 text-xs sm:text-sm font-semibold transition-all duration-200 border shadow-sm ${
-                  isCurrent
-                    ? 'border-accent bg-accent text-primary shadow-md scale-105 ring-2 ring-accent/30'
-                    : 'border-secondary/20 dark:border-white/10 bg-white/60 dark:bg-white/[0.04] text-primary/85 dark:text-paper/85 hover:border-accent/50 hover:bg-white/90 dark:hover:bg-white/10 hover:scale-[1.02]'
-                }`}
-              >
-                <Icon className="h-4 w-4 text-secondary dark:text-accent" />
-                <span>{h.title.replace(' (Left Bay)', '').replace(' (Right Bay)', '')}</span>
-              </button>
-            );
-          })}
-        </div>
+        {/* DETAILS BOX BELOW PILLS */}
+        <div className="z-40 relative mt-2 mb-16 mx-auto w-full max-w-lg px-4 sm:px-0">
+          <AnimatePresence mode="popLayout">
+            <motion.div
+              key={activeHotspot.id}
+              initial={{ opacity: 0, scale: 0.94 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.94 }}
+              transition={{ duration: 0.2, ease: 'easeOut' }}
+              className="relative rounded-2xl border-2 border-accent/40 bg-white/95 dark:border-accent/40 dark:bg-[#151518]/95 p-3 sm:p-4.5 shadow-2xl backdrop-blur-xl ring-1 ring-black/10 dark:ring-white/10"
+            >
+              {/* Header: Category Badge & Steppers */}
+              <div className="flex items-center justify-between border-b border-secondary/15 dark:border-white/10 pb-2">
+                <div className="flex items-center gap-1.5">
+                  <span className="flex h-5 w-5 items-center justify-center rounded-lg bg-accent/20 text-accent dark:bg-accent/30 shadow-sm">
+                    <ActiveIcon className="h-3.5 w-3.5" />
+                  </span>
+                  <span className="text-[10px] font-extrabold tracking-wider uppercase text-accent">
+                    {activeHotspot.category}
+                  </span>
+                </div>
 
-        {/* Row 2: Airflow, Heating & Climate Sensing */}
-        <div className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-3">
-          {hotspots.slice(5).map((h) => {
-            const Icon = iconMap[h.id] || Sparkles;
-            const isCurrent = h.id === activeId;
-            return (
-              <button
-                key={h.id}
-                type="button"
-                onClick={() => handleHotspotClick(h.id)}
-                className={`flex items-center gap-2.5 rounded-full px-4 sm:px-5 py-2 sm:py-2.5 text-xs sm:text-sm font-semibold transition-all duration-200 border shadow-sm ${
-                  isCurrent
-                    ? 'border-accent bg-accent text-primary shadow-md scale-105 ring-2 ring-accent/30'
-                    : 'border-secondary/20 dark:border-white/10 bg-white/60 dark:bg-white/[0.04] text-primary/85 dark:text-paper/85 hover:border-accent/50 hover:bg-white/90 dark:hover:bg-white/10 hover:scale-[1.02]'
-                }`}
-              >
-                <Icon className="h-4 w-4 text-secondary dark:text-accent" />
-                <span>{h.title.replace(' (Left Bay)', '').replace(' (Right Bay)', '')}</span>
-              </button>
-            );
-          })}
+                <div className="flex items-center gap-1">
+                  <span className="text-[10px] font-bold text-primary/50 dark:text-paper/50 mr-1">
+                    {String(activeIndex + 1).padStart(2, '0')}/{String(hotspots.length).padStart(2, '0')}
+                  </span>
+                  <button
+                    type="button"
+                    onClick={handlePrev}
+                    className="flex h-5.5 w-5.5 items-center justify-center rounded-full border border-secondary/20 dark:border-white/10 bg-white/70 dark:bg-white/5 text-primary dark:text-paper hover:bg-accent hover:text-primary transition-colors"
+                    aria-label="Previous feature"
+                  >
+                    <ChevronLeft className="h-3.5 w-3.5" />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleNext}
+                    className="flex h-5.5 w-5.5 items-center justify-center rounded-full border border-secondary/20 dark:border-white/10 bg-white/70 dark:bg-white/5 text-primary dark:text-paper hover:bg-accent hover:text-primary transition-colors"
+                    aria-label="Next feature"
+                  >
+                    <ChevronRight className="h-3.5 w-3.5" />
+                  </button>
+                </div>
+              </div>
+
+              {/* Title & Short Description */}
+              <div className="my-2">
+                <h4 className="font-display text-[13px] sm:text-base font-bold text-primary dark:text-paper leading-snug">
+                  {activeHotspot.title}
+                </h4>
+                {activeHotspot.subtitle && (
+                  <p className="text-[11px] font-semibold text-accent mt-0.5">
+                    {activeHotspot.subtitle}
+                  </p>
+                )}
+                <p className="mt-1 text-[11px] sm:text-xs leading-relaxed text-primary/75 dark:text-paper/75">
+                  {activeHotspot.description}
+                </p>
+              </div>
+
+              {/* Mini Specifications Chips */}
+              {activeHotspot.specs && (
+                <div className="mt-2 pt-1.5 border-t border-secondary/10 dark:border-white/5 space-y-1">
+                  {activeHotspot.specs.slice(0, 2).map((spec) => (
+                    <div
+                      key={spec.label}
+                      className="flex items-center justify-between rounded-md bg-secondary/5 dark:bg-white/[0.03] px-2.5 py-1 text-[11px]"
+                    >
+                      <span className="flex items-center gap-1 font-medium text-primary/70 dark:text-paper/70">
+                        <CheckCircle2 className="h-3 w-3 text-accent flex-shrink-0" />
+                        {spec.label}
+                      </span>
+                      <span className="font-bold text-primary dark:text-paper">
+                        {spec.val}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </motion.div>
+          </AnimatePresence>
         </div>
       </motion.div>
     </section>

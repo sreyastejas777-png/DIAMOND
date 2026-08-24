@@ -106,12 +106,12 @@ export default function Home() {
             transition={{ duration: 0.8 }}
             className="flex flex-col justify-center items-center text-center lg:items-start lg:text-left lg:-ml-2 xl:-ml-3"
           >
-            <h1 className="font-display text-[2.1rem] leading-[1.05] sm:text-[3.5rem] md:text-6xl lg:text-7xl xl:text-7xl 2xl:text-8xl font-bold uppercase sm:leading-[1.03] tracking-tight text-primary dark:text-paper">
+            <h1 className="font-display text-[2.1rem] leading-[1.05] sm:text-[3.5rem] md:text-6xl lg:text-7xl xl:text-7xl 2xl:text-8xl font-extrabold sm:font-bold uppercase sm:leading-[1.03] tracking-widest sm:tracking-tight text-primary dark:text-paper">
               Premium Drying
               <br />
               Solutions.
               <br />
-              <span className="text-accent">Taste and Preserve.</span>
+              <span className="text-accent tracking-widest sm:tracking-tight">Taste and Preserve.</span>
             </h1>
             <p className="mt-4 sm:mt-7 max-w-xl xl:max-w-2xl 2xl:max-w-3xl text-[14px] sm:text-lg xl:text-xl 2xl:text-[1.28rem] text-primary/75 dark:text-paper/75 leading-snug sm:leading-relaxed">
               Industrial-grade moisture control engineered to eliminate food waste and maximize profitability.
@@ -153,7 +153,7 @@ export default function Home() {
                 autoplay={{ delay: 3500, disableOnInteraction: false }}
                 pagination={{ clickable: true }}
                 loop
-                className="hero-swiper relative aspect-square w-full min-w-0 rounded-[2.25rem] shadow-xl"
+                className="hero-swiper relative aspect-[4/5] sm:aspect-square w-full min-w-0 rounded-[2.25rem] shadow-xl"
               >
                 <SwiperSlide className="flex items-center justify-center bg-white dark:bg-white/5">
                   <img
