@@ -117,16 +117,16 @@ export default function Home() {
               Industrial-grade moisture control engineered to eliminate food waste and maximize profitability.
             </p>
             <div className="mt-6 sm:mt-10 flex flex-col items-center justify-center lg:items-start w-full sm:w-auto max-w-sm sm:max-w-none mx-auto lg:mx-0">
-              {/* Top Row: Two buttons side-by-side on mobile, flex-row on desktop */}
+              {/* Buttons side-by-side on mobile, flex-row on desktop */}
               <div className="flex w-full sm:w-auto justify-center gap-3 sm:gap-5">
                 <Button 
                   as={Link} 
-                  to="/quote" 
+                  to="/technology" 
                   variant="primary" 
-                  icon={FaArrowRight}
+                  icon={FaPlayCircle}
                   className="flex-1 sm:flex-none justify-center px-2 py-3 text-[13px] sm:text-base sm:px-6 sm:py-3.5 whitespace-nowrap"
                 >
-                  Get Quote
+                  Watch Demo
                 </Button>
                 <Button 
                   as={Link} 
@@ -135,19 +135,6 @@ export default function Home() {
                   className="flex-1 sm:flex-none justify-center px-2 py-3 text-[13px] sm:text-base sm:px-6 sm:py-3.5 whitespace-nowrap"
                 >
                   Explore Machine
-                </Button>
-              </div>
-              
-              {/* Bottom Row: Centered button on mobile, inline on desktop */}
-              <div className="mt-4 sm:mt-0 sm:ml-5 flex justify-center w-full sm:w-auto sm:inline-flex">
-                <Button 
-                  as={Link} 
-                  to="/technology" 
-                  variant="glass" 
-                  icon={FaPlayCircle}
-                  className="px-6 py-3 text-[13px] sm:text-base sm:px-6 sm:py-3.5 bg-white/80 dark:bg-white/10 shadow-sm"
-                >
-                  Watch Demo
                 </Button>
               </div>
             </div>
@@ -160,7 +147,7 @@ export default function Home() {
             transition={{ duration: 0.9 }}
             className="relative flex justify-center min-w-0"
           >
-            <div className="animate-float relative w-full max-w-[340px] sm:max-w-[480px] lg:max-w-[540px] xl:max-w-[600px] 2xl:max-w-[680px]">
+            <div className="animate-float relative w-full max-w-[280px] sm:max-w-[480px] lg:max-w-[540px] xl:max-w-[600px] 2xl:max-w-[680px]">
               <Swiper
                 modules={[Autoplay, Pagination]}
                 autoplay={{ delay: 3500, disableOnInteraction: false }}
