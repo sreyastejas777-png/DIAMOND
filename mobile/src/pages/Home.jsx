@@ -105,8 +105,8 @@ export default function Home() {
 
 
   const displayedCrops = activeCategory === 'All Featured'
-    ? applications.slice(0, 12)
-    : applications.filter(a => a.category === activeCategory);
+    ? applications.slice(0, 7)
+    : applications.filter(a => a.category === activeCategory).slice(0, 7);
 
   return (
     <>
@@ -391,25 +391,29 @@ export default function Home() {
         </motion.div>
 
         {/* Desktop Grid Layout */}
-        <motion.div layout className="hidden md:grid grid-cols-2 gap-3.5 sm:gap-4.5 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6">
+        <motion.div layout className="hidden md:grid grid-cols-2 gap-3.5 sm:gap-4.5 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4">
           <AnimatePresence>
             {displayedCrops.map((app, i) => (
               <ApplicationCard key={app.title} application={app} index={i} onSelect={setSelectedApp} />
             ))}
+            
+            {/* 8th Card: View All Crops Box */}
+            <motion.div
+              layout
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.9 }}
+              className="relative overflow-hidden rounded-[1.5rem] bg-gradient-to-br from-primary/90 to-secondary/90 p-4 text-center text-white shadow-soft flex flex-col items-center justify-center cursor-pointer border-2 border-dashed border-accent/40 hover:bg-accent/10 transition-colors h-full min-h-[220px]"
+              onClick={() => window.location.href = '/applications'}
+            >
+              <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-accent/20 text-3xl text-accent shrink-0 transition-transform hover:scale-110">
+                <FaArrowRight />
+              </div>
+              <h3 className="text-lg font-semibold tracking-tight">View All Crops</h3>
+              <p className="text-xs leading-snug text-white/75 mt-2">Explore the full directory</p>
+            </motion.div>
           </AnimatePresence>
         </motion.div>
-
-        <div className="hidden md:flex mt-8 sm:mt-10 flex-col sm:flex-row items-center justify-center gap-4 text-center">
-          <Button
-            as={Link}
-            to="/applications"
-            variant="accent"
-            icon={FaArrowRight}
-            className="shadow-lg shadow-accent/25 hover:shadow-accent/40 text-sm sm:text-base px-8 py-3.5"
-          >
-            Explore All Applications
-          </Button>
-        </div>
       </section>
 
       {/* MACHINE OVERVIEW */}
