@@ -128,7 +128,7 @@ export default function Home() {
             className="flex flex-col justify-center items-center text-center lg:items-start lg:text-left lg:-ml-2 xl:-ml-3"
           >
             <div className="relative inline-block">
-              <h1 className="font-source sm:font-display text-[2.8rem] leading-[1.05] sm:text-[3.5rem] md:text-6xl lg:text-7xl xl:text-7xl 2xl:text-8xl font-black sm:font-bold uppercase sm:leading-[1.03] tracking-wide sm:tracking-tight text-primary dark:text-paper relative z-10">
+              <h1 className="font-source sm:font-display text-[2.5rem] leading-[1.05] sm:text-[3.5rem] md:text-6xl lg:text-7xl xl:text-7xl 2xl:text-8xl font-black sm:font-bold uppercase sm:leading-[1.03] tracking-wide sm:tracking-tight text-primary dark:text-paper relative z-10">
                 Premium Drying
                 <br />
                 Solutions.
