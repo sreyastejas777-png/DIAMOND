@@ -5,6 +5,7 @@ import MobileMenu from './MobileMenu';
 import { useLocation } from 'react-router-dom';
 import AIChatbotPopup from '../components/AIChatbotPopup';
 import WhatsAppButton from '../components/WhatsAppButton';
+import Footer from './Footer';
 
 export default function Layout() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -21,6 +22,8 @@ export default function Layout() {
       <main className="flex-1 w-full relative z-10 pt-16">
         <Outlet />
       </main>
+      
+      <Footer />
       
       <MobileMenu isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
       
