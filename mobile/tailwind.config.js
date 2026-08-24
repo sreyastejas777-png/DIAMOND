@@ -25,6 +25,7 @@ export default {
       },
       fontFamily: {
         cinzel: ['"Cinzel"', 'serif'],
+        source: ['"Source Sans 3"', '"Source Sans Pro"', 'sans-serif'],
         display: ['"Playfair Display"', 'serif'],
         sans: ['"Roboto"', '"Inter"', 'sans-serif'],
         roboto: ['"Roboto"', 'sans-serif'],

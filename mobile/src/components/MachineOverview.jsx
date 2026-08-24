@@ -171,7 +171,7 @@ export default function MachineOverview() {
         </motion.div>
 
         {/* DETAILS BOX BELOW PILLS */}
-        <div className="z-40 relative mt-2 mb-16 mx-auto w-full max-w-lg px-4 sm:px-0">
+        <div className="z-40 relative mt-2 mb-32 sm:mb-16 mx-auto w-full max-w-lg px-4 sm:px-0">
           <AnimatePresence mode="popLayout">
             <motion.div
               key={activeHotspot.id}
