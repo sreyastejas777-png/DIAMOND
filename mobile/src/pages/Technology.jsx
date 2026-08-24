@@ -200,8 +200,8 @@ export default function Technology() {
       machineGroup.add(wheel);
     });
 
-    machineGroup.scale.set(0.65, 0.65, 0.65); // Scale down significantly for mobile to avoid overlap
-    machineGroup.position.y = 0.9; // Center perfectly between top text and bottom pills
+    machineGroup.scale.set(0.75, 0.75, 0.75); // Scale adjusted for perfect fit
+    machineGroup.position.y = 1.0; // Center perfectly between top text and bottom pills
     machineGroup.rotation.y = -0.15; // Initial angle
 
     // ─── LIGHTING SETUP ───
