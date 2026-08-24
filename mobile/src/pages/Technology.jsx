@@ -418,14 +418,14 @@ export default function Technology() {
 
           {/* Hero Intro Area (Fades out when scrolling starts) */}
           <div className="absolute top-[8svh] left-0 w-full px-6 flex flex-col items-center justify-center z-10 title-container text-center">
-              <h1 className="text-4xl sm:text-5xl font-black tracking-tight leading-[1.1] mb-2">
+              <h1 className="text-[clamp(2.1rem,10vw,3rem)] sm:text-5xl font-black tracking-tight leading-[1.1] mb-2">
                   <span className="text-primary-text block">Preserve Today.</span>
                   <span className="text-accent block">Profit Tomorrow.</span>
               </h1>
               
               <div className="w-12 h-1 bg-accent/80 mb-3"></div>
               
-              <p className="text-[13px] text-secondary-text leading-relaxed w-full max-w-sm mb-4">
+              <p className="text-[clamp(12px,3.5vw,15px)] text-secondary-text leading-relaxed w-full max-w-sm mb-4">
                   Premium industrial drying for maximum product quality and extended shelf life.
               </p>
           </div>
@@ -475,19 +475,19 @@ export default function Technology() {
               <div className="relative w-full h-full max-w-lg mx-auto">
                   
                   {/* Phase 1 */}
-                  <div className="absolute bottom-0 left-0 stat-item stat-shell opacity-0 w-[47%] bg-white/70 dark:bg-[#1a1a1a]/70 backdrop-blur-xl p-5 rounded-3xl border border-white/30 dark:border-white/10 shadow-[0_15px_40px_rgba(0,0,0,0.12)]">
-                      <h4 className="text-accent font-black text-[15px] mb-2 uppercase tracking-wide">SS304 Armor</h4>
-                      <p className="text-[13px] text-secondary-text leading-relaxed">Food-grade structural purity.</p>
+                  <div className="absolute bottom-0 left-0 stat-item stat-shell opacity-0 w-[47%] bg-white/70 dark:bg-[#1a1a1a]/70 backdrop-blur-xl p-[clamp(0.75rem,3vw,1.25rem)] rounded-3xl border border-white/30 dark:border-white/10 shadow-[0_15px_40px_rgba(0,0,0,0.12)]">
+                      <h4 className="text-accent font-black text-[clamp(13px,3.5vw,16px)] mb-2 uppercase tracking-wide">SS304 Armor</h4>
+                      <p className="text-[clamp(11px,3vw,14px)] text-secondary-text leading-relaxed">Food-grade structural purity.</p>
                   </div>
-                  <div className="absolute bottom-0 right-0 stat-item stat-shell opacity-0 w-[47%] bg-white/70 dark:bg-[#1a1a1a]/70 backdrop-blur-xl p-5 rounded-3xl border border-white/30 dark:border-white/10 shadow-[0_15px_40px_rgba(0,0,0,0.12)]">
-                      <h4 className="text-accent font-black text-[15px] mb-2 uppercase tracking-wide">Hermetic Seal</h4>
-                      <p className="text-[13px] text-secondary-text leading-relaxed">Zero contamination risk.</p>
+                  <div className="absolute bottom-0 right-0 stat-item stat-shell opacity-0 w-[47%] bg-white/70 dark:bg-[#1a1a1a]/70 backdrop-blur-xl p-[clamp(0.75rem,3vw,1.25rem)] rounded-3xl border border-white/30 dark:border-white/10 shadow-[0_15px_40px_rgba(0,0,0,0.12)]">
+                      <h4 className="text-accent font-black text-[clamp(13px,3.5vw,16px)] mb-2 uppercase tracking-wide">Hermetic Seal</h4>
+                      <p className="text-[clamp(11px,3vw,14px)] text-secondary-text leading-relaxed">Zero contamination risk.</p>
                   </div>
                   
                   {/* Phase 2: 2 boxes total (Left HUD + Bottom) */}
-                  <div className="absolute inset-x-0 mx-auto bottom-0 stat-item stat-foam opacity-0 w-[94%] max-w-sm bg-white/70 dark:bg-[#1a1a1a]/70 backdrop-blur-xl p-5 rounded-3xl border border-white/30 dark:border-white/10 shadow-[0_15px_40px_rgba(0,176,255,0.12)] flex flex-col items-center text-center">
-                      <h4 className="text-[#00b0ff] font-black text-[15px] mb-2 uppercase tracking-wide">99% Retention</h4>
-                      <p className="text-[13px] text-secondary-text leading-relaxed">Max thermal energy efficiency.</p>
+                  <div className="absolute inset-x-0 mx-auto bottom-0 stat-item stat-foam opacity-0 w-[94%] max-w-sm bg-white/70 dark:bg-[#1a1a1a]/70 backdrop-blur-xl p-[clamp(0.75rem,3vw,1.25rem)] rounded-3xl border border-white/30 dark:border-white/10 shadow-[0_15px_40px_rgba(0,176,255,0.12)] flex flex-col items-center text-center">
+                      <h4 className="text-[#00b0ff] font-black text-[clamp(13px,3.5vw,16px)] mb-2 uppercase tracking-wide">99% Retention</h4>
+                      <p className="text-[clamp(11px,3vw,14px)] text-secondary-text leading-relaxed">Max thermal energy efficiency.</p>
                   </div>
                   
                   {/* Phase 3: 3 boxes total (Left HUD + Right HUD + Bottom) */}
@@ -529,14 +529,14 @@ export default function Technology() {
                   <div className="relative w-full h-[90px] flex justify-center mt-5">
                       
                       {/* Info Cards (Sliding in and out via GSAP) */}
-                      <div className="absolute w-full px-6 text-center info-card card-shell opacity-0">
-                          <h4 className="text-accent font-black text-[15px] mb-2 uppercase tracking-wide">SS 304 Shell</h4>
-                          <p className="text-[13px] text-secondary-text leading-relaxed">10x10 foot premium food-grade construction. Zero contamination design ensures maximum purity.</p>
+                      <div className="absolute w-full px-[clamp(1rem,4vw,1.5rem)] text-center info-card card-shell opacity-0">
+                          <h4 className="text-accent font-black text-[clamp(14px,3.5vw,16px)] mb-2 uppercase tracking-wide">SS 304 Shell</h4>
+                          <p className="text-[clamp(11px,3vw,14px)] text-secondary-text leading-relaxed">10x10 foot premium food-grade construction. Zero contamination design ensures maximum purity.</p>
                       </div>
                       
-                      <div className="absolute w-full px-6 text-center info-card card-foam opacity-0">
-                          <h4 className="text-[#00b0ff] font-black text-[15px] mb-2 uppercase tracking-wide">Thermal Insulation</h4>
-                          <p className="text-[13px] text-secondary-text leading-relaxed">High-density rockwool foam retains 99% of internal heat, significantly reducing power consumption.</p>
+                      <div className="absolute w-full px-[clamp(1rem,4vw,1.5rem)] text-center info-card card-foam opacity-0">
+                          <h4 className="text-[#00b0ff] font-black text-[clamp(14px,3.5vw,16px)] mb-2 uppercase tracking-wide">Thermal Insulation</h4>
+                          <p className="text-[clamp(11px,3vw,14px)] text-secondary-text leading-relaxed">High-density rockwool foam retains 99% of internal heat, significantly reducing power consumption.</p>
                       </div>
 
                       <div className="absolute w-full px-6 text-center info-card card-trays opacity-0">
