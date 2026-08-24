@@ -38,20 +38,27 @@ export default function Home() {
   const [selectedApp, setSelectedApp] = useState(null);
   const [activeCategory, setActiveCategory] = useState('All Featured');
   const [showDiamondFlash, setShowDiamondFlash] = useState(false);
+  const [showScrollPrompt, setShowScrollPrompt] = useState(false);
   const springConfig = { damping: 28, stiffness: 85, mass: 0.18, restDelta: 0.001 };
 
   const heroRef = useRef(null);
   const heroInView = useInView(heroRef, { amount: 0.1 });
 
   useEffect(() => {
-    let timer;
+    let flashTimer, scrollTimer;
     if (heroInView) {
-      // Trigger diamond flash after 1 minute (60000ms)
-      timer = setTimeout(() => setShowDiamondFlash(true), 60000);
+      // Trigger scroll prompt after 20 seconds (20000ms)
+      scrollTimer = setTimeout(() => setShowScrollPrompt(true), 20000);
+      // Trigger diamond flash after 30 seconds (30000ms)
+      flashTimer = setTimeout(() => setShowDiamondFlash(true), 30000);
     } else {
       setShowDiamondFlash(false);
+      setShowScrollPrompt(false);
     }
-    return () => clearTimeout(timer);
+    return () => {
+      clearTimeout(flashTimer);
+      clearTimeout(scrollTimer);
+    };
   }, [heroInView]);
 
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ['start start', 'end start'] });
@@ -242,6 +249,23 @@ export default function Home() {
             </div>
           </motion.div>
         </div>
+
+        <AnimatePresence>
+          {showScrollPrompt && (
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: [0, 10, 0] }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ 
+                opacity: { duration: 0.8 },
+                y: { repeat: Infinity, duration: 1.8 }
+              }}
+              className="absolute sm:hidden bottom-2 left-1/2 -translate-x-1/2 text-primary/70 dark:text-paper/70 z-20 bg-white/20 backdrop-blur-md border border-white/20 rounded-full p-2.5 shadow-lg flex flex-col items-center gap-1"
+            >
+              <FaChevronDown className="text-base" />
+            </motion.div>
+          )}
+        </AnimatePresence>
 
         <motion.div
           animate={{ y: [0, 10, 0] }}

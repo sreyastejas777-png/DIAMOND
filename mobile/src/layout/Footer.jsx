@@ -5,15 +5,12 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="w-full bg-primary text-paper pt-10 pb-8 px-6 mt-12 rounded-t-3xl shadow-[0_-10px_40px_rgba(0,0,0,0.1)] relative z-10">
-      <div className="flex flex-col items-center text-center space-y-6">
+    <footer className="w-full bg-primary text-paper pt-8 pb-8 px-6 mt-12 rounded-t-3xl shadow-[0_-10px_40px_rgba(0,0,0,0.1)] relative z-10">
+      <div className="flex flex-col items-center text-center space-y-4">
         
         {/* Brand */}
         <div className="flex flex-col items-center">
-          <h2 className="text-xl font-cinzel font-extrabold tracking-widest text-accent mb-2">CALOR MEGA</h2>
-          <p className="text-sm text-paper/70 font-sans max-w-[250px]">
-            Premium Industrial Drying Solutions. Taste and Preserve.
-          </p>
+          <h2 className="text-xl font-cinzel font-extrabold tracking-widest text-accent">CALOR MEGA</h2>
         </div>
 
         {/* Quick Links */}
