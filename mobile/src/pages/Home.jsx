@@ -113,13 +113,13 @@ export default function Home() {
       {/* HERO */}
       <section
         ref={heroRef}
-        className="relative flex min-h-[calc(100svh-4rem)] lg:min-h-[100svh] items-center justify-center overflow-hidden bg-gradient-to-br from-transparent to-secondary/5 pt-6 pb-8 sm:pt-24 sm:pb-14"
+        className="relative flex min-h-[calc(100svh-4rem)] lg:min-h-[100svh] items-center justify-center overflow-hidden bg-gradient-to-br from-transparent to-secondary/5 pt-[clamp(1rem,4vh,2.5rem)] pb-[clamp(1.5rem,5vh,3rem)] sm:pt-24 sm:pb-14"
       >
         <div className="dot-grid absolute inset-0 opacity-60" />
         <GradientBlobs variant="hero" />
         <ParticlesBackground />
 
-        <div className="mx-auto grid w-full max-w-[1760px] min-[1600px]:max-w-[98vw] items-center gap-7 sm:gap-8 lg:gap-12 xl:gap-16 2xl:gap-20 pl-4 sm:pl-4 md:pl-6 lg:pl-6 xl:pl-8 2xl:pl-10 pr-4 sm:pr-8 lg:pr-12 xl:pr-16 2xl:pr-20 lg:grid-cols-[1.12fr_0.88fr]">
+        <div className="mx-auto grid w-full max-w-[1760px] min-[1600px]:max-w-[98vw] items-center gap-[clamp(1.5rem,4vh,2.5rem)] sm:gap-8 lg:gap-12 xl:gap-16 2xl:gap-20 pl-4 sm:pl-4 md:pl-6 lg:pl-6 xl:pl-8 2xl:pl-10 pr-4 sm:pr-8 lg:pr-12 xl:pr-16 2xl:pr-20 lg:grid-cols-[1.12fr_0.88fr]">
           <motion.div
             style={{ y: heroTextY }}
             initial={{ opacity: 0, x: -40 }}
@@ -128,7 +128,7 @@ export default function Home() {
             className="flex flex-col justify-center items-center text-center lg:items-start lg:text-left lg:-ml-2 xl:-ml-3"
           >
             <div className="relative inline-block">
-              <h1 className="font-source sm:font-display text-[2.5rem] leading-[1.05] sm:text-[3.5rem] md:text-6xl lg:text-7xl xl:text-7xl 2xl:text-8xl font-black sm:font-bold uppercase sm:leading-[1.03] tracking-wide sm:tracking-tight text-primary dark:text-paper relative z-10">
+              <h1 className="font-source sm:font-display text-[clamp(2.1rem,10.5vw,2.7rem)] leading-[1.05] sm:text-[3.5rem] md:text-6xl lg:text-7xl xl:text-7xl 2xl:text-8xl font-black sm:font-bold uppercase sm:leading-[1.03] tracking-wide sm:tracking-tight text-primary dark:text-paper relative z-10">
                 Premium Drying
                 <br />
                 Solutions.
@@ -168,7 +168,7 @@ export default function Home() {
                 )}
               </AnimatePresence>
             </div>
-            <p className="mt-4 sm:mt-7 max-w-xl xl:max-w-2xl 2xl:max-w-3xl text-[14px] sm:text-lg xl:text-xl 2xl:text-[1.28rem] text-primary/75 dark:text-paper/75 leading-snug sm:leading-relaxed">
+            <p className="mt-[clamp(0.75rem,3vh,1.5rem)] sm:mt-7 max-w-xl xl:max-w-2xl 2xl:max-w-3xl text-[clamp(13px,3.5vw,16px)] sm:text-lg xl:text-xl 2xl:text-[1.28rem] text-primary/75 dark:text-paper/75 leading-snug sm:leading-relaxed">
               Industrial-grade moisture control engineered to eliminate food waste and maximize profitability.
             </p>
             <div className="mt-6 sm:mt-10 flex flex-col items-center justify-center lg:items-start w-full sm:w-auto max-w-sm sm:max-w-none mx-auto lg:mx-0">
@@ -202,7 +202,7 @@ export default function Home() {
             transition={{ duration: 0.9 }}
             className="relative flex justify-center min-w-0"
           >
-            <div className="animate-float relative w-full max-w-[280px] sm:max-w-[480px] lg:max-w-[540px] xl:max-w-[600px] 2xl:max-w-[680px]">
+            <div className="animate-float relative w-full max-w-[clamp(250px,75vw,360px)] sm:max-w-[480px] lg:max-w-[540px] xl:max-w-[600px] 2xl:max-w-[680px]">
               <Swiper
                 modules={[Autoplay, Pagination]}
                 autoplay={{ delay: 3500, disableOnInteraction: false }}
