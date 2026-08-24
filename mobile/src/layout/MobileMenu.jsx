@@ -1,9 +1,21 @@
 import { motion, AnimatePresence } from 'framer-motion';
-import { Link, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { Info, Cpu, Layers, Phone, FileText, Home, ShoppingBag, Image as ImageIcon } from 'lucide-react';
 
 export default function MobileMenu({ isOpen, onClose }) {
   const location = useLocation();
+  const navigate = useNavigate();
+
+  const handleNavigate = (path) => {
+    if (location.pathname === path) {
+      onClose();
+      return;
+    }
+    onClose();
+    setTimeout(() => {
+      navigate(path);
+    }, 350);
+  };
 
   const menuItems = [
     { name: 'Home', path: '/', icon: Home },
@@ -57,10 +69,9 @@ export default function MobileMenu({ isOpen, onClose }) {
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: idx * 0.05 + 0.1 }}
                   >
-                    <Link
-                      to={item.path}
-                      onClick={onClose}
-                      className={`flex items-center space-x-4 p-3.5 rounded-xl transition-all ${
+                    <button
+                      onClick={() => handleNavigate(item.path)}
+                      className={`flex items-center w-full text-left space-x-4 p-3.5 rounded-xl transition-all ${
                         isActive 
                           ? 'bg-accent/10 text-accent font-semibold border border-accent/20' 
                           : 'text-primary-text hover:bg-black/5'
@@ -68,20 +79,19 @@ export default function MobileMenu({ isOpen, onClose }) {
                     >
                       <Icon size={20} className={isActive ? 'text-accent' : 'text-secondary-text'} />
                       <span className="text-sm">{item.name}</span>
-                    </Link>
+                    </button>
                   </motion.div>
                 );
               })}
             </div>
 
             <div className="p-4 border-t border-border/30">
-               <Link 
-                  to="/quote" 
-                  onClick={onClose}
+               <button 
+                  onClick={() => handleNavigate('/quote')}
                   className="flex items-center justify-center w-full py-3.5 rounded-xl bg-gradient-to-r from-accent to-secondary text-paper font-semibold shadow-btn"
                >
                  Get Free Quote
-               </Link>
+               </button>
             </div>
           </motion.div>
         </>
