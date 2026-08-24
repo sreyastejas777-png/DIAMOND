@@ -24,6 +24,7 @@ export default {
         whatsapp: '#25D366',
       },
       fontFamily: {
+        cinzel: ['"Cinzel"', 'serif'],
         display: ['"Playfair Display"', 'serif'],
         sans: ['"Roboto"', '"Inter"', 'sans-serif'],
         roboto: ['"Roboto"', 'sans-serif'],

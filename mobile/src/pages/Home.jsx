@@ -106,7 +106,7 @@ export default function Home() {
             transition={{ duration: 0.8 }}
             className="flex flex-col justify-center items-center text-center lg:items-start lg:text-left lg:-ml-2 xl:-ml-3"
           >
-            <h1 className="font-display text-[2.1rem] leading-[1.05] sm:text-[3.5rem] md:text-6xl lg:text-7xl xl:text-7xl 2xl:text-8xl font-extrabold sm:font-bold uppercase sm:leading-[1.03] tracking-widest sm:tracking-tight text-primary dark:text-paper">
+            <h1 className="font-cinzel sm:font-display text-[2.1rem] leading-[1.05] sm:text-[3.5rem] md:text-6xl lg:text-7xl xl:text-7xl 2xl:text-8xl font-extrabold sm:font-bold uppercase sm:leading-[1.03] tracking-widest sm:tracking-tight text-primary dark:text-paper">
               Premium Drying
               <br />
               Solutions.
