@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -21,8 +21,8 @@ export default function Technology() {
     scene.fog = new THREE.FogExp2(bgHex, 0.035);
 
     const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 100);
-    camera.position.set(0, 1.8, 15); // Shifted up for split view without overlap
-    camera.lookAt(0, 1.3, 0);
+    camera.position.set(0, 2.4, 15); // Shifted up
+    camera.lookAt(0, 1.9, 0);
 
     const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
@@ -201,7 +201,7 @@ export default function Technology() {
     });
 
     machineGroup.scale.set(0.85, 0.85, 0.85); // Scale down slightly
-    machineGroup.position.y = 0.0; // Shift up to clear the bottom white panel
+    machineGroup.position.y = 0.6; // Shift up to clear the bottom white panel
     machineGroup.rotation.y = -0.15; // Initial angle
 
     // ─── LIGHTING SETUP ───
@@ -266,25 +266,29 @@ export default function Technology() {
         });
 
       // Reset cards to start off-screen right
-      gsap.set('.info-card:not(.card-shell)', { autoAlpha: 0, x: 50 });
-      gsap.set('.title-container', { autoAlpha: 1, y: 0 });
+      gsap.set('.info-card:not(.card-shell), .stat-item', { autoAlpha: 0, x: 50 });
+      gsap.set('.title-container, .hero-bottom-container', { autoAlpha: 1, y: 0 });
       gsap.set('.dot:not(.dot-1)', { opacity: 0.3 }); // Reset all dots except first
       
       // Initially visible elements (No empty box!)
       gsap.set('.card-shell', { autoAlpha: 1, x: 0 });
+      gsap.set('.stat-shell', { autoAlpha: 0, x: 50 });
       gsap.set('.dot-1', { opacity: 1 });
       
-      // Reset camera to zoom in on the machine for the intro
-      gsap.set(camera.position, { x: 0, y: 1.8, z: 12 });
+      // Reset camera to place machine higher up to make room for bottom elements
+      gsap.set(camera.position, { x: 0, y: 3.0, z: 14.5 });
       
       // Hide info panel initially (pushed off-screen downwards)
       gsap.set('#info-panel', { yPercent: 120 });
 
       // Phase 1: X-Ray Teardown (Shell)
-      // Fade out title, slide up info panel, and pull camera back to normal size
-      tl.to('.title-container, .scroll-indicator', { autoAlpha: 0, y: -20, duration: 0.5 }, 0.5);
+      // Fade out title and bottom buttons first so they don't overlap with incoming Phase 1 boxes
+      tl.to('.title-container, .hero-bottom-container', { autoAlpha: 0, y: -20, duration: 0.4 }, 0.1);
+      
+      // Then slide up info panel, slide in Phase 1 boxes, and pull camera down to center the machine
       tl.to('#info-panel', { yPercent: 0, duration: 0.5, ease: "power2.out" }, 0.5);
-      tl.to(camera.position, { z: 15, duration: 0.5, ease: "power2.out" }, 0.5);
+      tl.to('.stat-shell', { autoAlpha: 1, x: 0, duration: 0.5, ease: "power2.out" }, 0.5);
+      tl.to(camera.position, { y: 2.4, z: 15, duration: 0.5, ease: "power2.out" }, 0.5);
       
       tl.to(machineGroup.rotation, { y: 0, duration: 1 }, 1);
       tl.to(leftDoorPivot.rotation, { y: -Math.PI * 0.6, duration: 1 }, 1);
@@ -293,51 +297,51 @@ export default function Technology() {
       tl.to(internalLightR, { intensity: 1.5, duration: 1 }, 1);
       
       // Transition 1 -> 2
-      tl.to('.card-shell', { autoAlpha: 0, x: -50, duration: 0.5, ease: "power2.in" }, 2.5);
+      tl.to('.card-shell, .stat-shell', { autoAlpha: 0, x: -50, duration: 0.5, ease: "power2.in" }, 2.5);
       tl.to('.dot-1', { opacity: 0.3, duration: 0.3 }, 2.5);
       tl.to('.dot-2', { opacity: 1, duration: 0.3 }, 2.8);
-      tl.to('.card-foam', { autoAlpha: 1, x: 0, duration: 0.6, ease: "power2.out" }, 3.0);
+      tl.to('.card-foam, .stat-foam', { autoAlpha: 1, x: 0, duration: 0.6, ease: "power2.out" }, 3.0);
       
       // Transition 2 -> 3
-      tl.to('.card-foam', { autoAlpha: 0, x: -50, duration: 0.5, ease: "power2.in" }, 4.5);
+      tl.to('.card-foam, .stat-foam', { autoAlpha: 0, x: -50, duration: 0.5, ease: "power2.in" }, 4.5);
       tl.to('.dot-2', { opacity: 0.3, duration: 0.3 }, 4.5);
       
       // Cinematic Zoom 1: Zoom in tightly on the drying trays
-      tl.to(camera.position, { y: 0.5, z: 9, duration: 1, ease: "power2.inOut" }, 4.5);
+      tl.to(camera.position, { y: 1.1, z: 9, duration: 1, ease: "power2.inOut" }, 4.5);
       
       tl.to('.dot-3', { opacity: 1, duration: 0.3 }, 4.8);
-      tl.to('.card-trays', { autoAlpha: 1, x: 0, duration: 0.6, ease: "power2.out" }, 5.0);
+      tl.to('.card-trays, .stat-trays', { autoAlpha: 1, x: 0, duration: 0.6, ease: "power2.out" }, 5.0);
 
       // Transition 3 -> 4 (Thermal)
-      tl.to('.card-trays', { autoAlpha: 0, x: -50, duration: 0.5, ease: "power2.in" }, 6.5);
+      tl.to('.card-trays, .stat-trays', { autoAlpha: 0, x: -50, duration: 0.5, ease: "power2.in" }, 6.5);
       tl.to('.dot-3', { opacity: 0.3, duration: 0.3 }, 6.5);
       
       // Cinematic Zoom 2: Pull back slightly to see the rotation
-      tl.to(camera.position, { y: 1.2, z: 12, duration: 1, ease: "power2.inOut" }, 6.5);
+      tl.to(camera.position, { y: 1.8, z: 12, duration: 1, ease: "power2.inOut" }, 6.5);
       
       tl.to(machineGroup.rotation, { y: -0.5, duration: 1 }, 6.8);
       tl.call(() => { machineGroup.userData.thermalActive = true; }, null, 6.8);
       tl.to('.dot-4', { opacity: 1, duration: 0.3 }, 6.8);
-      tl.to('.card-thermal', { autoAlpha: 1, x: 0, duration: 0.6, ease: "power2.out" }, 7.0);
+      tl.to('.card-thermal, .stat-thermal', { autoAlpha: 1, x: 0, duration: 0.6, ease: "power2.out" }, 7.0);
 
       // Transition 4 -> 5 (Command Center) - Machine stays rotated, no doors close yet
-      tl.to('.card-thermal', { autoAlpha: 0, x: -50, duration: 0.5, ease: "power2.in" }, 8.5);
+      tl.to('.card-thermal, .stat-thermal', { autoAlpha: 0, x: -50, duration: 0.5, ease: "power2.in" }, 8.5);
       tl.to('.dot-4', { opacity: 0.3, duration: 0.3 }, 8.5);
       
       // Cinematic Zoom 3: Pan camera left to place the machine on the right side of the screen, slightly zoomed out
-      tl.to(camera.position, { x: -2.2, y: 1.8, z: 12, duration: 1, ease: "power2.inOut" }, 8.5);
+      tl.to(camera.position, { x: -2.2, y: 2.4, z: 12, duration: 1, ease: "power2.inOut" }, 8.5);
       
       tl.to('.dot-5', { opacity: 1, duration: 0.3 }, 8.8);
       tl.fromTo('.command-pillar-overlay', { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.6, ease: "power2.out" }, 8.8);
-      tl.to('.card-command', { autoAlpha: 1, x: 0, duration: 0.6, ease: "power2.out" }, 9.0);
+      tl.to('.card-command, .stat-command', { autoAlpha: 1, x: 0, duration: 0.6, ease: "power2.out" }, 9.0);
 
       // Transition 5 -> 6 (ROI) - Doors close, rotation back to front
-      tl.to('.card-command', { autoAlpha: 0, x: -50, duration: 0.5, ease: "power2.in" }, 10.5);
+      tl.to('.card-command, .stat-command', { autoAlpha: 0, x: -50, duration: 0.5, ease: "power2.in" }, 11.0);
       tl.to('.command-pillar-overlay', { autoAlpha: 0, duration: 0.5, ease: "power2.in" }, 10.5);
-      tl.to('.dot-5', { opacity: 0.3, duration: 0.3 }, 10.5);
+      tl.to('.dot-5', { opacity: 0.3, duration: 0.3 }, 11.0);
       
       // Cinematic Zoom 4: Pull all the way back to default view
-      tl.to(camera.position, { x: 0, y: 1.8, z: 15, duration: 1, ease: "power2.inOut" }, 10.5);
+      tl.to(camera.position, { x: 0, y: 2.4, z: 15, duration: 1, ease: "power2.inOut" }, 10.5);
       
       tl.call(() => {
         machineGroup.userData.thermalActive = false;
@@ -352,24 +356,41 @@ export default function Technology() {
       tl.to(machineGroup.rotation, { y: 0.2, duration: 1 }, 10.8);
       
       tl.to('.dot-6', { opacity: 1, duration: 0.3 }, 11.5);
-      tl.to('.card-roi', { autoAlpha: 1, x: 0, duration: 0.6, ease: "power2.out" }, 11.5);
+      tl.to('.card-roi, .stat-roi', { autoAlpha: 1, x: 0, duration: 0.6, ease: "power2.out" }, 11.5);
       
       // Fade out the ROI box and dots so the panel is empty for the transition
-      tl.to('.card-roi', { autoAlpha: 0, y: -20, duration: 0.5, ease: "power2.in" }, 12.5);
+      tl.to('.card-roi, .stat-roi', { autoAlpha: 0, y: -20, duration: 0.5, ease: "power2.in" }, 12.5);
       tl.to('.dot-container', { autoAlpha: 0, duration: 0.5 }, 12.5);
       
-      // Morph the info panel to a solid background BEFORE the slide up begins.
-      // This ensures when the native scroll takes over, there is no transparency glitch.
+      // Fade out the floating pill before the datasheet slides up
       tl.to('#info-panel', { 
-        backgroundColor: 'var(--bg-color)',
-        borderTopColor: 'transparent',
-        boxShadow: 'none',
+        autoAlpha: 0,
         duration: 0.5, 
         ease: 'power2.inOut' 
       }, 12.5);
 
-      // Pad timeline to give 2.5s of 'empty' scroll for the #datasheet (with mt-[-100svh]) to perfectly slide up in sync!
-      // Because #datasheet is moved by the user's native scroll (not GSAP scrub), there is ZERO lag!
+      // Cinematic Zoom 5: Dramatic zoom into the machine as the datasheet slides up
+      // Because #datasheet is moved by the user's native scroll, this zoom happens perfectly in sync!
+      tl.to(camera.position, { 
+          z: 3, 
+          y: 1.5, 
+          duration: 3, 
+          ease: "power1.inOut" 
+      }, 12.5);
+      
+      tl.to(machineGroup.rotation, {
+          y: 0,
+          duration: 3,
+          ease: "power1.inOut"
+      }, 12.5);
+      
+      // Fade out the 3D canvas entirely as it zooms into the screen
+      tl.to('#webgl-canvas', {
+          opacity: 0,
+          duration: 3,
+          ease: "power1.inOut"
+      }, 12.5);
+      
       tl.set({}, {}, 15.5);
     }, scrollContainerRef);
     ScrollTrigger.refresh();
@@ -395,10 +416,45 @@ export default function Technology() {
             <canvas id="webgl-canvas" ref={canvasRef} className="w-full h-[100svh] absolute top-0 left-0"></canvas>
           </div>
 
-          {/* Title Area (Fades out) */}
-          <div className="absolute top-12 left-0 w-full px-6 flex flex-col items-center justify-start z-10 pointer-events-none title-container">
-              <div className="inline-block px-3 py-1 mb-2 border border-accent/20 rounded text-xs text-accent tracking-wider uppercase">The Living Blueprint</div>
-              <h1 className="text-4xl font-bold tracking-tight text-primary-text">CALOR MEGA</h1>
+          {/* Hero Intro Area (Fades out when scrolling starts) */}
+          <div className="absolute top-[8svh] left-0 w-full px-6 flex flex-col items-center justify-center z-10 title-container text-center">
+              <h1 className="text-4xl sm:text-5xl font-black tracking-tight leading-[1.1] mb-2">
+                  <span className="text-primary-text block">Preserve Today.</span>
+                  <span className="text-accent block">Profit Tomorrow.</span>
+              </h1>
+              
+              <div className="w-12 h-1 bg-accent/80 mb-3"></div>
+              
+              <p className="text-[13px] text-secondary-text leading-relaxed w-full max-w-sm mb-4">
+                  Premium industrial drying for maximum product quality and extended shelf life.
+              </p>
+          </div>
+
+          {/* Hero Bottom Elements (Fades out when scrolling starts) */}
+          <div className="absolute bottom-[18%] left-0 w-full px-6 flex flex-col items-center justify-center z-10 hero-bottom-container">
+              {/* Badges Grid */}
+              <div className="flex gap-2 mb-4 w-full max-w-sm justify-center">
+                  <div className="bg-white/60 dark:bg-black/20 border border-black/5 dark:border-white/10 rounded-full py-1.5 px-3 flex items-center justify-center gap-1.5 backdrop-blur-sm">
+                      <span className="text-accent text-[12px]">💧</span>
+                      <span className="text-[10px] font-bold text-primary-text whitespace-nowrap"><span className="text-accent">5%</span> Final Moisture</span>
+                  </div>
+                  <div className="bg-white/60 dark:bg-black/20 border border-black/5 dark:border-white/10 rounded-full py-1.5 px-3 flex items-center justify-center gap-1.5 backdrop-blur-sm">
+                      <span className="text-accent text-[12px]">📅</span>
+                      <span className="text-[10px] font-bold text-primary-text whitespace-nowrap">12+ Months Shelf Life</span>
+                  </div>
+              </div>
+              
+              {/* Buttons */}
+              <div className="flex items-center gap-3 w-full max-w-sm">
+                  <button className="flex-1 bg-accent hover:bg-accent/90 text-white rounded-full py-2.5 px-4 font-bold text-[12px] flex items-center justify-center gap-2 shadow-[0_8px_20px_rgba(255,138,0,0.3)] transition-all">
+                      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+                      Get a Custom Quote
+                  </button>
+                  <button className="flex-1 border border-black/10 dark:border-white/10 hover:bg-black/5 dark:hover:bg-white/5 bg-white/50 dark:bg-black/20 rounded-full py-2.5 px-4 font-bold text-[12px] text-primary-text flex items-center justify-center gap-2 backdrop-blur-sm transition-all">
+                      View Specs
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                  </button>
+              </div>
           </div>
           
           {/* Command Center 2D Image Overlay (Phase 5) */}
@@ -412,65 +468,101 @@ export default function Technology() {
               </div>
           </div>
           
-          {/* Scroll Indicator (Fades out) */}
-          <div className="absolute bottom-[32%] left-0 w-full flex flex-col items-center z-10 pointer-events-none scroll-indicator animate-pulse opacity-80">
-              <span className="text-sm font-medium tracking-wide mb-2 text-primary-text">Scroll down to explore</span>
-              <div className="w-px h-10 bg-accent/30"></div>
-              <svg className="w-5 h-5 mt-2 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
-              </svg>
+
+
+          {/* GSAP Synced Dynamic HUD Panels (Meaningful Symmetric Layout) */}
+          <div className="absolute bottom-[190px] left-0 w-full h-0 px-5 z-10 pointer-events-none">
+              <div className="relative w-full h-full max-w-lg mx-auto">
+                  
+                  {/* Phase 1 */}
+                  <div className="absolute bottom-0 left-0 stat-item stat-shell opacity-0 w-[47%] bg-white/70 dark:bg-[#1a1a1a]/70 backdrop-blur-xl p-5 rounded-3xl border border-white/30 dark:border-white/10 shadow-[0_15px_40px_rgba(0,0,0,0.12)]">
+                      <h4 className="text-accent font-black text-[15px] mb-2 uppercase tracking-wide">SS304 Armor</h4>
+                      <p className="text-[13px] text-secondary-text leading-relaxed">Food-grade structural purity.</p>
+                  </div>
+                  <div className="absolute bottom-0 right-0 stat-item stat-shell opacity-0 w-[47%] bg-white/70 dark:bg-[#1a1a1a]/70 backdrop-blur-xl p-5 rounded-3xl border border-white/30 dark:border-white/10 shadow-[0_15px_40px_rgba(0,0,0,0.12)]">
+                      <h4 className="text-accent font-black text-[15px] mb-2 uppercase tracking-wide">Hermetic Seal</h4>
+                      <p className="text-[13px] text-secondary-text leading-relaxed">Zero contamination risk.</p>
+                  </div>
+                  
+                  {/* Phase 2: 2 boxes total (Left HUD + Bottom) */}
+                  <div className="absolute inset-x-0 mx-auto bottom-0 stat-item stat-foam opacity-0 w-[94%] max-w-sm bg-white/70 dark:bg-[#1a1a1a]/70 backdrop-blur-xl p-5 rounded-3xl border border-white/30 dark:border-white/10 shadow-[0_15px_40px_rgba(0,176,255,0.12)] flex flex-col items-center text-center">
+                      <h4 className="text-[#00b0ff] font-black text-[15px] mb-2 uppercase tracking-wide">99% Retention</h4>
+                      <p className="text-[13px] text-secondary-text leading-relaxed">Max thermal energy efficiency.</p>
+                  </div>
+                  
+                  {/* Phase 3: 3 boxes total (Left HUD + Right HUD + Bottom) */}
+                  <div className="absolute bottom-0 left-0 stat-item stat-trays opacity-0 w-[47%] bg-white/70 dark:bg-[#1a1a1a]/70 backdrop-blur-xl p-5 rounded-3xl border border-white/30 dark:border-white/10 shadow-[0_15px_40px_rgba(255,78,0,0.12)]">
+                      <h4 className="text-[#ff4e00] font-black text-[15px] mb-2 uppercase tracking-wide">Direct Heat</h4>
+                      <p className="text-[13px] text-secondary-text leading-relaxed">Embedded electric elements.</p>
+                  </div>
+                  <div className="absolute bottom-0 right-0 stat-item stat-trays opacity-0 w-[47%] bg-white/70 dark:bg-[#1a1a1a]/70 backdrop-blur-xl p-5 rounded-3xl border border-white/30 dark:border-white/10 shadow-[0_15px_40px_rgba(255,78,0,0.12)]">
+                      <h4 className="text-[#ff4e00] font-black text-[15px] mb-2 uppercase tracking-wide">SS304 Mesh</h4>
+                      <p className="text-[13px] text-secondary-text leading-relaxed">Removable, easy-clean racks.</p>
+                  </div>
+                  
+                  {/* Phase 4: 2 boxes total (Right HUD + Bottom) */}
+                  <div className="absolute inset-x-0 mx-auto bottom-0 stat-item stat-thermal opacity-0 w-[94%] max-w-sm bg-white/70 dark:bg-[#1a1a1a]/70 backdrop-blur-xl p-5 rounded-3xl border border-white/30 dark:border-white/10 shadow-[0_15px_40px_rgba(255,78,0,0.12)] flex flex-col items-center text-center">
+                      <h4 className="text-[#ff4e00] font-black text-[15px] mb-2 uppercase tracking-wide">Uniform Heat</h4>
+                      <p className="text-[13px] text-secondary-text leading-relaxed">Eliminates cold spots entirely.</p>
+                  </div>
+                  
+                  {/* Phase 5: 2 boxes total (Left HUD + Bottom) */}
+                  <div className="absolute inset-x-0 mx-auto bottom-0 stat-item stat-command opacity-0 w-[94%] max-w-sm bg-white/70 dark:bg-[#1a1a1a]/70 backdrop-blur-xl p-5 rounded-3xl border border-white/30 dark:border-white/10 shadow-[0_15px_40px_rgba(255,204,0,0.12)] flex flex-col items-center text-center">
+                      <h4 className="text-[#ffcc00] font-black text-[15px] mb-2 uppercase tracking-wide">PID Digital</h4>
+                      <p className="text-[13px] text-secondary-text leading-relaxed">Smart micro-processor control.</p>
+                  </div>
+                  
+                  {/* Phase 6: 2 boxes total (Centered HUD + Bottom) */}
+                  <div className="absolute inset-x-0 mx-auto bottom-0 stat-item stat-roi opacity-0 w-[94%] max-w-sm bg-white/70 dark:bg-[#1a1a1a]/70 backdrop-blur-xl p-5 rounded-3xl border border-white/30 dark:border-white/10 shadow-[0_15px_40px_rgba(37,211,102,0.12)] flex flex-col items-center text-center">
+                      <h4 className="text-[#25D366] font-black text-[15px] mb-2 uppercase tracking-wide">Rapid ROI</h4>
+                      <p className="text-[13px] text-secondary-text leading-relaxed">Faster drying means more profit.</p>
+                  </div>
+              </div>
           </div>
           
-          {/* Bottom 28% - Solid Info Panel Zone (Carousel) */}
-          <div id="info-panel" className="absolute bottom-0 left-0 w-full h-[28%] bg-surface border-t border-border shadow-[0_-20px_40px_rgba(0,0,0,0.05)] z-20 flex flex-col pt-6 px-6 pb-2 rounded-t-[2rem]">
-              <div className="relative w-full flex-1 max-w-sm mx-auto overflow-hidden">
+          {/* Bottom Floating Pill Zone */}
+          <div id="info-panel" className="absolute bottom-8 left-1/2 -translate-x-1/2 w-[94%] max-w-sm z-20 flex flex-col items-center pointer-events-none">
+              
+              {/* The Static Info Box */}
+              <div className="relative w-full bg-white/70 dark:bg-[#1a1a1a]/70 backdrop-blur-xl border border-white/30 dark:border-white/10 shadow-[0_15px_40px_rgba(0,0,0,0.15)] rounded-3xl overflow-hidden max-w-sm pb-6">
                   
-                  {/* Info Cards (Sliding in and out via GSAP) */}
-                  <div className="absolute top-1/2 left-0 w-full -translate-y-1/2 text-left info-card card-shell opacity-0">
-                      <h3 className="text-accent font-bold text-xl mb-2 flex items-center gap-2">
-                          SS 304 Shell
-                      </h3>
-                      <p className="text-sm text-secondary-text leading-relaxed">10x10 foot premium food-grade construction. Zero contamination design ensures maximum purity.</p>
-                  </div>
-                  
-                  <div className="absolute top-1/2 left-0 w-full -translate-y-1/2 text-left info-card card-foam opacity-0">
-                      <h3 className="text-[#00b0ff] font-bold text-xl mb-2 flex items-center gap-2">
-                          Thermal Insulation
-                      </h3>
-                      <p className="text-sm text-secondary-text leading-relaxed">High-density rockwool foam retains 99% of internal heat, significantly reducing power consumption.</p>
-                  </div>
+                  <div className="relative w-full h-[90px] flex justify-center mt-5">
+                      
+                      {/* Info Cards (Sliding in and out via GSAP) */}
+                      <div className="absolute w-full px-6 text-center info-card card-shell opacity-0">
+                          <h4 className="text-accent font-black text-[15px] mb-2 uppercase tracking-wide">SS 304 Shell</h4>
+                          <p className="text-[13px] text-secondary-text leading-relaxed">10x10 foot premium food-grade construction. Zero contamination design ensures maximum purity.</p>
+                      </div>
+                      
+                      <div className="absolute w-full px-6 text-center info-card card-foam opacity-0">
+                          <h4 className="text-[#00b0ff] font-black text-[15px] mb-2 uppercase tracking-wide">Thermal Insulation</h4>
+                          <p className="text-[13px] text-secondary-text leading-relaxed">High-density rockwool foam retains 99% of internal heat, significantly reducing power consumption.</p>
+                      </div>
 
-                  <div className="absolute top-1/2 left-0 w-full -translate-y-1/2 text-left info-card card-trays opacity-0">
-                      <h3 className="text-[#ff4e00] font-bold text-xl mb-2 flex items-center gap-2">
-                          Drying Trays
-                      </h3>
-                      <p className="text-sm text-secondary-text leading-relaxed">Precision electric heating elements embedded directly into the removable SS304 mesh tray racks.</p>
-                  </div>
+                      <div className="absolute w-full px-6 text-center info-card card-trays opacity-0">
+                          <h4 className="text-[#ff4e00] font-black text-[15px] mb-2 uppercase tracking-wide">Drying Trays</h4>
+                          <p className="text-[13px] text-secondary-text leading-relaxed">Precision electric heating elements embedded directly into the removable SS304 mesh tray racks.</p>
+                      </div>
 
-                  <div className="absolute top-1/2 left-0 w-full -translate-y-1/2 text-left info-card card-thermal opacity-0">
-                      <h3 className="text-[#ff4e00] font-bold text-xl mb-2 flex items-center gap-2">
-                          Thermal Dynamics
-                      </h3>
-                      <p className="text-sm text-secondary-text leading-relaxed">Live heat-mapping proves uniform thermal distribution across all trays. Eliminates cold spots entirely.</p>
-                  </div>
+                      <div className="absolute w-full px-6 text-center info-card card-thermal opacity-0">
+                          <h4 className="text-[#ff4e00] font-black text-[15px] mb-2 uppercase tracking-wide">Thermal Dynamics</h4>
+                          <p className="text-[13px] text-secondary-text leading-relaxed">Live heat-mapping proves uniform thermal distribution across all trays. Eliminates cold spots entirely.</p>
+                      </div>
 
-                  <div className="absolute top-1/2 left-0 w-full -translate-y-1/2 text-left info-card card-command opacity-0">
-                      <h3 className="text-[#ffcc00] font-bold text-xl mb-2 flex items-center gap-2">
-                          Command Center
-                      </h3>
-                      <p className="text-sm text-secondary-text leading-relaxed">Industrial-grade digital PID controllers, intuitive LED readouts, and fail-safe analog pressure gauges.</p>
-                  </div>
+                      <div className="absolute w-full px-6 text-center info-card card-command opacity-0">
+                          <h4 className="text-[#ffcc00] font-black text-[15px] mb-2 uppercase tracking-wide">Command Center</h4>
+                          <p className="text-[13px] text-secondary-text leading-relaxed">Industrial-grade digital PID controllers, intuitive LED readouts, and fail-safe analog pressure gauges.</p>
+                      </div>
 
-                  <div className="absolute top-1/2 left-0 w-full -translate-y-1/2 text-left info-card card-roi opacity-0">
-                      <h3 className="text-[#25D366] font-bold text-xl mb-2 flex items-center gap-2">
-                          Max Efficiency
-                      </h3>
-                      <p className="text-sm text-secondary-text leading-relaxed">Dual ventilation grilles optimize cross-flow aerodynamics. Superior heat retention translates to faster ROI.</p>
+                      <div className="absolute w-full px-6 text-center info-card card-roi opacity-0">
+                          <h4 className="text-[#25D366] font-black text-[15px] mb-2 uppercase tracking-wide">Max Efficiency</h4>
+                          <p className="text-[13px] text-secondary-text leading-relaxed">Dual ventilation grilles optimize cross-flow aerodynamics. Superior heat retention translates to faster ROI.</p>
+                      </div>
                   </div>
               </div>
 
-              {/* Progress Timeline Dots */}
-              <div className="w-full flex items-center justify-center gap-3 pb-6 pt-2 dot-container relative z-10">
+              {/* Progress Timeline Dots (Hidden for GSAP to target silently) */}
+              <div className="hidden w-full items-center justify-center gap-3 pb-6 pt-2 dot-container relative z-10">
                   <div className="w-2 h-2 rounded-full bg-accent dot dot-1 opacity-30 shadow-[0_0_8px_currentColor]"></div>
                   <div className="w-2 h-2 rounded-full bg-[#00b0ff] dot dot-2 opacity-30 shadow-[0_0_8px_currentColor]"></div>
                   <div className="w-2 h-2 rounded-full bg-[#ff4e00] dot dot-3 opacity-30 shadow-[0_0_8px_currentColor]"></div>

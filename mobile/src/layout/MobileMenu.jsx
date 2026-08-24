@@ -1,16 +1,18 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link, useLocation } from 'react-router-dom';
-import { Info, Cpu, Layers, Wrench, Phone, FileText } from 'lucide-react';
+import { Info, Cpu, Layers, Phone, FileText, Home, ShoppingBag, Image as ImageIcon } from 'lucide-react';
 
 export default function MobileMenu({ isOpen, onClose }) {
   const location = useLocation();
 
   const menuItems = [
+    { name: 'Home', path: '/', icon: Home },
+    { name: 'Products', path: '/products', icon: ShoppingBag },
+    { name: 'Gallery', path: '/gallery', icon: ImageIcon },
     { name: 'About Us', path: '/about', icon: Info },
     { name: 'Technology', path: '/technology', icon: Cpu },
     { name: 'Applications', path: '/applications', icon: Layers },
     { name: 'Contact', path: '/contact', icon: Phone },
-    { name: 'Get a Quote', path: '/quote', icon: FileText },
   ];
 
   return (
@@ -23,7 +25,7 @@ export default function MobileMenu({ isOpen, onClose }) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="fixed inset-0 bg-zinc-900/40 backdrop-blur-md z-40"
+            className="fixed inset-0 bg-zinc-900/40 backdrop-blur-md z-[65]"
           />
 
           {/* Drawer */}
@@ -32,7 +34,7 @@ export default function MobileMenu({ isOpen, onClose }) {
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
             transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-            className="fixed top-0 right-0 bottom-16 w-3/4 max-w-sm bg-white/60 dark:bg-zinc-900/60 backdrop-blur-2xl shadow-[0_0_40px_rgba(0,0,0,0.2)] z-40 border-l border-white/20 dark:border-white/10 flex flex-col"
+            className="fixed top-0 right-0 bottom-0 w-3/4 max-w-sm bg-slate-100/95 dark:bg-zinc-900/98 backdrop-blur-3xl shadow-[0_0_40px_rgba(0,0,0,0.3)] z-[70] border-l border-white/20 dark:border-white/10 flex flex-col"
           >
             <div className="p-6 border-b border-border/30 flex items-center justify-between">
               <div>
