@@ -1,6 +1,6 @@
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { motion, useScroll, useTransform, useSpring, AnimatePresence } from 'framer-motion';
+import { motion, useScroll, useTransform, useSpring, AnimatePresence, useInView } from 'framer-motion';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination } from 'swiper/modules';
 import 'swiper/css';
@@ -37,9 +37,23 @@ const homeCategories = ['All Featured', 'Fruits', 'Spices and Herbs', 'Plantatio
 export default function Home() {
   const [selectedApp, setSelectedApp] = useState(null);
   const [activeCategory, setActiveCategory] = useState('All Featured');
+  const [showDiamondFlash, setShowDiamondFlash] = useState(false);
   const springConfig = { damping: 28, stiffness: 85, mass: 0.18, restDelta: 0.001 };
 
   const heroRef = useRef(null);
+  const heroInView = useInView(heroRef, { amount: 0.1 });
+
+  useEffect(() => {
+    let timer;
+    if (heroInView) {
+      // Trigger diamond flash after 1 minute (60000ms)
+      timer = setTimeout(() => setShowDiamondFlash(true), 60000);
+    } else {
+      setShowDiamondFlash(false);
+    }
+    return () => clearTimeout(timer);
+  }, [heroInView]);
+
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ['start start', 'end start'] });
   const smoothHeroProgress = useSpring(scrollYProgress, springConfig);
   const heroImageY = useTransform(smoothHeroProgress, [0, 1], [0, 90]);
@@ -106,13 +120,47 @@ export default function Home() {
             transition={{ duration: 0.8 }}
             className="flex flex-col justify-center items-center text-center lg:items-start lg:text-left lg:-ml-2 xl:-ml-3"
           >
-            <h1 className="font-cinzel sm:font-display text-[2.1rem] leading-[1.05] sm:text-[3.5rem] md:text-6xl lg:text-7xl xl:text-7xl 2xl:text-8xl font-extrabold sm:font-bold uppercase sm:leading-[1.03] tracking-widest sm:tracking-tight text-primary dark:text-paper">
-              Premium Drying
-              <br />
-              Solutions.
-              <br />
-              <span className="text-accent tracking-widest sm:tracking-tight">Taste and Preserve.</span>
-            </h1>
+            <div className="relative inline-block">
+              <h1 className="font-cinzel sm:font-display text-[2.1rem] leading-[1.05] sm:text-[3.5rem] md:text-6xl lg:text-7xl xl:text-7xl 2xl:text-8xl font-extrabold sm:font-bold uppercase sm:leading-[1.03] tracking-widest sm:tracking-tight text-primary dark:text-paper relative z-10">
+                Premium Drying
+                <br />
+                Solutions.
+                <br />
+                <span className="text-accent tracking-widest sm:tracking-tight">Taste and Preserve.</span>
+              </h1>
+              
+              <AnimatePresence>
+                {showDiamondFlash && (
+                  <>
+                    <motion.div 
+                      initial={{ opacity: 0, scale: 0.5, rotate: 45 }}
+                      animate={{ 
+                        opacity: [0, 1, 0.8, 0], 
+                        scale: [0.5, 1.5, 1.2, 0.5],
+                        rotate: [45, 90, 135, 180]
+                      }}
+                      transition={{ duration: 2, repeat: Infinity, repeatDelay: 4 }}
+                      className="absolute -top-3 -right-2 sm:hidden z-20 pointer-events-none"
+                    >
+                      <div className="w-3 h-3 bg-white shadow-[0_0_15px_4px_rgba(224,159,62,0.9)] rotate-45 blur-[1px]"></div>
+                    </motion.div>
+
+                    <motion.div 
+                      initial={{ opacity: 0, scale: 0.5, rotate: 45 }}
+                      animate={{ 
+                        opacity: [0, 1, 0.8, 0], 
+                        scale: [0.5, 1.2, 1, 0.5],
+                        rotate: [45, 90, 135, 180]
+                      }}
+                      transition={{ duration: 1.8, repeat: Infinity, repeatDelay: 5, delay: 1 }}
+                      className="absolute bottom-2 -left-3 sm:hidden z-20 pointer-events-none"
+                    >
+                      <div className="w-2.5 h-2.5 bg-white shadow-[0_0_12px_3px_rgba(224,159,62,0.9)] rotate-45 blur-[1px]"></div>
+                    </motion.div>
+                  </>
+                )}
+              </AnimatePresence>
+            </div>
             <p className="mt-4 sm:mt-7 max-w-xl xl:max-w-2xl 2xl:max-w-3xl text-[14px] sm:text-lg xl:text-xl 2xl:text-[1.28rem] text-primary/75 dark:text-paper/75 leading-snug sm:leading-relaxed">
               Industrial-grade moisture control engineered to eliminate food waste and maximize profitability.
             </p>

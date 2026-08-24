@@ -45,20 +45,20 @@ export default function Gallery() {
         ))}
       </div>
 
-      <div className="flex flex-col gap-4">
+      <div className="grid grid-cols-2 gap-3 sm:gap-4">
         {filtered.map((item, idx) => (
           <motion.div
             key={item.id}
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: idx * 0.05 }}
+            transition={{ delay: (idx % 2) * 0.1 }}
             onClick={() => openLightbox(item.id)}
             className="group relative block w-full overflow-hidden rounded-2xl shadow-sm bg-white"
           >
-            <img src={item.image} alt={item.caption} className="w-full h-56 object-cover" />
-            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent p-4 pt-12">
-              <p className="text-left text-sm font-semibold text-white">{item.caption}</p>
+            <img src={item.image} alt={item.caption} className="w-full aspect-[4/5] sm:aspect-square object-cover" />
+            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/95 via-black/50 to-transparent p-3 pt-10">
+              <p className="text-left text-xs sm:text-sm font-semibold text-white line-clamp-2 leading-snug">{item.caption}</p>
             </div>
           </motion.div>
         ))}
