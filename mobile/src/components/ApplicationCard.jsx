@@ -1,8 +1,8 @@
 import { motion } from 'framer-motion';
 
-export default function ApplicationCard({ application, index = 0, onSelect, disableEntranceAnimation = false, layoutId }) {
+export default function ApplicationCard({ application, index = 0, onSelect, disableEntranceAnimation = false, layoutId, disableLayoutAnimation = false }) {
   const { icon: Icon, title, description } = application;
-  const finalLayoutId = layoutId || `app-card-${title}`;
+  const finalLayoutId = disableLayoutAnimation ? undefined : (layoutId || `app-card-${title}`);
 
   return (
     <motion.div

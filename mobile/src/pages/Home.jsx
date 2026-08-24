@@ -12,6 +12,7 @@ import StatCard from '../components/StatCard';
 import FeatureCard from '../components/FeatureCard';
 import MobileFeatureCarousel from '../components/MobileFeatureCarousel';
 import ApplicationCard from '../components/ApplicationCard';
+import MobileApplicationsCarousel from '../components/MobileApplicationsCarousel';
 import ApplicationModal from '../components/ApplicationModal';
 import TestimonialCard from '../components/TestimonialCard';
 import MobileTestimonialSlider from '../components/MobileTestimonialSlider';
@@ -91,13 +92,13 @@ export default function Home() {
       {/* HERO */}
       <section
         ref={heroRef}
-        className="relative flex min-h-[100svh] items-center justify-center overflow-hidden bg-gradient-to-br from-transparent to-secondary/5 pt-24 pb-14"
+        className="relative flex min-h-[calc(100svh-4rem)] lg:min-h-[100svh] items-center justify-center overflow-hidden bg-gradient-to-br from-transparent to-secondary/5 pt-6 pb-8 sm:pt-24 sm:pb-14"
       >
         <div className="dot-grid absolute inset-0 opacity-60" />
         <GradientBlobs variant="hero" />
         <ParticlesBackground />
 
-        <div className="mx-auto grid w-full max-w-[1760px] min-[1600px]:max-w-[98vw] items-center gap-8 lg:gap-12 xl:gap-16 2xl:gap-20 pl-2 sm:pl-4 md:pl-6 lg:pl-6 xl:pl-8 2xl:pl-10 pr-6 sm:pr-8 lg:pr-12 xl:pr-16 2xl:pr-20 lg:grid-cols-[1.12fr_0.88fr]">
+        <div className="mx-auto grid w-full max-w-[1760px] min-[1600px]:max-w-[98vw] items-center gap-7 sm:gap-8 lg:gap-12 xl:gap-16 2xl:gap-20 pl-4 sm:pl-4 md:pl-6 lg:pl-6 xl:pl-8 2xl:pl-10 pr-4 sm:pr-8 lg:pr-12 xl:pr-16 2xl:pr-20 lg:grid-cols-[1.12fr_0.88fr]">
           <motion.div
             style={{ y: heroTextY }}
             initial={{ opacity: 0, x: -40 }}
@@ -105,27 +106,50 @@ export default function Home() {
             transition={{ duration: 0.8 }}
             className="flex flex-col justify-center items-center text-center lg:items-start lg:text-left lg:-ml-2 xl:-ml-3"
           >
-            <h1 className="font-display text-3xl sm:text-5xl md:text-5xl lg:text-6xl xl:text-6xl 2xl:text-7xl font-bold uppercase leading-[1.05] sm:leading-[1.03] tracking-tight text-primary dark:text-paper">
+            <h1 className="font-display text-[2.1rem] leading-[1.05] sm:text-[3.5rem] md:text-6xl lg:text-7xl xl:text-7xl 2xl:text-8xl font-bold uppercase sm:leading-[1.03] tracking-tight text-primary dark:text-paper">
               Premium Drying
               <br />
               Solutions.
               <br />
               <span className="text-accent">Taste and Preserve.</span>
             </h1>
-            <p className="mt-6 sm:mt-7 max-w-xl xl:max-w-2xl 2xl:max-w-3xl text-base sm:text-lg xl:text-xl 2xl:text-[1.28rem] text-primary/75 dark:text-paper/75 leading-relaxed">
-              Industrial-grade moisture control engineered to eliminate food waste and unlock
-              agricultural profitability for family farms and cooperatives.
+            <p className="mt-4 sm:mt-7 max-w-xl xl:max-w-2xl 2xl:max-w-3xl text-[14px] sm:text-lg xl:text-xl 2xl:text-[1.28rem] text-primary/75 dark:text-paper/75 leading-snug sm:leading-relaxed">
+              Industrial-grade moisture control engineered to eliminate food waste and maximize profitability.
             </p>
-            <div className="mt-8 sm:mt-10 flex flex-wrap justify-center lg:justify-start gap-3.5 sm:gap-5">
-              <Button as={Link} to="/quote" variant="primary" icon={FaArrowRight}>
-                Get Quote
-              </Button>
-              <Button as={Link} to="/products" variant="outline">
-                Explore Machine
-              </Button>
-              <Button as={Link} to="/technology" variant="glass" icon={FaPlayCircle}>
-                Watch Demo
-              </Button>
+            <div className="mt-6 sm:mt-10 flex flex-col items-center justify-center lg:items-start w-full sm:w-auto max-w-sm sm:max-w-none mx-auto lg:mx-0">
+              {/* Top Row: Two buttons side-by-side on mobile, flex-row on desktop */}
+              <div className="flex w-full sm:w-auto justify-center gap-3 sm:gap-5">
+                <Button 
+                  as={Link} 
+                  to="/quote" 
+                  variant="primary" 
+                  icon={FaArrowRight}
+                  className="flex-1 sm:flex-none justify-center px-2 py-3 text-[13px] sm:text-base sm:px-6 sm:py-3.5 whitespace-nowrap"
+                >
+                  Get Quote
+                </Button>
+                <Button 
+                  as={Link} 
+                  to="/products" 
+                  variant="outline"
+                  className="flex-1 sm:flex-none justify-center px-2 py-3 text-[13px] sm:text-base sm:px-6 sm:py-3.5 whitespace-nowrap"
+                >
+                  Explore Machine
+                </Button>
+              </div>
+              
+              {/* Bottom Row: Centered button on mobile, inline on desktop */}
+              <div className="mt-4 sm:mt-0 sm:ml-5 flex justify-center w-full sm:w-auto sm:inline-flex">
+                <Button 
+                  as={Link} 
+                  to="/technology" 
+                  variant="glass" 
+                  icon={FaPlayCircle}
+                  className="px-6 py-3 text-[13px] sm:text-base sm:px-6 sm:py-3.5 bg-white/80 dark:bg-white/10 shadow-sm"
+                >
+                  Watch Demo
+                </Button>
+              </div>
             </div>
           </motion.div>
 
@@ -136,7 +160,7 @@ export default function Home() {
             transition={{ duration: 0.9 }}
             className="relative flex justify-center min-w-0"
           >
-            <div className="animate-float relative w-full max-w-[480px] lg:max-w-[540px] xl:max-w-[600px] 2xl:max-w-[680px]">
+            <div className="animate-float relative w-full max-w-[340px] sm:max-w-[480px] lg:max-w-[540px] xl:max-w-[600px] 2xl:max-w-[680px]">
               <Swiper
                 modules={[Autoplay, Pagination]}
                 autoplay={{ delay: 3500, disableOnInteraction: false }}
@@ -187,7 +211,7 @@ export default function Home() {
         <motion.div
           animate={{ y: [0, 10, 0] }}
           transition={{ repeat: Infinity, duration: 1.8 }}
-          className="absolute bottom-6 left-1/2 -translate-x-1/2 text-primary/50 dark:text-paper/50"
+          className="absolute hidden sm:block bottom-6 left-1/2 -translate-x-1/2 text-primary/50 dark:text-paper/50"
         >
           <FaChevronDown className="text-2xl" />
         </motion.div>
@@ -207,7 +231,7 @@ export default function Home() {
         {/* 4 Clean Stat Cards Grid */}
         <motion.div
           style={{ scale: statsScale, opacity: statsOpacity }}
-          className="relative z-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 lg:gap-6"
+          className="relative z-10 grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5 lg:gap-6"
         >
           {stats.map((s, idx) => (
             <StatCard key={s.label} {...s} index={idx} />
@@ -272,7 +296,7 @@ export default function Home() {
       </section>
 
       {/* APPLICATIONS */}
-      <section className="relative mx-auto flex min-h-[100svh] min-[1600px]:min-h-0 w-full max-w-[1600px] min-[1600px]:max-w-[98vw] flex-col justify-center px-4 sm:px-6 md:px-8 lg:px-10 2xl:px-12 py-8 sm:py-10">
+      <section className="relative mx-auto flex min-h-[auto] lg:min-h-[100svh] min-[1600px]:min-h-0 w-full max-w-[1600px] min-[1600px]:max-w-[98vw] flex-col justify-center px-4 sm:px-6 md:px-8 lg:px-10 2xl:px-12 py-10 sm:py-12">
         <SectionHeading
           eyebrow="Built to Dry Anything"
           title="Featured Crops and Applications"
@@ -281,7 +305,7 @@ export default function Home() {
         />
 
         {/* Category Pills Switcher */}
-        <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-2.5 mb-6 sm:mb-8">
+        <div className="hidden md:flex flex-wrap items-center justify-center gap-2 sm:gap-2.5 mb-6 sm:mb-8">
           {homeCategories.map((cat) => (
             <button
               key={cat}
@@ -296,7 +320,19 @@ export default function Home() {
           ))}
         </div>
 
-        <motion.div layout className="grid grid-cols-2 gap-3.5 sm:gap-4.5 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
+        {/* Mobile Horizontal Carousel */}
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+          className="block md:hidden"
+        >
+          <MobileApplicationsCarousel displayedCrops={displayedCrops} onSelect={setSelectedApp} />
+        </motion.div>
+
+        {/* Desktop Grid Layout */}
+        <motion.div layout className="hidden md:grid grid-cols-2 gap-3.5 sm:gap-4.5 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6">
           <AnimatePresence>
             {displayedCrops.map((app, i) => (
               <ApplicationCard key={app.title} application={app} index={i} onSelect={setSelectedApp} />
@@ -304,7 +340,7 @@ export default function Home() {
           </AnimatePresence>
         </motion.div>
 
-        <div className="mt-8 sm:mt-10 flex flex-col sm:flex-row items-center justify-center gap-4 text-center">
+        <div className="hidden md:flex mt-8 sm:mt-10 flex-col sm:flex-row items-center justify-center gap-4 text-center">
           <Button
             as={Link}
             to="/applications"

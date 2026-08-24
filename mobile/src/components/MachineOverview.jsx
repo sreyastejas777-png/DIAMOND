@@ -1,5 +1,5 @@
 import { useState, useRef, useLayoutEffect, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useScroll, useTransform, useInView } from 'framer-motion';
 import {
   Sliders,
   Lock,
@@ -33,31 +33,67 @@ const iconMap = {
 export default function MachineOverview() {
   const [activeId, setActiveId] = useState(hotspots[0].id);
   const imageRef = useRef(null);
+  const sectionRef = useRef(null);
   const activeIndex = hotspots.findIndex((h) => h.id === activeId);
   const activeHotspot = activeIndex !== -1 ? hotspots[activeIndex] : hotspots[0];
   const ActiveIcon = iconMap[activeHotspot.id] || Sparkles;
 
+  const [hasInteracted, setHasInteracted] = useState(false);
+  const [showHint, setShowHint] = useState(false);
+  const isInView = useInView(sectionRef, { amount: 0.4 });
+
+  useEffect(() => {
+    let timer;
+    if (isInView && !hasInteracted) {
+      // Show hint after 3 seconds of idle time in view
+      timer = setTimeout(() => setShowHint(true), 3000);
+    } else {
+      setShowHint(false);
+    }
+    return () => clearTimeout(timer);
+  }, [isInView, hasInteracted]);
+
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"]
+  });
+  
+  // Parallax effect values
+  const yParallaxHeading = useTransform(scrollYProgress, [0, 1], [30, -30]);
+  const yParallaxShowcase = useTransform(scrollYProgress, [0, 1], [60, -60]);
+
   const handlePrev = () => {
+    setHasInteracted(true);
+    setShowHint(false);
     const nextIdx = (activeIndex - 1 + hotspots.length) % hotspots.length;
     setActiveId(hotspots[nextIdx].id);
   };
 
   const handleNext = () => {
+    setHasInteracted(true);
+    setShowHint(false);
     const nextIdx = (activeIndex + 1) % hotspots.length;
     setActiveId(hotspots[nextIdx].id);
   };
 
+  const handleHotspotClick = (id) => {
+    setHasInteracted(true);
+    setShowHint(false);
+    setActiveId(id);
+  };
+
   return (
-    <section className="relative mx-auto flex min-h-[100svh] w-full max-w-[1600px] min-[1600px]:max-w-[98vw] flex-col justify-center px-4 py-14 sm:px-6 md:px-8 overflow-visible">
-      <SectionHeading
-        eyebrow="Inside the Machine"
-        title="Interactive Engineering Explorer"
-        subtitle="Click any &ldquo;+&rdquo; pin to trace the component and view its engineering specs."
-        className="mb-4 sm:mb-6"
-      />
+    <section ref={sectionRef} className="relative mx-auto flex min-h-[85svh] lg:min-h-[100svh] w-full max-w-[1600px] min-[1600px]:max-w-[98vw] flex-col justify-center px-4 py-8 sm:py-14 sm:px-6 md:px-8 overflow-visible">
+      <motion.div style={{ y: yParallaxHeading }}>
+        <SectionHeading
+          eyebrow="Inside the Machine"
+          title="Interactive Engineering Explorer"
+          className="mb-4 sm:mb-6"
+        />
+      </motion.div>
 
       {/* SHOWCASE WRAPPER */}
-      <div className="relative mx-auto mt-2 w-full flex flex-col items-center overflow-visible">
+      <motion.div style={{ y: yParallaxShowcase }} className="relative mx-auto mt-2 w-full flex flex-col items-center overflow-visible">
         {/* CENTRALIZED PHOTO FRAME */}
         <div
           ref={imageRef}
@@ -82,15 +118,24 @@ export default function MachineOverview() {
                 {...h}
                 index={i + 1}
                 isActive={h.id === activeId}
-                onClick={() => setActiveId(h.id)}
+                onClick={() => handleHotspotClick(h.id)}
               />
             ))}
 
-            {/* Status Guide on bottom-left */}
-            <div className="absolute bottom-3 left-3 z-20 flex items-center gap-2 rounded-full bg-black/70 px-3.5 py-1.5 text-[11px] font-semibold text-white/95 backdrop-blur-md border border-white/20 shadow-lg">
-              <span className="h-2 w-2 rounded-full bg-accent animate-ping" />
-              <span>Click any &ldquo;+&rdquo; pin</span>
-            </div>
+            {/* Idle Interaction Hint Popup */}
+            <AnimatePresence>
+              {showHint && (
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.9 }}
+                  className="absolute bottom-4 left-1/2 -translate-x-1/2 z-30 flex items-center gap-2.5 rounded-full bg-accent px-4 py-2 text-xs font-bold text-slate-900 shadow-[0_4px_20px_rgba(245,158,11,0.5)] border border-amber-400"
+                >
+                  <span className="h-2 w-2 rounded-full bg-slate-900 animate-ping" />
+                  <span>Tap any &ldquo;+&rdquo; pin to explore!</span>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
 
           {/* DETAILS BOX BELOW THE PHOTO FRAME */}
@@ -102,10 +147,10 @@ export default function MachineOverview() {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.94 }}
                 transition={{ duration: 0.2, ease: 'easeOut' }}
-                className="relative rounded-2xl border-2 border-accent/40 bg-white/95 dark:border-accent/40 dark:bg-[#151518]/95 p-4 sm:p-4.5 shadow-2xl backdrop-blur-xl ring-1 ring-black/10 dark:ring-white/10"
+                className="relative rounded-2xl border-2 border-accent/40 bg-white/95 dark:border-accent/40 dark:bg-[#151518]/95 p-3 sm:p-4.5 shadow-2xl backdrop-blur-xl ring-1 ring-black/10 dark:ring-white/10"
               >
                 {/* Header: Category Badge & Steppers */}
-                <div className="flex items-center justify-between border-b border-secondary/15 dark:border-white/10 pb-2.5">
+                <div className="flex items-center justify-between border-b border-secondary/15 dark:border-white/10 pb-2">
                   <div className="flex items-center gap-1.5">
                     <span className="flex h-5 w-5 items-center justify-center rounded-lg bg-accent/20 text-accent dark:bg-accent/30 shadow-sm">
                       <ActiveIcon className="h-3.5 w-3.5" />
@@ -139,8 +184,8 @@ export default function MachineOverview() {
                 </div>
 
                 {/* Title & Short Description */}
-                <div className="my-2.5">
-                  <h4 className="font-display text-sm sm:text-base font-bold text-primary dark:text-paper leading-snug">
+                <div className="my-2">
+                  <h4 className="font-display text-[13px] sm:text-base font-bold text-primary dark:text-paper leading-snug">
                     {activeHotspot.title}
                   </h4>
                   {activeHotspot.subtitle && (
@@ -148,14 +193,14 @@ export default function MachineOverview() {
                       {activeHotspot.subtitle}
                     </p>
                   )}
-                  <p className="mt-1.5 text-xs leading-relaxed text-primary/75 dark:text-paper/75">
+                  <p className="mt-1 text-[11px] sm:text-xs leading-relaxed text-primary/75 dark:text-paper/75">
                     {activeHotspot.description}
                   </p>
                 </div>
 
                 {/* Mini Specifications Chips */}
                 {activeHotspot.specs && (
-                  <div className="mt-2.5 pt-2 border-t border-secondary/10 dark:border-white/5 space-y-1">
+                  <div className="mt-2 pt-1.5 border-t border-secondary/10 dark:border-white/5 space-y-1">
                     {activeHotspot.specs.slice(0, 2).map((spec) => (
                       <div
                         key={spec.label}
@@ -176,7 +221,7 @@ export default function MachineOverview() {
             </AnimatePresence>
           </div>
         </div>
-      </div>
+      </motion.div>
 
       {/* QUICK FEATURE SELECTOR PILLS BELOW */}
       <motion.div
@@ -184,10 +229,10 @@ export default function MachineOverview() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.5, delay: 0.15 }}
-        className="mt-10 sm:mt-12 flex flex-col items-center justify-center gap-2.5 sm:gap-3.5"
+        className="mt-6 sm:mt-12 flex flex-col items-center justify-center gap-2 sm:gap-3.5"
       >
         {/* Row 1: Structural & Enclosure Controls */}
-        <div className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-3">
+        <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3">
           {hotspots.slice(0, 5).map((h) => {
             const Icon = iconMap[h.id] || Sparkles;
             const isCurrent = h.id === activeId;
@@ -195,7 +240,7 @@ export default function MachineOverview() {
               <button
                 key={h.id}
                 type="button"
-                onClick={() => setActiveId(h.id)}
+                onClick={() => handleHotspotClick(h.id)}
                 className={`flex items-center gap-2.5 rounded-full px-4 sm:px-5 py-2 sm:py-2.5 text-xs sm:text-sm font-semibold transition-all duration-200 border shadow-sm ${
                   isCurrent
                     ? 'border-accent bg-accent text-primary shadow-md scale-105 ring-2 ring-accent/30'
@@ -218,7 +263,7 @@ export default function MachineOverview() {
               <button
                 key={h.id}
                 type="button"
-                onClick={() => setActiveId(h.id)}
+                onClick={() => handleHotspotClick(h.id)}
                 className={`flex items-center gap-2.5 rounded-full px-4 sm:px-5 py-2 sm:py-2.5 text-xs sm:text-sm font-semibold transition-all duration-200 border shadow-sm ${
                   isCurrent
                     ? 'border-accent bg-accent text-primary shadow-md scale-105 ring-2 ring-accent/30'

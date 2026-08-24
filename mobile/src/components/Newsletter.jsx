@@ -31,10 +31,10 @@ export default function Newsletter({ className = '' }) {
         <span className="inline-block px-4 py-1.5 rounded-full bg-accent/15 border border-accent/30 text-accent font-semibold text-xs sm:text-sm uppercase tracking-wider mb-4 sm:mb-5">
           Stay Connected
         </span>
-        <h3 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold uppercase tracking-tight text-white max-w-4xl mx-auto">
+        <h3 className="font-display text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold uppercase tracking-tight text-white max-w-4xl mx-auto leading-tight">
           Stay Ahead of the Harvest
         </h3>
-        <p className="mx-auto mt-4 sm:mt-5 max-w-2xl text-base sm:text-lg md:text-xl text-white/80 leading-relaxed font-normal">
+        <p className="mx-auto mt-4 sm:mt-5 max-w-2xl text-[12px] sm:text-lg md:text-xl text-white/80 leading-relaxed font-normal">
           Subscribe for expert drying profiles, commercial crop guides, new technology releases, and seasonal offers from CALOR MEGA.
         </p>
 
@@ -47,35 +47,35 @@ export default function Newsletter({ className = '' }) {
             <FaCheckCircle className="text-xl" /> Thank you for subscribing!
           </motion.div>
         ) : (
-          <form onSubmit={handleSubmit} className="relative z-10 mx-auto mt-8 sm:mt-10 flex w-full max-w-2xl flex-col sm:flex-row gap-3 sm:gap-4 p-2 sm:p-2.5 rounded-2xl sm:rounded-full bg-white/10 backdrop-blur-xl border border-white/20 shadow-inner">
+          <form onSubmit={handleSubmit} className="relative z-10 mx-auto mt-8 sm:mt-10 flex w-full max-w-2xl flex-col sm:flex-row gap-5 sm:gap-4 p-5 sm:p-2.5 rounded-[1.5rem] sm:rounded-full bg-black/20 sm:bg-white/10 backdrop-blur-xl border border-white/10 sm:border-white/20 shadow-inner">
             <input
               type="email"
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Enter your business email address..."
-              className="w-full flex-1 rounded-xl sm:rounded-full bg-transparent px-5 sm:px-6 py-3.5 sm:py-4 text-white text-base sm:text-lg placeholder-white/50 outline-none focus:placeholder-white/30"
+              className="w-full flex-1 rounded-xl sm:rounded-full bg-transparent px-2 sm:px-6 py-2 sm:py-4 text-white text-[13px] sm:text-lg placeholder-white/50 outline-none focus:placeholder-white/30 text-center sm:text-left"
             />
             <Button 
               type="submit" 
               variant="accent" 
               icon={FaPaperPlane}
-              className="py-3.5 sm:py-4 px-8 text-base sm:text-lg font-bold rounded-xl sm:rounded-full shrink-0 shadow-lg shadow-accent/25 hover:shadow-accent/40"
+              className="py-3 sm:py-4 px-8 text-sm sm:text-lg font-bold rounded-xl sm:rounded-full shrink-0 shadow-lg shadow-accent/25 hover:shadow-accent/40 w-auto mx-auto sm:w-auto self-center"
             >
               Subscribe
             </Button>
           </form>
         )}
 
-        <div className="relative z-10 mt-6 sm:mt-8 flex flex-wrap items-center justify-center gap-5 sm:gap-8 text-xs sm:text-sm text-white/70">
-          <span className="flex items-center gap-2">
-            <FaCheckCircle className="text-accent text-sm" /> No spam guaranteed
+        <div className="relative z-10 mt-6 sm:mt-8 flex flex-wrap items-center justify-center gap-x-4 gap-y-2 sm:gap-8 text-[11px] sm:text-sm text-white/70">
+          <span className="flex items-center gap-1.5 font-medium">
+            <FaCheckCircle className="text-accent text-[12px] sm:text-sm" /> No spam guaranteed
           </span>
-          <span className="flex items-center gap-2">
-            <FaCheckCircle className="text-accent text-sm" /> Expert drying profiles
+          <span className="flex items-center gap-1.5 font-medium">
+            <FaCheckCircle className="text-accent text-[12px] sm:text-sm" /> Expert drying profiles
           </span>
-          <span className="flex items-center gap-2">
-            <FaCheckCircle className="text-accent text-sm" /> Unsubscribe anytime
+          <span className="flex items-center gap-1.5 font-medium w-full justify-center sm:w-auto">
+            <FaCheckCircle className="text-accent text-[12px] sm:text-sm" /> Unsubscribe anytime
           </span>
         </div>
       </div>
