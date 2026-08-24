@@ -3,7 +3,7 @@ import { Menu, X } from 'lucide-react';
 
 export default function MobileHeader({ toggleMenu, isMenuOpen }) {
   return (
-    <header className="fixed top-0 left-0 right-0 h-[72px] bg-white/85 dark:bg-[#1a1a1a]/85 backdrop-blur-lg border-b border-primary/10 dark:border-white/10 z-[60] flex items-center justify-between px-5 shadow-sm">
+    <header className="fixed top-0 left-0 right-0 h-16 bg-white/85 dark:bg-[#1a1a1a]/85 backdrop-blur-lg border-b border-primary/10 dark:border-white/10 z-[60] flex items-center justify-between px-5 shadow-sm">
       <Link to="/" className="flex items-center">
         <h1 className="text-xl font-display font-bold text-primary-text">
           Calor <span className="text-accent">Mega</span>
