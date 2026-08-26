@@ -8,6 +8,16 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800;900&family=Playfair+Display:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800;900&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,600;0,700;0,900;1,400&family=Source+Sans+3:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <script>
+      // VERCEL DEPLOYMENT SETTINGS
+      // When deploying to Vercel, replace the URL below with your actual Vercel desktop link
+      // (e.g., 'https://calormega-desktop.vercel.app')
+      const DESKTOP_SITE_URL = 'https://YOUR-DESKTOP-VERCEL-LINK.vercel.app';
+      
+      if (window.innerWidth > 768 && !window.location.hostname.includes('localhost')) {
+        window.location.replace(DESKTOP_SITE_URL);
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>
