@@ -3,6 +3,7 @@ import * as THREE from 'three';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { FaFileDownload } from 'react-icons/fa';
+import { client } from '../sanityClient';
 import '../index.css'; // Ensure tailwind and global styles are applied
 
 gsap.registerPlugin(ScrollTrigger);
@@ -10,6 +11,20 @@ gsap.registerPlugin(ScrollTrigger);
 export default function Technology() {
   const canvasRef = useRef(null);
   const scrollContainerRef = useRef(null);
+  const [datasheetData, setDatasheetData] = useState(null);
+
+  useEffect(() => {
+    const fetchDatasheet = async () => {
+      try {
+        const query = '*[_type == "technicalDatasheet"][0]';
+        const data = await client.fetch(query);
+        setDatasheetData(data);
+      } catch (error) {
+        console.error("Error fetching technical datasheet:", error);
+      }
+    };
+    fetchDatasheet();
+  }, []);
 
   useEffect(() => {
     // ─── THREE.JS SCENE SETUP ───
@@ -579,7 +594,7 @@ export default function Technology() {
           <div className="mb-8 text-center">
             <div className="inline-block px-3 py-1 mb-3 bg-accent/10 text-accent rounded-full text-xs font-bold tracking-wider uppercase border border-accent/20">Engineering Specs</div>
             <h2 className="text-3xl font-bold font-outfit mb-2">Technical Data Sheet</h2>
-            <div className="text-sm text-secondary-text">CALOR MEGA Batch System Parameters</div>
+            <div className="text-sm text-secondary-text">{datasheetData?.title || 'CALOR MEGA Batch System Parameters'}</div>
           </div>
 
           <div className="overflow-x-auto rounded-xl border border-border shadow-sm mb-10">
@@ -591,38 +606,49 @@ export default function Technology() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-border bg-bg">
-                <tr>
-                  <td className="p-4 font-semibold text-primary-text">Construction</td>
-                  <td className="p-4 text-secondary-text">Double-walled SS304. Reinforced framing.</td>
-                </tr>
-                <tr>
-                  <td className="p-4 font-semibold text-primary-text">Insulation</td>
-                  <td className="p-4 text-secondary-text">75mm high-density rockwool / mineral wool.</td>
-                </tr>
-                <tr>
-                  <td className="p-4 font-semibold text-primary-text">Control System</td>
-                  <td className="p-4 text-secondary-text">PID Digital Controller. Pt100 RTD sensor.</td>
-                </tr>
-                <tr>
-                  <td className="p-4 font-semibold text-primary-text">Capacity</td>
-                  <td className="p-4 text-secondary-text">50 kg, 100 kg, 200 kg, 500 kg, and custom.</td>
-                </tr>
-                <tr>
-                  <td className="p-4 font-semibold text-primary-text">Drying Trays</td>
-                  <td className="p-4 text-secondary-text">Removable SS304 mesh tray racks.</td>
-                </tr>
-                <tr>
-                  <td className="p-4 font-semibold text-primary-text">Heating</td>
-                  <td className="p-4 text-secondary-text">Finned stainless steel armored electric.</td>
-                </tr>
-                <tr>
-                  <td className="p-4 font-semibold text-primary-text">Airflow</td>
-                  <td className="p-4 text-secondary-text">Direct-drive axial flow fans.</td>
-                </tr>
-                <tr>
-                  <td className="p-4 font-semibold text-primary-text">Temperature</td>
-                  <td className="p-4 text-secondary-text">Ambient to 90°C (±1°C accuracy).</td>
-                </tr>
+                {datasheetData && datasheetData.specs && datasheetData.specs.length > 0 ? (
+                  datasheetData.specs.map((spec, index) => (
+                    <tr key={index}>
+                      <td className="p-4 font-semibold text-primary-text">{spec.category}</td>
+                      <td className="p-4 text-secondary-text">{spec.details}</td>
+                    </tr>
+                  ))
+                ) : (
+                  <>
+                    <tr>
+                      <td className="p-4 font-semibold text-primary-text">Construction</td>
+                      <td className="p-4 text-secondary-text">Double-walled SS304. Reinforced framing.</td>
+                    </tr>
+                    <tr>
+                      <td className="p-4 font-semibold text-primary-text">Insulation</td>
+                      <td className="p-4 text-secondary-text">75mm high-density rockwool / mineral wool.</td>
+                    </tr>
+                    <tr>
+                      <td className="p-4 font-semibold text-primary-text">Control System</td>
+                      <td className="p-4 text-secondary-text">PID Digital Controller. Pt100 RTD sensor.</td>
+                    </tr>
+                    <tr>
+                      <td className="p-4 font-semibold text-primary-text">Capacity</td>
+                      <td className="p-4 text-secondary-text">50 kg, 100 kg, 200 kg, 500 kg, and custom.</td>
+                    </tr>
+                    <tr>
+                      <td className="p-4 font-semibold text-primary-text">Drying Trays</td>
+                      <td className="p-4 text-secondary-text">Removable SS304 mesh tray racks.</td>
+                    </tr>
+                    <tr>
+                      <td className="p-4 font-semibold text-primary-text">Heating</td>
+                      <td className="p-4 text-secondary-text">Finned stainless steel armored electric.</td>
+                    </tr>
+                    <tr>
+                      <td className="p-4 font-semibold text-primary-text">Airflow</td>
+                      <td className="p-4 text-secondary-text">Direct-drive axial flow fans.</td>
+                    </tr>
+                    <tr>
+                      <td className="p-4 font-semibold text-primary-text">Temperature</td>
+                      <td className="p-4 text-secondary-text">Ambient to 90°C (±1°C accuracy).</td>
+                    </tr>
+                  </>
+                )}
               </tbody>
             </table>
           </div>

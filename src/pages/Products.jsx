@@ -1,50 +1,48 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Shield, Sparkles, Thermometer, Battery, MapPin } from 'lucide-react';
-import calorMegaImg from '../assets/calor_mega.png';
-import calorMiniImg from '../assets/calor_mini.png';
-import calorStandardImg from '../assets/calor_standard.png';
+import { client, urlFor } from '../sanityClient';
 
 export default function Products() {
-  const products = [
-    {
-      id: 'mega',
-      name: 'Calor Mega',
-      tagline: 'The Complete Dehydration System',
-      img: calorMegaImg,
-      desc: 'Premium commercial walk-in food dehydrator utilizing highly efficient heat-pump moisture extraction. Built as a 10x10 foot insulated room, it is perfect for agricultural hubs and high-volume cooperatives looking to eliminate post-harvest crop waste.',
-      capacity: '1200 Liters / 24 hrs',
-      sizing: 'Suitable for spaces up to 1,000 sq ft',
-      energy: '5-Star Energy Rating (Heat-Pump Tech)',
-      specs: ['10x10x8 ft modular Aluminium room', 'Polyurethane foam double-insulation', 'Precision digital thermostat & hydrostat', 'Multi-point air distribution blowers'],
-      price: '$12,500',
-    },
-    {
-      id: 'standard',
-      name: 'Calor Standard',
-      tagline: 'Artisanal & Cooperative Mid-Range',
-      img: calorStandardImg,
-      desc: 'A heavy-duty, stand-alone commercial cabinet dehumidifier. Highly recommended for regional food processing labs, specialized seed drying, and medium-scale farms that require constant relative humidity controls.',
-      capacity: '350 Liters / 24 hrs',
-      sizing: 'Suitable for spaces up to 350 sq ft',
-      energy: '4.5-Star Energy Rating',
-      specs: ['Stainless steel food-grade inner cabinet', '12 adjustable sliding shelves', 'Multi-zone digital feedback sensors', 'Auto-drain continuous hose system'],
-      price: '$4,200',
-    },
-    {
-      id: 'mini',
-      name: 'Calor Mini',
-      tagline: 'Desktop Precision Dehumidifier',
-      img: calorMiniImg,
-      desc: 'Compact desktop-grade dehydrator scaled down to preserve high-value artisanal batches, botanicals, and small-scale testing. Offers zero-hotspot heat distribution with a premium stainless steel structure.',
-      capacity: '80 Liters / 24 hrs',
-      sizing: 'Suitable for spaces up to 80 sq ft',
-      energy: '4-Star Energy Rating',
-      specs: ['Desktop footprint (2x2 ft)', 'Smart touchscreen control panel', '6 slide-out stainless steel mesh trays', 'Dual-axis micro-circulation fans'],
-      price: '$1,800',
-    }
-  ];
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const query = `*[_type == "product" && (!defined(status) || status == 'current')] | order(_createdAt asc) {
+          _id,
+          name,
+          slug,
+          tagline,
+          desc,
+          capacity,
+          sizing,
+          energy,
+          specs,
+          price,
+          img
+        }`;
+        const data = await client.fetch(query);
+        setProducts(data);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+        setLoading(false);
+      }
+    };
+
+    fetchProducts();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="w-full py-32 flex justify-center items-center">
+        <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-accent"></div>
+      </div>
+    );
+  }
 
   return (
     <div className="w-full py-16 px-6 md:px-12 bg-bg transition-colors duration-300">
@@ -63,7 +61,7 @@ export default function Products() {
         <div className="flex flex-col gap-12">
           {products.map((product, idx) => (
             <motion.div
-              key={product.id}
+              key={product._id}
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
@@ -72,11 +70,13 @@ export default function Products() {
             >
               {/* Product Image Column */}
               <div className="lg:col-span-5 flex justify-center p-4 bg-bg rounded-2xl border border-border/50">
-                <img
-                  src={product.img}
-                  alt={`${product.name} Cabinet`}
-                  className="max-h-[350px] w-auto object-contain hover:scale-105 transition-transform duration-500 rounded-xl"
-                />
+                {product.img && (
+                  <img
+                    src={urlFor(product.img).url()}
+                    alt={`${product.name} Cabinet`}
+                    className="max-h-[350px] w-auto object-contain hover:scale-105 transition-transform duration-500 rounded-xl"
+                  />
+                )}
               </div>
 
               {/* Product Info Column */}
@@ -114,7 +114,7 @@ export default function Products() {
                 <div>
                   <h4 className="text-[18px] font-bold text-primary-text mb-2">Key Hardware Specifications:</h4>
                   <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                    {product.specs.map((spec, i) => (
+                    {product.specs && product.specs.map((spec, i) => (
                       <li key={i} className="flex gap-2 items-start text-[18px] text-secondary-text">
                         <span className="text-accent mt-1.5">&#9670;</span>
                         <span>{spec}</span>
@@ -131,7 +131,7 @@ export default function Products() {
                   </div>
                   <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
                     <Link
-                      to={`/products/${product.id}`}
+                      to={`/products/${product.slug?.current}`}
                       className="inline-flex items-center justify-center px-8 h-14 bg-accent hover:bg-accent/90 active:scale-95 text-white text-[18px] font-bold rounded-lg transition-all shadow-btn focus:outline-none focus:ring-4 focus:ring-accent"
                     >
                       View Details

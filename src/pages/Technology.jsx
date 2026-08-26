@@ -3,6 +3,7 @@ import * as THREE from 'three';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { FaFileDownload, FaWhatsapp, FaArrowRight, FaChevronDown } from 'react-icons/fa';
+import { client } from '../sanityClient';
 import './Technology.css';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -12,6 +13,20 @@ export default function Technology() {
   const containerRef = useRef(null);
   const centerBlockRef = useRef(null);
   const [isScrolledToBottom, setIsScrolledToBottom] = useState(false);
+  const [datasheetData, setDatasheetData] = useState(null);
+
+  useEffect(() => {
+    const fetchDatasheet = async () => {
+      try {
+        const query = '*[_type == "technicalDatasheet"][0]';
+        const data = await client.fetch(query);
+        setDatasheetData(data);
+      } catch (error) {
+        console.error("Error fetching technical datasheet:", error);
+      }
+    };
+    fetchDatasheet();
+  }, []);
 
   // ─── ZOOM LOCK (Applies strictly to Technology page) ───
   useEffect(() => {
@@ -597,7 +612,7 @@ export default function Technology() {
           <div className="datasheet-header">
             <div className="engineering-label">Engineering Specs</div>
             <h2>Technical Data Sheet</h2>
-            <div className="system-params">CALOR MEGA Batch System Parameters</div>
+            <div className="system-params">{datasheetData?.title || 'CALOR MEGA Batch System Parameters'}</div>
           </div>
 
           <table className="specs-table">
@@ -608,46 +623,57 @@ export default function Technology() {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>Construction</td>
-                <td>Double-walled heavy gauge Stainless Steel (SS304 outer/inner, optional SS316 internal chamber for high-acid produce). Reinforced structural framing.</td>
-              </tr>
-              <tr>
-                <td>Thermal Insulation</td>
-                <td>75mm high-density rockwool / mineral wool insulation, minimizing heat dissipation and casing temperature.</td>
-              </tr>
-              <tr>
-                <td>Control System</td>
-                <td>Microprocessor-based PID Digital Controller with dual displays for PV (Process Value) and SV (Set Value). Dynamic Pt100 RTD sensor.</td>
-              </tr>
-              <tr>
-                <td>Capacity Range</td>
-                <td>Standard industrial configurations of 50 kg, 100 kg, 200 kg, 500 kg, and custom 1000+ kg continuous batch processing setups.</td>
-              </tr>
-              <tr>
-                <td>Drying Trays</td>
-                <td>Removable SS304 mesh tray racks. Wire mesh spacing customized for tiny seeds, herbs, or large fruit chunks.</td>
-              </tr>
-              <tr>
-                <td>Heating Method</td>
-                <td>Finned stainless steel armored electric heating elements, with support for steam heating coils or hot water heat exchangers.</td>
-              </tr>
-              <tr>
-                <td>Airflow System</td>
-                <td>Direct-drive, dynamically balanced axial flow fans with high-temperature resistance and adjustable speed control for tailored laminar airflow.</td>
-              </tr>
-              <tr>
-                <td>Temperature Range</td>
-                <td>Ambient to 90°C, adjustable with ±1°C accuracy. Built-in thermal safety override cut-off.</td>
-              </tr>
-              <tr>
-                <td>Humidity Control</td>
-                <td>Active electronic humidity transmitter. Automated electric actuator dampers for exhaust air evacuation.</td>
-              </tr>
-              <tr>
-                <td>Installation and Service</td>
-                <td>Factory-assembled skid-mounted design for rapid commissioning. Simple three-phase electrical input connection.</td>
-              </tr>
+              {datasheetData && datasheetData.specs && datasheetData.specs.length > 0 ? (
+                datasheetData.specs.map((spec, index) => (
+                  <tr key={index}>
+                    <td>{spec.category}</td>
+                    <td>{spec.details}</td>
+                  </tr>
+                ))
+              ) : (
+                <>
+                  <tr>
+                    <td>Construction</td>
+                    <td>Double-walled heavy gauge Stainless Steel (SS304 outer/inner, optional SS316 internal chamber for high-acid produce). Reinforced structural framing.</td>
+                  </tr>
+                  <tr>
+                    <td>Thermal Insulation</td>
+                    <td>75mm high-density rockwool / mineral wool insulation, minimizing heat dissipation and casing temperature.</td>
+                  </tr>
+                  <tr>
+                    <td>Control System</td>
+                    <td>Microprocessor-based PID Digital Controller with dual displays for PV (Process Value) and SV (Set Value). Dynamic Pt100 RTD sensor.</td>
+                  </tr>
+                  <tr>
+                    <td>Capacity Range</td>
+                    <td>Standard industrial configurations of 50 kg, 100 kg, 200 kg, 500 kg, and custom 1000+ kg continuous batch processing setups.</td>
+                  </tr>
+                  <tr>
+                    <td>Drying Trays</td>
+                    <td>Removable SS304 mesh tray racks. Wire mesh spacing customized for tiny seeds, herbs, or large fruit chunks.</td>
+                  </tr>
+                  <tr>
+                    <td>Heating Method</td>
+                    <td>Finned stainless steel armored electric heating elements, with support for steam heating coils or hot water heat exchangers.</td>
+                  </tr>
+                  <tr>
+                    <td>Airflow System</td>
+                    <td>Direct-drive, dynamically balanced axial flow fans with high-temperature resistance and adjustable speed control for tailored laminar airflow.</td>
+                  </tr>
+                  <tr>
+                    <td>Temperature Range</td>
+                    <td>Ambient to 90°C, adjustable with ±1°C accuracy. Built-in thermal safety override cut-off.</td>
+                  </tr>
+                  <tr>
+                    <td>Humidity Control</td>
+                    <td>Active electronic humidity transmitter. Automated electric actuator dampers for exhaust air evacuation.</td>
+                  </tr>
+                  <tr>
+                    <td>Installation and Service</td>
+                    <td>Factory-assembled skid-mounted design for rapid commissioning. Simple three-phase electrical input connection.</td>
+                  </tr>
+                </>
+              )}
             </tbody>
           </table>
 

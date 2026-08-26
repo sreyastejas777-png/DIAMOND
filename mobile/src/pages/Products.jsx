@@ -1,51 +1,49 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Shield, Sparkles, Thermometer, Battery, MapPin } from 'lucide-react';
-import calorMegaImg from '../assets/calor_mega.png';
-import calorMiniImg from '../assets/calor_mini.png';
-import calorStandardImg from '../assets/calor_standard.png';
 import SectionHeading from '../components/SectionHeading';
+import { client, urlFor } from '../sanityClient';
 
 export default function Products() {
-  const products = [
-    {
-      id: 'mega',
-      name: 'Calor Mega',
-      tagline: 'Complete Dehydration System',
-      img: calorMegaImg,
-      desc: 'Premium commercial walk-in food dehydrator utilizing highly efficient heat-pump moisture extraction. Perfect for agricultural hubs.',
-      capacity: '1200L / 24 hrs',
-      sizing: 'Up to 1,000 sq ft',
-      energy: '5-Star Heat-Pump',
-      specs: ['10x10x8 ft Aluminium room', 'Polyurethane double-insulation', 'Precision digital thermostat', 'Multi-point air blowers'],
-      price: '$12,500',
-    },
-    {
-      id: 'standard',
-      name: 'Calor Standard',
-      tagline: 'Cooperative Mid-Range',
-      img: calorStandardImg,
-      desc: 'A heavy-duty commercial cabinet dehumidifier. Recommended for regional labs and medium-scale farms.',
-      capacity: '350L / 24 hrs',
-      sizing: 'Up to 350 sq ft',
-      energy: '4.5-Star Rating',
-      specs: ['Stainless steel cabinet', '12 slide shelves', 'Multi-zone sensors', 'Auto-drain system'],
-      price: '$4,200',
-    },
-    {
-      id: 'mini',
-      name: 'Calor Mini',
-      tagline: 'Desktop Precision',
-      img: calorMiniImg,
-      desc: 'Compact desktop dehydrator scaled down to preserve high-value artisanal batches and botanicals.',
-      capacity: '80L / 24 hrs',
-      sizing: 'Up to 80 sq ft',
-      energy: '4-Star Rating',
-      specs: ['Desktop footprint (2x2 ft)', 'Touchscreen control', '6 stainless mesh trays', 'Dual-axis fans'],
-      price: '$1,800',
-    }
-  ];
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const query = `*[_type == "product" && (!defined(status) || status == 'current')] | order(_createdAt asc) {
+          _id,
+          name,
+          slug,
+          tagline,
+          desc,
+          capacity,
+          sizing,
+          energy,
+          specs,
+          price,
+          img
+        }`;
+        const data = await client.fetch(query);
+        setProducts(data);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+        setLoading(false);
+      }
+    };
+
+    fetchProducts();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="w-full py-32 flex justify-center items-center min-h-[60vh] bg-bg">
+        <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-accent"></div>
+      </div>
+    );
+  }
 
   return (
     <div className="w-full py-8 px-4 bg-bg min-h-screen">
@@ -60,7 +58,7 @@ export default function Products() {
         <div className="flex flex-col gap-6">
           {products.map((product, idx) => (
             <motion.div
-              key={product.id}
+              key={product._id}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
@@ -68,11 +66,13 @@ export default function Products() {
               className="p-5 rounded-3xl bg-surface border border-border shadow-soft flex flex-col gap-5"
             >
               <div className="flex justify-center p-4 bg-bg rounded-2xl border border-border/50">
-                <img
-                  src={product.img}
-                  alt={`${product.name} Cabinet`}
-                  className="max-h-[220px] w-auto object-contain drop-shadow-md"
-                />
+                {product.img && (
+                  <img
+                    src={urlFor(product.img).url()}
+                    alt={`${product.name} Cabinet`}
+                    className="max-h-[220px] w-auto object-contain drop-shadow-md"
+                  />
+                )}
               </div>
 
               <div className="flex flex-col gap-4">
@@ -102,7 +102,7 @@ export default function Products() {
                 <div>
                   <h4 className="text-sm font-bold text-primary-text mb-2">Key Specs:</h4>
                   <ul className="flex flex-col gap-1.5">
-                    {product.specs.map((spec, i) => (
+                    {product.specs && product.specs.map((spec, i) => (
                       <li key={i} className="flex gap-2 items-start text-sm text-secondary-text">
                         <span className="text-accent text-[10px] mt-1">&#9670;</span>
                         <span>{spec}</span>
@@ -117,7 +117,7 @@ export default function Products() {
                     <span className="text-xl font-extrabold text-primary-text">{product.price}</span>
                   </div>
                   <Link
-                    to={`/products/${product.id}`}
+                    to={`/products/${product.slug?.current}`}
                     className="flex items-center justify-center w-full py-3.5 bg-accent text-white text-sm font-bold rounded-xl shadow-btn active:scale-95 transition-transform"
                   >
                     View Details

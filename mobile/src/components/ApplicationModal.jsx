@@ -3,11 +3,10 @@ import { FaTimes, FaArrowRight, FaLeaf, FaCheckCircle } from 'react-icons/fa';
 import { GiFallingLeaf } from 'react-icons/gi';
 import { Link } from 'react-router-dom';
 import Button from './Button';
-import { getApplicationByTitle } from '../data/applications';
 
-export default function ApplicationModal({ application, onClose, onSelectRelated }) {
+export default function ApplicationModal({ application, allApplications, onClose, onSelectRelated }) {
   const app = application;
-  const related = app ? getApplicationByTitle(app.related) : null;
+  const related = app && app.related ? allApplications?.find(a => a.title === app.related) : null;
 
   return (
     <AnimatePresence>

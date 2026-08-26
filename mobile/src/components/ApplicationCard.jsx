@@ -1,7 +1,8 @@
 import { motion } from 'framer-motion';
-
+import getIconForApplication from '../utils/IconEngine';
 export default function ApplicationCard({ application, index = 0, onSelect, disableEntranceAnimation = false, layoutId, disableLayoutAnimation = false }) {
-  const { icon: Icon, title, description } = application;
+  const { title, description, category } = application;
+  const Icon = getIconForApplication(title, category);
   const finalLayoutId = disableLayoutAnimation ? undefined : (layoutId || `app-card-${title}`);
 
   return (

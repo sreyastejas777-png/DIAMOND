@@ -4,8 +4,8 @@ import SectionHeading from '../components/SectionHeading';
 import ApplicationCard from '../components/ApplicationCard';
 import ApplicationModal from '../components/ApplicationModal';
 
-import { applications } from '../data/applications';
-
+import { useEffect } from 'react';
+import { client } from '../sanityClient';
 const categories = [
   'All',
   'Fruits',
@@ -20,6 +20,19 @@ const categories = [
 export default function Applications() {
   const [selectedApp, setSelectedApp] = useState(null);
   const [activeCategory, setActiveCategory] = useState('All');
+  const [applications, setApplications] = useState([]);
+
+  useEffect(() => {
+    const fetchApps = async () => {
+      try {
+        const data = await client.fetch(`*[_type == "application"] | order(_createdAt asc)`);
+        setApplications(data);
+      } catch (error) {
+        console.error("Error fetching applications:", error);
+      }
+    };
+    fetchApps();
+  }, []);
 
   const filteredApps = activeCategory === 'All'
     ? applications
@@ -71,6 +84,7 @@ export default function Applications() {
 
       <ApplicationModal
         application={selectedApp}
+        allApplications={applications}
         onClose={() => setSelectedApp(null)}
         onSelectRelated={setSelectedApp}
       />

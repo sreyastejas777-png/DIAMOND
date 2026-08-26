@@ -1,118 +1,36 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Shield, Check, Info, Hammer, PenTool, Flame, Zap, HelpCircle } from 'lucide-react';
-import calorMegaImg from '../assets/calor_mega.png';
-import calorMiniImg from '../assets/calor_mini.png';
-import calorStandardImg from '../assets/calor_standard.png';
+import { client, urlFor } from '../sanityClient';
 
 export default function ProductDetail() {
   const { id } = useParams();
-  const [activeTab, setActiveTab] = useState('specs'); // 'specs', 'installation', 'maintenance'
+  const [activeTab, setActiveTab] = useState('specs');
+  const [product, setProduct] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  // Detailed product database
-  const productDb = {
-    mega: {
-      name: 'Calor Mega Dehydrator',
-      tagline: 'Flagship Walk-In Controlled Post-Harvest Preservation System',
-      price: '$12,500',
-      img: calorMegaImg,
-      gallery: [calorMegaImg, calorMiniImg, calorStandardImg],
-      overview: 'The Calor Mega represents the pinnacle of commercial post-harvest crop preservation technology. Engineered as a modular 10x10 foot insulated walk-in unit, it operates on a highly sophisticated heat-pump dehumidification system. Unlike traditional hot-air dryers that scorch crops and degrade nutrients, the Calor Mega extracts moisture gently at moderate temperatures, preserving critical carotenoids, vitamins, and natural colorings.',
-      warranty: '2-Year Premium Commercial Warranty (including on-site repairs)',
-      energy: 'Average consumption: 3.2 kW. Highly optimized heat-recycling compressor cycle reduces electricity usage by up to 45% compared to resistance heaters.',
-      specs: [
-        { label: 'Room Dimensions', value: '10 x 10 x 8 feet (Modular)' },
-        { label: 'Dehumidification Capacity', value: '1,200 Liters / 24 Hours' },
-        { label: 'Structure', value: 'Double-walled food-grade rust-free Aluminium' },
-        { label: 'Thermal Core', value: 'Polyurethane injected foam insulation (R-16 value)' },
-        { label: 'Air Flow Rate', value: '4,500 CFM balanced multi-axis circulation' },
-        { label: 'Control Terminal', value: 'Externally mounted LCD PLC touchscreen' }
-      ],
-      features: [
-        'Precise Relative Humidity (RH) tuning down to 5% baseline.',
-        'Intelligent crop-specific profiles (e.g. mango slices, seeds, herbs).',
-        'Balanced multi-fan arrangement prevents temperature dead-zones.',
-        'Continuous automatic drainage system (no manual reservoirs to empty).',
-        'Double-sealed airtight doors with heavy-duty secure clamp locks.'
-      ],
-      useCases: [
-        'Large agriculture cooperatives seeking to eliminate harvest waste.',
-        'Dehydrated fruit and segment export businesses.',
-        'High-capacity commercial powder, flour, and snack manufacturing.',
-        'Regional seed banking and premium crop preservation.'
-      ],
-      installation: 'Requires a level concrete slab or flat indoor floor. Requires a dedicated 220V/30A single-phase power hookup. The modular panels are delivered on pallets and assembled on-site by CalorTech certified technicians within 6-8 hours.',
-      maintenance: 'Clean internal air filters once every two weeks using warm water. Sanitize the food-grade interior walls monthly with mild antimicrobial wash. Schedule annual condenser coil cleaning by a certified HVAC technician.'
-    },
-    standard: {
-      name: 'Calor Standard Dehydrator',
-      tagline: 'Cooperative-Grade Mid-Sized Cabinet Dehumidifier',
-      price: '$4,200',
-      img: calorStandardImg,
-      gallery: [calorStandardImg, calorMegaImg, calorMiniImg],
-      overview: 'The Calor Standard is a stand-alone cabinet dehumidifier designed for medium-scale processing facilities, regional seed drying labs, and artisanal food creators. Constructed from high-strength stainless steel, it features 12 adjustable trays and a robust automated compressor system that ensures stable humidity control without manual intervention.',
-      warranty: '2-Year Hardware Warranty (parts replacement and phone support)',
-      energy: 'Average consumption: 1.2 kW. Energy Star compliant rotary compressor.',
-      specs: [
-        { label: 'Dimensions', value: '3 x 3 x 6 feet (H x W x D)' },
-        { label: 'Capacity', value: '350 Liters / 24 Hours' },
-        { label: 'Interior Shelves', value: '12 food-grade adjustable stainless steel grids' },
-        { label: 'Structure Material', value: 'Brushed SUS304 stainless steel interior & exterior' },
-        { label: 'Controller', value: 'Digital panel with LED status displays' },
-        { label: 'Drainage Type', value: 'Auto-drain hose outlet or integrated 10L tank' }
-      ],
-      features: [
-        'Relative Humidity control adjustable between 20% and 80%.',
-        'Quiet-run scroll compressor design minimizes workshop noise.',
-        'Sturdy industrial castor wheels with locking brakes for mobility.',
-        'Overheat cut-off safety switch automatically halts operation if exceeded.',
-        'High-efficiency condensation trap collection coils.'
-      ],
-      useCases: [
-        'Boutique dried fruit, beef jerky, and snack food artisans.',
-        'Seed multiplication and processing laboratories.',
-        'Medium-sized organic herb and tea growers.',
-        'Preservation testing before scaling up to Calor Mega.'
-      ],
-      installation: 'Fully assembled upon arrival. Place on a flat interior floor surface. Plugs into a standard 110V/15A or 220V electrical outlet. Connect the drainage hose to a nearby drain or ensure the collection bucket is monitored.',
-      maintenance: 'Empty collection bucket when full (if not using hose). Clean mesh trays in a commercial dishwasher after each run. Check air filters monthly and blow out any accumulated dust.'
-    },
-    mini: {
-      name: 'Calor Mini Dehydrator',
-      tagline: 'Desktop Precision Thermal Dehumidifier',
-      price: '$1,800',
-      img: calorMiniImg,
-      gallery: [calorMiniImg, calorMegaImg, calorStandardImg],
-      overview: 'The Calor Mini is our compact, desktop-class dehydrator designed to offer professional-grade humidity control for small artisanal batches, culinary labs, and botanical creators. Constructed with a premium stainless steel chassis, it delivers highly balanced, zero-hotspot heat distribution via dual-axis micro-fans.',
-      warranty: '1-Year Limited Parts & Repair Warranty',
-      energy: 'Average consumption: 0.45 kW. Highly efficient low-amp thermal micro-heater.',
-      specs: [
-        { label: 'Dimensions', value: '2 x 2 x 2.2 feet (Desktop sized)' },
-        { label: 'Capacity', value: '80 Liters / 24 Hours' },
-        { label: 'Tray Count', value: '6 food-grade slide-out stainless steel mesh trays' },
-        { label: 'Total Tray Area', value: '24 sq ft total drying space' },
-        { label: 'Controller', value: 'Smart touchscreen control with presets' },
-        { label: 'Air Circulation', value: 'Dual-axis micro-fans for zero-hotspot heat' }
-      ],
-      features: [
-        'Ultra-precise digital thermostat control (30°C to 75°C).',
-        'Glass viewport window with interior LED lamp to monitor cycles.',
-        'Quiet-flow ventilation system runs at under 45 decibels.',
-        'Compact footprint easily fits on standard laboratory tables.',
-        'Dishwasher-safe trays make sanitation extremely quick.'
-      ],
-      useCases: [
-        'Culinary testing, restaurant kitchens, and recipe formulation.',
-        'High-value botanical and medicinal herb drying.',
-        'Small-scale home gardeners and preserving specialty ingredients.',
-        'University agricultural labs and research projects.'
-      ],
-      installation: 'Fully assembled. Place on any sturdy countertop or desktop table. Standard 110V household plug-and-play hookup. No special ventilation required.',
-      maintenance: 'Wipe down the interior cabinet walls with a damp microfiber cloth after use. Wash the mesh shelves. Clean the rear fan grill monthly to maintain proper airflow.'
-    }
-  };
+  useEffect(() => {
+    const fetchProduct = async () => {
+      try {
+        const query = `*[_type == "product" && slug.current == $slug][0]`;
+        const data = await client.fetch(query, { slug: id });
+        setProduct(data);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching product details:", error);
+        setLoading(false);
+      }
+    };
+    fetchProduct();
+  }, [id]);
 
-  const product = productDb[id];
+  if (loading) {
+    return (
+      <div className="w-full py-32 flex justify-center items-center min-h-[60vh] bg-bg">
+        <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-accent"></div>
+      </div>
+    );
+  }
 
   if (!product) {
     return (
@@ -142,17 +60,19 @@ export default function ProductDetail() {
           {/* Gallery Column */}
           <div className="lg:col-span-5 flex flex-col gap-4">
             <div className="p-5 md:p-6 bg-surface border border-border rounded-2xl shadow-skeuo-out flex items-center justify-center">
-              <img
-                src={product.img}
-                alt={product.name}
-                className="max-h-[450px] w-auto object-contain rounded-xl"
-              />
+              {product.img && (
+                <img
+                  src={urlFor(product.img).url()}
+                  alt={product.name}
+                  className="max-h-[450px] w-auto object-contain rounded-xl"
+                />
+              )}
             </div>
             {/* Small thumbnails */}
             <div className="grid grid-cols-3 gap-4">
-              {product.gallery.map((thumb, idx) => (
+              {product.gallery && product.gallery.map((thumb, idx) => (
                 <div key={idx} className="p-2 bg-surface border border-border rounded-lg shadow-skeuo-in flex items-center justify-center cursor-pointer hover:border-accent transition-colors">
-                  <img src={thumb} alt="thumbnail" className="h-16 w-auto object-contain" />
+                  <img src={urlFor(thumb).url()} alt="thumbnail" className="h-16 w-auto object-contain" />
                 </div>
               ))}
             </div>
@@ -232,7 +152,7 @@ export default function ProductDetail() {
                   <h3 className="text-2xl font-bold text-primary-text font-outfit">Physical Specs Sheet</h3>
                   <table className="w-full text-left border-collapse text-[18px]">
                     <tbody>
-                      {product.specs.map((item, i) => (
+                      {product.detailedSpecs && product.detailedSpecs.map((item, i) => (
                         <tr key={i} className="border-b border-border/60 hover:bg-brand-light transition-colors">
                           <td className="py-3 pr-4 font-bold text-secondary-text w-1/3">{item.label}</td>
                           <td className="py-3 text-primary-text font-semibold">{item.value}</td>
@@ -247,7 +167,7 @@ export default function ProductDetail() {
                   <div>
                     <h3 className="text-2xl font-bold text-primary-text font-outfit mb-3">Key Design Advantages</h3>
                     <ul className="flex flex-col gap-2">
-                      {product.features.map((feature, i) => (
+                      {product.features && product.features.map((feature, i) => (
                         <li key={i} className="flex gap-2 items-start text-[18px] text-secondary-text">
                           <Check className="w-5 h-5 text-accent mt-1 flex-shrink-0" />
                           <span>{feature}</span>
@@ -259,7 +179,7 @@ export default function ProductDetail() {
                   <div>
                     <h3 className="text-2xl font-bold text-primary-text font-outfit mb-3">Ideal Sizing & Use Cases</h3>
                     <ul className="flex flex-col gap-2">
-                      {product.useCases.map((use, i) => (
+                      {product.useCases && product.useCases.map((use, i) => (
                         <li key={i} className="flex gap-2 items-start text-[18px] text-secondary-text">
                           <Info className="w-5 h-5 text-accent mt-1 flex-shrink-0" />
                           <span>{use}</span>
