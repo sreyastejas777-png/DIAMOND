@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Shield, Sparkles, Thermometer, Battery, MapPin } from 'lucide-react';
 import { client, urlFor } from '../sanityClient';
-
+import { formatPriceWithUSD } from '../utils/priceUtils';
 export default function Products() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -127,7 +127,7 @@ export default function Products() {
                 <div className="flex flex-col sm:flex-row items-center justify-between gap-6 pt-4 border-t border-border/40">
                   <div className="flex flex-col">
                     <span className="text-secondary-text text-[18px]">Starting Price</span>
-                    <span className="text-3xl font-extrabold text-primary-text">{product.price} USD</span>
+                    <span className="text-3xl font-extrabold text-primary-text">{formatPriceWithUSD(product.price)}</span>
                   </div>
                   <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
                     <Link
