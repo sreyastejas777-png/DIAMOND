@@ -13,15 +13,13 @@ export const formatPriceWithUSD = (priceStr) => {
       const usdValue = Math.round(rawNumber / EXCHANGE_RATE);
       // Format USD: $2,400
       const usdFormatted = new Intl.NumberFormat('en-US', {
-        style: 'currency',
-        currency: 'USD',
         maximumFractionDigits: 0
       }).format(usdValue);
       
       // Clean up the original string if they had "USD" at the end as a placeholder
       let cleanPriceStr = str.replace(/\s*USD\s*$/i, '');
       
-      return `${cleanPriceStr} (${usdFormatted})`;
+      return `${cleanPriceStr} (${usdFormatted} USD)`;
     }
   }
   
