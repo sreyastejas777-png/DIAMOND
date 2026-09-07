@@ -7,6 +7,7 @@ import LoadingScreen from './components/LoadingScreen';
 // Pages
 import Home from './pages/Home';
 import Products from './pages/Products';
+import ProductDetail from './pages/ProductDetail';
 import Gallery from './pages/Gallery';
 import About from './pages/About';
 import Technology from './pages/Technology';
@@ -33,6 +34,7 @@ function App() {
         <Route element={<Layout />}>
           <Route path="/" element={<Home />} />
           <Route path="/products" element={<Products />} />
+          <Route path="/products/:id" element={<ProductDetail />} />
           <Route path="/gallery" element={<Gallery />} />
           <Route path="/about" element={<About />} />
           <Route path="/technology" element={<Technology />} />
