@@ -37,19 +37,34 @@ export default function About() {
             Industrial Machinery Manufacturing & Applied R&D
           </p>
 
-          <div className="flex flex-col gap-3 mt-4 text-left">
-            <div className="p-4 bg-surface border border-border rounded-2xl shadow-soft flex items-start gap-3">
-              <Calendar className="w-5 h-5 text-accent mt-0.5 shrink-0" />
-              <div>
-                <strong className="block text-primary-text text-sm mb-0.5">Established</strong>
-                <span className="text-secondary-text text-xs">March 12, 2026</span>
+          <div className="flex flex-col gap-6 mt-8 text-left">
+            {/* Established Box */}
+            <div className="relative animate-swing origin-top">
+              {/* Chains */}
+              <div className="absolute -top-4 left-6 w-0.5 h-4 bg-gradient-to-b from-slate-400 to-slate-300 dark:from-slate-600 dark:to-slate-500 rounded-full shadow-sm" />
+              <div className="absolute -top-4 right-6 w-0.5 h-4 bg-gradient-to-b from-slate-400 to-slate-300 dark:from-slate-600 dark:to-slate-500 rounded-full shadow-sm" />
+              
+              <div className="p-4 bg-surface border border-border rounded-2xl shadow-soft flex items-start gap-3">
+                <Calendar className="w-5 h-5 text-accent mt-0.5 shrink-0" />
+                <div>
+                  <strong className="block text-primary-text text-sm mb-0.5">Established</strong>
+                  <span className="text-secondary-text text-xs">March 12, 2026</span>
+                </div>
               </div>
             </div>
-            <div className="p-4 bg-surface border border-border rounded-2xl shadow-soft flex items-start gap-3">
-              <Building2 className="w-5 h-5 text-accent mt-0.5 shrink-0" />
-              <div>
-                <strong className="block text-primary-text text-sm mb-0.5">Inaugurated By</strong>
-                <span className="text-secondary-text text-xs">Dr. Arunkumar (Former Director, IHRD)</span>
+
+            {/* Inaugurated Box */}
+            <div className="relative animate-[swing_3.5s_ease-in-out_infinite_reverse] origin-top">
+              {/* Chains */}
+              <div className="absolute -top-4 left-6 w-0.5 h-4 bg-gradient-to-b from-slate-400 to-slate-300 dark:from-slate-600 dark:to-slate-500 rounded-full shadow-sm" />
+              <div className="absolute -top-4 right-6 w-0.5 h-4 bg-gradient-to-b from-slate-400 to-slate-300 dark:from-slate-600 dark:to-slate-500 rounded-full shadow-sm" />
+              
+              <div className="p-4 bg-surface border border-border rounded-2xl shadow-soft flex items-start gap-3">
+                <Building2 className="w-5 h-5 text-accent mt-0.5 shrink-0" />
+                <div>
+                  <strong className="block text-primary-text text-sm mb-0.5">Inaugurated By</strong>
+                  <span className="text-secondary-text text-xs">Dr. Arunkumar (Former Director, IHRD)</span>
+                </div>
               </div>
             </div>
           </div>

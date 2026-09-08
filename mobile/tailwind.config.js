@@ -47,11 +47,16 @@ export default {
         'spin-slow': 'spin 8s linear infinite',
         float: 'float 6s ease-in-out infinite',
         'float-delay': 'float 6s ease-in-out 2s infinite',
+        swing: 'swing 4s ease-in-out infinite',
       },
       keyframes: {
         float: {
           '0%, 100%': { transform: 'translateY(0px)' },
           '50%': { transform: 'translateY(-20px)' },
+        },
+        swing: {
+          '0%, 100%': { transform: 'rotate(2deg)' },
+          '50%': { transform: 'rotate(-2deg)' },
         },
       },
     },
