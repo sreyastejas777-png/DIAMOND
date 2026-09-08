@@ -59,135 +59,71 @@ export default function About() {
 
           <div className="flex flex-col gap-6 mt-8 text-left">
             {/* Established Box */}
-            <div className="relative animate-swing origin-top">
-              {/* Chains */}
-              <svg className="absolute -top-5 left-[23px] w-1.5 h-6 text-slate-400 dark:text-slate-500 drop-shadow-sm" viewBox="0 0 6 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                <rect x="1" y="0" width="4" height="8" rx="2" />
-                <rect x="1" y="6" width="4" height="8" rx="2" />
-                <rect x="1" y="12" width="4" height="8" rx="2" />
-                <rect x="1" y="18" width="4" height="8" rx="2" />
-              </svg>
-              <svg className="absolute -top-5 right-[23px] w-1.5 h-6 text-slate-400 dark:text-slate-500 drop-shadow-sm" viewBox="0 0 6 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                <rect x="1" y="0" width="4" height="8" rx="2" />
-                <rect x="1" y="6" width="4" height="8" rx="2" />
-                <rect x="1" y="12" width="4" height="8" rx="2" />
-                <rect x="1" y="18" width="4" height="8" rx="2" />
-              </svg>
-              
-              <div className="p-4 bg-surface border border-border rounded-2xl shadow-soft flex items-start gap-3">
-                <Calendar className="w-5 h-5 text-accent mt-0.5 shrink-0" />
-                <div>
-                  <strong className="block text-primary-text text-sm mb-0.5">Established</strong>
-                  <span className="text-secondary-text text-xs">March 12, 2026</span>
-                </div>
+            <motion.div 
+              className="p-4 bg-surface border border-border rounded-2xl shadow-soft flex items-start gap-3"
+              initial={fadeUp.initial}
+              whileInView={fadeUp.whileInView}
+              viewport={fadeUp.viewport}
+              transition={{ ...fadeUp.transition, delay: 0.1 }}
+            >
+              <Calendar className="w-5 h-5 text-accent mt-0.5 shrink-0" />
+              <div>
+                <strong className="block text-primary-text text-sm mb-0.5">Established</strong>
+                <span className="text-secondary-text text-xs">March 12, 2026</span>
               </div>
-            </div>
+            </motion.div>
 
             {/* Inaugurated Box */}
-            <div className="relative animate-[swing_3.5s_ease-in-out_infinite_reverse] origin-top">
-              {/* Chains */}
-              <svg className="absolute -top-5 left-[23px] w-1.5 h-6 text-slate-400 dark:text-slate-500 drop-shadow-sm" viewBox="0 0 6 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                <rect x="1" y="0" width="4" height="8" rx="2" />
-                <rect x="1" y="6" width="4" height="8" rx="2" />
-                <rect x="1" y="12" width="4" height="8" rx="2" />
-                <rect x="1" y="18" width="4" height="8" rx="2" />
-              </svg>
-              <svg className="absolute -top-5 right-[23px] w-1.5 h-6 text-slate-400 dark:text-slate-500 drop-shadow-sm" viewBox="0 0 6 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                <rect x="1" y="0" width="4" height="8" rx="2" />
-                <rect x="1" y="6" width="4" height="8" rx="2" />
-                <rect x="1" y="12" width="4" height="8" rx="2" />
-                <rect x="1" y="18" width="4" height="8" rx="2" />
-              </svg>
-              
-              <div className="p-4 bg-surface border border-border rounded-2xl shadow-soft flex items-start gap-3">
-                <Building2 className="w-5 h-5 text-accent mt-0.5 shrink-0" />
-                <div>
-                  <strong className="block text-primary-text text-sm mb-0.5">Inaugurated By</strong>
-                  <span className="text-secondary-text text-xs">Dr. Arunkumar (Former Director, IHRD)</span>
-                </div>
+            <motion.div 
+              className="p-4 bg-surface border border-border rounded-2xl shadow-soft flex items-start gap-3"
+              initial={fadeUp.initial}
+              whileInView={fadeUp.whileInView}
+              viewport={fadeUp.viewport}
+              transition={{ ...fadeUp.transition, delay: 0.2 }}
+            >
+              <Building2 className="w-5 h-5 text-accent mt-0.5 shrink-0" />
+              <div>
+                <strong className="block text-primary-text text-sm mb-0.5">Inaugurated By</strong>
+                <span className="text-secondary-text text-xs">Dr. Arunkumar (Former Director, IHRD)</span>
               </div>
-            </div>
+            </motion.div>
           </div>
         </motion.div>
 
         {/* 2. VISION & MISSION */}
         <motion.div style={{ y: yVision }} className="flex flex-col gap-10 mt-4 overflow-hidden py-4 px-2">
           
-          {/* VISION SCROLL */}
-          <div className="relative flex justify-end w-full max-w-full">
-            {/* Right Fixed Roller */}
-            <div className="absolute top-[-4%] right-[-8px] w-[20px] h-[108%] bg-gradient-to-r from-[#B8850F] via-[#F3D084] to-[#7A580A] rounded-full shadow-[5px_0_10px_rgba(0,0,0,0.3)] z-10 border border-[#7A580A]/60">
-              <div className="absolute top-1 left-[20%] w-[60%] h-2 rounded-full bg-[#7A580A]/40"></div>
-              <div className="absolute bottom-1 left-[20%] w-[60%] h-2 rounded-full bg-[#7A580A]/40"></div>
-            </div>
+          {/* VISION BOX */}
+          <motion.div 
+            className="relative p-6 rounded-3xl bg-surface border border-border shadow-skeuo-out overflow-hidden"
+            initial={fadeUp.initial}
+            whileInView={fadeUp.whileInView}
+            viewport={fadeUp.viewport}
+            transition={{ ...fadeUp.transition, delay: 0.1 }}
+          >
+            <div className="absolute -top-6 -right-6 w-32 h-32 bg-accent/15 rounded-full blur-2xl" />
+            <Lightbulb className="w-8 h-8 text-accent mb-3 relative z-10" />
+            <h2 className="text-2xl font-extrabold font-outfit text-primary-text mb-2 relative z-10">Our Vision</h2>
+            <p className="text-[13px] text-secondary-text leading-relaxed relative z-10">
+              To emerge as a pioneer in student-led industrial engineering by developing cutting-edge machinery and advancing research-driven solutions that bridge academic innovation with global industrial standards.
+            </p>
+          </motion.div>
 
-            {/* Left Moving Roller */}
-            <motion.div 
-              className="absolute top-[-4%] w-[20px] h-[108%] bg-gradient-to-r from-[#B8850F] via-[#F3D084] to-[#7A580A] rounded-full shadow-[-5px_0_10px_rgba(0,0,0,0.3)] z-20 border border-[#7A580A]/60 translate-x-[50%]"
-              initial={{ right: "0%" }}
-              whileInView={{ right: "100%" }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
-            >
-              <div className="absolute top-1 left-[20%] w-[60%] h-2 rounded-full bg-[#7A580A]/40"></div>
-              <div className="absolute bottom-1 left-[20%] w-[60%] h-2 rounded-full bg-[#7A580A]/40"></div>
-            </motion.div>
-
-            {/* Expanding Paper */}
-            <motion.div 
-              className="relative bg-[#FFFDF7] dark:bg-[#1a1814] shadow-[inset_20px_0_20px_-20px_rgba(0,0,0,0.4),inset_-20px_0_20px_-20px_rgba(0,0,0,0.4),0_10px_25px_rgba(0,0,0,0.1)] border-y border-accent/30 overflow-hidden"
-              initial={{ width: "0%" }}
-              whileInView={{ width: "100%" }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
-            >
-              <div className="w-[352px] max-w-[calc(100vw-48px)] px-6 py-8 flex flex-col items-center text-center ml-auto shrink-0">
-                <Lightbulb className="w-10 h-10 text-accent mb-3 drop-shadow-sm" />
-                <h2 className="text-2xl font-extrabold font-outfit text-primary-text mb-2">Our Vision</h2>
-                <p className="text-[13px] text-secondary-text leading-relaxed">
-                  To emerge as a pioneer in student-led industrial engineering by developing cutting-edge machinery and advancing research-driven solutions that bridge academic innovation with global industrial standards.
-                </p>
-              </div>
-            </motion.div>
-          </div>
-
-          {/* MISSION SCROLL */}
-          <div className="relative flex justify-end w-full max-w-full">
-            {/* Right Fixed Roller */}
-            <div className="absolute top-[-4%] right-[-8px] w-[20px] h-[108%] bg-gradient-to-r from-[#B8850F] via-[#F3D084] to-[#7A580A] rounded-full shadow-[5px_0_10px_rgba(0,0,0,0.3)] z-10 border border-[#7A580A]/60">
-              <div className="absolute top-1 left-[20%] w-[60%] h-2 rounded-full bg-[#7A580A]/40"></div>
-              <div className="absolute bottom-1 left-[20%] w-[60%] h-2 rounded-full bg-[#7A580A]/40"></div>
-            </div>
-
-            {/* Left Moving Roller */}
-            <motion.div 
-              className="absolute top-[-4%] w-[20px] h-[108%] bg-gradient-to-r from-[#B8850F] via-[#F3D084] to-[#7A580A] rounded-full shadow-[-5px_0_10px_rgba(0,0,0,0.3)] z-20 border border-[#7A580A]/60 translate-x-[50%]"
-              initial={{ right: "0%" }}
-              whileInView={{ right: "100%" }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
-            >
-              <div className="absolute top-1 left-[20%] w-[60%] h-2 rounded-full bg-[#7A580A]/40"></div>
-              <div className="absolute bottom-1 left-[20%] w-[60%] h-2 rounded-full bg-[#7A580A]/40"></div>
-            </motion.div>
-
-            {/* Expanding Paper */}
-            <motion.div 
-              className="relative bg-[#FFFDF7] dark:bg-[#1a1814] shadow-[inset_20px_0_20px_-20px_rgba(0,0,0,0.4),inset_-20px_0_20px_-20px_rgba(0,0,0,0.4),0_10px_25px_rgba(0,0,0,0.1)] border-y border-accent/30 overflow-hidden"
-              initial={{ width: "0%" }}
-              whileInView={{ width: "100%" }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
-            >
-              <div className="w-[352px] max-w-[calc(100vw-48px)] px-6 py-8 flex flex-col items-center text-center ml-auto shrink-0">
-                <Target className="w-10 h-10 text-accent mb-3 drop-shadow-sm" />
-                <h2 className="text-2xl font-extrabold font-outfit text-primary-text mb-2">Our Mission</h2>
-                <p className="text-[13px] text-secondary-text leading-relaxed">
-                  To design and build high-performance industrial machinery through practical innovation under the IHRD "Earn While Learn" framework, empowering engineering talent while delivering reliable, market-ready equipment and research solutions to industry partners.
-                </p>
-              </div>
-            </motion.div>
-          </div>
+          {/* MISSION BOX */}
+          <motion.div 
+            className="relative p-6 rounded-3xl bg-surface border border-border shadow-skeuo-out overflow-hidden"
+            initial={fadeUp.initial}
+            whileInView={fadeUp.whileInView}
+            viewport={fadeUp.viewport}
+            transition={{ ...fadeUp.transition, delay: 0.2 }}
+          >
+            <div className="absolute -top-6 -right-6 w-32 h-32 bg-accent/15 rounded-full blur-2xl" />
+            <Target className="w-8 h-8 text-accent mb-3 relative z-10" />
+            <h2 className="text-2xl font-extrabold font-outfit text-primary-text mb-2 relative z-10">Our Mission</h2>
+            <p className="text-[13px] text-secondary-text leading-relaxed relative z-10">
+              To design and build high-performance industrial machinery through practical innovation under the IHRD "Earn While Learn" framework, empowering engineering talent while delivering reliable, market-ready equipment and research solutions to industry partners.
+            </p>
+          </motion.div>
         </motion.div>
         {/* NEW SECTION: WEBSITE STRUCTURE (PROPOSED SITE ARCHITECTURE) */}
         <motion.div style={{ y: yStructure }} className="flex flex-col gap-8 pt-6 border-t border-border/50">
