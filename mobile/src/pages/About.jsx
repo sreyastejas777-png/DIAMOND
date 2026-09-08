@@ -92,10 +92,11 @@ export default function About() {
               </div>
             </motion.div>
           </div>
-        </div>
+        </motion.div>
+      </div>
 
-        {/* OVERLAPPING DRAWER (Slides over Hero) */}
-        <div className="relative z-20 w-full bg-surface shadow-[0_-15px_40px_rgba(0,0,0,0.25)] rounded-t-[40px] border-t border-accent/20 pt-6 pb-32 px-4 mt-8">
+      {/* OVERLAPPING DRAWER (Slides over Hero) */}
+      <div className="relative z-20 w-full bg-surface shadow-[0_-15px_40px_rgba(0,0,0,0.25)] rounded-t-[40px] border-t border-accent/20 pt-6 pb-32 px-4 mt-8">
           {/* Drawer Handle */}
           <div className="w-16 h-1.5 bg-border rounded-full mx-auto mb-8 shadow-sm" />
           
