@@ -233,17 +233,19 @@ export default function About() {
         </div>
 
         {/* 3. TEAM HIERARCHY & LEADERSHIP */}
-        <div className="flex flex-col gap-8 pt-6 border-t border-border/50">
-          <div className="text-center flex flex-col gap-3">
+        <div className="flex flex-col pt-6 border-t border-border/50 relative">
+          
+          <div className="sticky top-[70px] z-20 bg-bg pt-4 pb-2 text-center flex flex-col gap-3">
             <h2 className="text-3xl font-extrabold font-outfit text-primary-text">
               Leadership
             </h2>
             <p className="text-sm text-secondary-text">
               The dedicated team driving innovation under the IHRD framework.
             </p>
+            <div className="absolute top-full left-0 right-0 h-10 bg-gradient-to-b from-bg to-transparent pointer-events-none" />
           </div>
 
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-4 mt-6">
             {team.map((member, idx) => {
               const Icon = member.icon;
               return (
