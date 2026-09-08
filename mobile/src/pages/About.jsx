@@ -57,33 +57,35 @@ export default function About() {
           </p>
 
           <div className="flex flex-col gap-4 mt-5 text-left">
-            {/* Established Box */}
+            {/* Unified Company Milestone Plaque */}
             <motion.div 
-              className="p-4 bg-surface border border-border rounded-2xl shadow-soft flex items-start gap-3"
+              className="relative w-full rounded-3xl bg-surface border border-border shadow-skeuo-out overflow-hidden"
               initial={fadeUp.initial}
               whileInView={fadeUp.whileInView}
               viewport={fadeUp.viewport}
               transition={{ ...fadeUp.transition, delay: 0.1 }}
             >
-              <Calendar className="w-5 h-5 text-accent mt-0.5 shrink-0" />
-              <div>
-                <strong className="block text-primary-text text-sm mb-0.5">Established</strong>
-                <span className="text-secondary-text text-xs">March 12, 2026</span>
+              <div className="absolute -top-10 -right-10 w-40 h-40 bg-accent/5 rounded-full blur-3xl pointer-events-none" />
+              
+              <div className="p-5 border-b border-border/50 flex items-center gap-4 relative z-10 hover:bg-black/5 dark:hover:bg-white/5 transition-colors">
+                <div className="w-12 h-12 rounded-2xl bg-accent/10 flex items-center justify-center text-accent shrink-0 shadow-inner">
+                  <Calendar className="w-6 h-6" />
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-[10px] uppercase tracking-[0.15em] text-secondary-text font-bold mb-1">Established</span>
+                  <strong className="text-[15px] font-black text-primary-text leading-tight">March 12, 2026</strong>
+                </div>
               </div>
-            </motion.div>
 
-            {/* Inaugurated Box */}
-            <motion.div 
-              className="p-4 bg-surface border border-border rounded-2xl shadow-soft flex items-start gap-3"
-              initial={fadeUp.initial}
-              whileInView={fadeUp.whileInView}
-              viewport={fadeUp.viewport}
-              transition={{ ...fadeUp.transition, delay: 0.2 }}
-            >
-              <Building2 className="w-5 h-5 text-accent mt-0.5 shrink-0" />
-              <div>
-                <strong className="block text-primary-text text-sm mb-0.5">Inaugurated By</strong>
-                <span className="text-secondary-text text-xs">Dr. Arunkumar (Former Director, IHRD)</span>
+              <div className="p-5 flex items-center gap-4 relative z-10 hover:bg-black/5 dark:hover:bg-white/5 transition-colors">
+                <div className="w-12 h-12 rounded-2xl bg-blue-500/10 flex items-center justify-center text-blue-500 shrink-0 shadow-inner">
+                  <Building2 className="w-6 h-6" />
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-[10px] uppercase tracking-[0.15em] text-secondary-text font-bold mb-1">Inaugurated By</span>
+                  <strong className="text-[15px] font-black text-primary-text leading-tight">Dr. Arunkumar</strong>
+                  <span className="text-[11px] text-secondary-text mt-0.5">Former Director, IHRD</span>
+                </div>
               </div>
             </motion.div>
           </div>
