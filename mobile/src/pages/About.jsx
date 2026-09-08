@@ -19,7 +19,7 @@ export default function About() {
   };
 
   return (
-    <div className="w-full py-8 px-4 bg-bg min-h-screen">
+    <div className="w-full pt-8 pb-32 px-4 bg-bg min-h-screen">
       <div className="flex flex-col gap-16 max-w-sm mx-auto">
         
         {/* 1. HERO & COMPANY PROFILE */}
@@ -58,29 +58,29 @@ export default function About() {
         {/* 2. VISION & MISSION */}
         <div className="flex flex-col gap-6">
           <motion.div 
-            className="p-6 rounded-3xl bg-brand-light border border-accent/20 shadow-soft"
+            className="p-5 rounded-3xl bg-brand-light border border-accent/20 shadow-soft"
             initial={fadeUp.initial}
             whileInView={fadeUp.whileInView}
             viewport={fadeUp.viewport}
             transition={{ ...fadeUp.transition, delay: 0.1 }}
           >
-            <Lightbulb className="w-10 h-10 text-accent mb-4" />
-            <h2 className="text-2xl font-extrabold font-outfit text-primary-text mb-3">Our Vision</h2>
-            <p className="text-sm text-secondary-text leading-relaxed">
+            <Lightbulb className="w-8 h-8 text-accent mb-3" />
+            <h2 className="text-2xl font-extrabold font-outfit text-primary-text mb-2">Our Vision</h2>
+            <p className="text-[13px] text-secondary-text leading-relaxed">
               To emerge as a pioneer in student-led industrial engineering by developing cutting-edge machinery and advancing research-driven solutions that bridge academic innovation with global industrial standards.
             </p>
           </motion.div>
 
           <motion.div 
-            className="p-6 rounded-3xl bg-brand-light border border-accent/20 shadow-soft"
+            className="p-5 rounded-3xl bg-brand-light border border-accent/20 shadow-soft"
             initial={fadeUp.initial}
             whileInView={fadeUp.whileInView}
             viewport={fadeUp.viewport}
             transition={{ ...fadeUp.transition, delay: 0.2 }}
           >
-            <Target className="w-10 h-10 text-accent mb-4" />
-            <h2 className="text-2xl font-extrabold font-outfit text-primary-text mb-3">Our Mission</h2>
-            <p className="text-sm text-secondary-text leading-relaxed">
+            <Target className="w-8 h-8 text-accent mb-3" />
+            <h2 className="text-2xl font-extrabold font-outfit text-primary-text mb-2">Our Mission</h2>
+            <p className="text-[13px] text-secondary-text leading-relaxed">
               To design and build high-performance industrial machinery through practical innovation under the IHRD "Earn While Learn" framework, empowering engineering talent while delivering reliable, market-ready equipment and research solutions to industry partners.
             </p>
           </motion.div>
