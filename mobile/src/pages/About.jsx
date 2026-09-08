@@ -27,7 +27,7 @@ export default function About() {
   const fadeUp = {
     initial: { opacity: 0, y: 30, scale: 0.95, filter: "blur(8px)" },
     whileInView: { opacity: 1, y: 0, scale: 1, filter: "blur(0px)" },
-    viewport: { once: true, margin: "-50px" },
+    viewport: { once: true, margin: "0px" },
     transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] }
   };
 
@@ -39,7 +39,7 @@ export default function About() {
       <motion.div style={{ y: yBg2 }} className="absolute top-[30%] -right-32 w-[400px] h-[400px] bg-blue-500/5 rounded-full blur-[80px] pointer-events-none" />
       <motion.div style={{ y: yBg3 }} className="absolute bottom-40 left-10 w-64 h-64 bg-accent/10 rounded-full blur-[60px] pointer-events-none" />
 
-      <div className="flex flex-col gap-10 max-w-sm mx-auto relative z-10">
+      <div className="flex flex-col gap-16 max-w-sm mx-auto relative z-10">
         
         {/* 1. HERO & COMPANY PROFILE */}
         <motion.div 
@@ -92,7 +92,7 @@ export default function About() {
         </motion.div>
 
         {/* 2. VISION & MISSION */}
-        <motion.div style={{ y: yVision }} className="flex flex-col gap-10 mt-4 overflow-hidden py-4 px-2">
+        <motion.div style={{ y: yVision }} className="flex flex-col gap-10 mt-12 overflow-hidden py-4 px-2">
           
           {/* VISION BOX */}
           <motion.div 
