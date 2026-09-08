@@ -1,8 +1,21 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { Target, Lightbulb, CheckCircle2, User, Building2, Calendar, BookOpen, PenTool, Layout, FileText, PhoneCall } from 'lucide-react';
 
 export default function About() {
+  const { scrollY } = useScroll();
+  
+  // Parallax transforms for sections
+  const yHero = useTransform(scrollY, [0, 1000], [0, 40]);
+  const yVision = useTransform(scrollY, [0, 1500], [0, -60]);
+  const yStructure = useTransform(scrollY, [0, 2000], [0, 50]);
+  const ySpecs = useTransform(scrollY, [0, 2500], [0, -40]);
+  
+  // Parallax for background decorative orbs
+  const yBg1 = useTransform(scrollY, [0, 2000], [0, 300]);
+  const yBg2 = useTransform(scrollY, [0, 2000], [0, -200]);
+  const yBg3 = useTransform(scrollY, [0, 2000], [0, 150]);
+
   const team = [
     { name: 'Manoj KG', role: 'Faculty In-Charge', desc: 'Institutional oversight and academic mentorship', icon: BookOpen },
     { name: 'Ananthan PS', role: 'Team CEO', desc: 'Strategic leadership and operational execution', icon: User },
@@ -19,12 +32,19 @@ export default function About() {
   };
 
   return (
-    <div className="w-full pt-8 pb-32 px-4 bg-bg min-h-screen">
-      <div className="flex flex-col gap-16 max-w-sm mx-auto">
+    <div className="w-full pt-8 pb-32 px-4 bg-bg min-h-screen relative overflow-clip">
+      
+      {/* Background Parallax Orbs */}
+      <motion.div style={{ y: yBg1 }} className="absolute top-20 -left-20 w-72 h-72 bg-accent/5 rounded-full blur-[60px] pointer-events-none" />
+      <motion.div style={{ y: yBg2 }} className="absolute top-[30%] -right-32 w-[400px] h-[400px] bg-blue-500/5 rounded-full blur-[80px] pointer-events-none" />
+      <motion.div style={{ y: yBg3 }} className="absolute bottom-40 left-10 w-64 h-64 bg-accent/10 rounded-full blur-[60px] pointer-events-none" />
+
+      <div className="flex flex-col gap-16 max-w-sm mx-auto relative z-10">
         
         {/* 1. HERO & COMPANY PROFILE */}
         <motion.div 
           className="flex flex-col gap-4 text-center"
+          style={{ y: yHero }}
           {...fadeUp}
         >
           <span className="text-[12px] font-bold uppercase tracking-[0.2em] text-blue-600 dark:text-blue-400 drop-shadow-sm">
@@ -91,7 +111,7 @@ export default function About() {
         </motion.div>
 
         {/* 2. VISION & MISSION */}
-        <div className="flex flex-col gap-10 mt-4 overflow-hidden py-4 px-2">
+        <motion.div style={{ y: yVision }} className="flex flex-col gap-10 mt-4 overflow-hidden py-4 px-2">
           
           {/* VISION SCROLL */}
           <div className="relative flex justify-end w-full max-w-full">
@@ -168,9 +188,9 @@ export default function About() {
               </div>
             </motion.div>
           </div>
-        </div>
+        </motion.div>
         {/* NEW SECTION: WEBSITE STRUCTURE (PROPOSED SITE ARCHITECTURE) */}
-        <div className="flex flex-col gap-8 pt-6 border-t border-border/50">
+        <motion.div style={{ y: yStructure }} className="flex flex-col gap-8 pt-6 border-t border-border/50">
           <div className="text-center flex flex-col gap-3">
             <h2 className="text-3xl font-extrabold font-outfit text-primary-text">
               Website Structure
@@ -236,10 +256,10 @@ export default function About() {
               <p className="text-secondary-text text-sm leading-relaxed">Inquiry form for sales, supply coordination, and technical collaborations.</p>
             </motion.div>
           </div>
-        </div>
+        </motion.div>
 
         {/* NEW SECTION: TECHNICAL & DESIGN REQUIREMENTS */}
-        <div className="flex flex-col gap-8 pt-6 border-t border-border/50">
+        <motion.div style={{ y: ySpecs }} className="flex flex-col gap-8 pt-6 border-t border-border/50">
           <div className="text-center flex flex-col gap-3">
             <h2 className="text-3xl font-extrabold font-outfit text-primary-text">
               Technical Specs
@@ -314,7 +334,7 @@ export default function About() {
               </div>
             </motion.div>
           </div>
-        </div>
+        </motion.div>
 
         {/* 3. TEAM HIERARCHY & LEADERSHIP */}
         <div className="flex flex-col pt-6 border-t border-border/50 relative">
