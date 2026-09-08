@@ -61,10 +61,10 @@ export default function Products() {
           {products.map((product, idx) => (
             <motion.div
               key={product._id}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, y: 30, scale: 0.95, filter: "blur(8px)" }}
+              whileInView={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
               viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.5, delay: idx * 0.1 }}
+              transition={{ duration: 0.7, delay: idx * 0.1, ease: [0.16, 1, 0.3, 1] }}
               className="p-5 rounded-3xl bg-surface border border-border shadow-soft flex flex-col gap-5"
             >
               <div className="flex justify-center p-4 bg-bg rounded-2xl border border-border/50">
