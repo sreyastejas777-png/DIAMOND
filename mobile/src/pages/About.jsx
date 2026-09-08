@@ -71,33 +71,61 @@ export default function About() {
         </motion.div>
 
         {/* 2. VISION & MISSION */}
-        <div className="flex flex-col gap-6">
+        <div className="flex flex-col gap-8 mt-4">
           <motion.div 
-            className="p-5 rounded-3xl bg-brand-light border border-accent/20 shadow-soft"
+            className="relative px-6 py-8 rounded-sm bg-[#FFFDF7] dark:bg-[#1a1814] shadow-[inset_0_20px_20px_-20px_rgba(0,0,0,0.5),inset_0_-20px_20px_-20px_rgba(0,0,0,0.5),0_10px_25px_rgba(0,0,0,0.1)] border-x border-accent/30"
             initial={fadeUp.initial}
             whileInView={fadeUp.whileInView}
             viewport={fadeUp.viewport}
             transition={{ ...fadeUp.transition, delay: 0.1 }}
           >
-            <Lightbulb className="w-8 h-8 text-accent mb-3" />
-            <h2 className="text-2xl font-extrabold font-outfit text-primary-text mb-2">Our Vision</h2>
-            <p className="text-[13px] text-secondary-text leading-relaxed">
-              To emerge as a pioneer in student-led industrial engineering by developing cutting-edge machinery and advancing research-driven solutions that bridge academic innovation with global industrial standards.
-            </p>
+            {/* Top Wooden Roller */}
+            <div className="absolute -top-[12px] -left-[4%] w-[108%] h-[24px] bg-gradient-to-b from-[#B8850F] via-[#F3D084] to-[#7A580A] rounded-full shadow-[0_5px_10px_rgba(0,0,0,0.4)] z-10 border border-[#7A580A]/60">
+              <div className="absolute top-[20%] left-1 w-2 h-[60%] rounded-full bg-[#7A580A]/40"></div>
+              <div className="absolute top-[20%] right-1 w-2 h-[60%] rounded-full bg-[#7A580A]/40"></div>
+            </div>
+            
+            {/* Bottom Wooden Roller */}
+            <div className="absolute -bottom-[12px] -left-[4%] w-[108%] h-[24px] bg-gradient-to-b from-[#B8850F] via-[#F3D084] to-[#7A580A] rounded-full shadow-[0_5px_10px_rgba(0,0,0,0.4)] z-10 border border-[#7A580A]/60">
+              <div className="absolute top-[20%] left-1 w-2 h-[60%] rounded-full bg-[#7A580A]/40"></div>
+              <div className="absolute top-[20%] right-1 w-2 h-[60%] rounded-full bg-[#7A580A]/40"></div>
+            </div>
+
+            <div className="relative z-20 flex flex-col items-center text-center">
+              <Lightbulb className="w-10 h-10 text-accent mb-3 drop-shadow-sm" />
+              <h2 className="text-2xl font-extrabold font-outfit text-primary-text mb-2">Our Vision</h2>
+              <p className="text-[13px] text-secondary-text leading-relaxed">
+                To emerge as a pioneer in student-led industrial engineering by developing cutting-edge machinery and advancing research-driven solutions that bridge academic innovation with global industrial standards.
+              </p>
+            </div>
           </motion.div>
 
           <motion.div 
-            className="p-5 rounded-3xl bg-brand-light border border-accent/20 shadow-soft"
+            className="relative px-6 py-8 rounded-sm bg-[#FFFDF7] dark:bg-[#1a1814] shadow-[inset_0_20px_20px_-20px_rgba(0,0,0,0.5),inset_0_-20px_20px_-20px_rgba(0,0,0,0.5),0_10px_25px_rgba(0,0,0,0.1)] border-x border-accent/30"
             initial={fadeUp.initial}
             whileInView={fadeUp.whileInView}
             viewport={fadeUp.viewport}
             transition={{ ...fadeUp.transition, delay: 0.2 }}
           >
-            <Target className="w-8 h-8 text-accent mb-3" />
-            <h2 className="text-2xl font-extrabold font-outfit text-primary-text mb-2">Our Mission</h2>
-            <p className="text-[13px] text-secondary-text leading-relaxed">
-              To design and build high-performance industrial machinery through practical innovation under the IHRD "Earn While Learn" framework, empowering engineering talent while delivering reliable, market-ready equipment and research solutions to industry partners.
-            </p>
+            {/* Top Wooden Roller */}
+            <div className="absolute -top-[12px] -left-[4%] w-[108%] h-[24px] bg-gradient-to-b from-[#B8850F] via-[#F3D084] to-[#7A580A] rounded-full shadow-[0_5px_10px_rgba(0,0,0,0.4)] z-10 border border-[#7A580A]/60">
+              <div className="absolute top-[20%] left-1 w-2 h-[60%] rounded-full bg-[#7A580A]/40"></div>
+              <div className="absolute top-[20%] right-1 w-2 h-[60%] rounded-full bg-[#7A580A]/40"></div>
+            </div>
+            
+            {/* Bottom Wooden Roller */}
+            <div className="absolute -bottom-[12px] -left-[4%] w-[108%] h-[24px] bg-gradient-to-b from-[#B8850F] via-[#F3D084] to-[#7A580A] rounded-full shadow-[0_5px_10px_rgba(0,0,0,0.4)] z-10 border border-[#7A580A]/60">
+              <div className="absolute top-[20%] left-1 w-2 h-[60%] rounded-full bg-[#7A580A]/40"></div>
+              <div className="absolute top-[20%] right-1 w-2 h-[60%] rounded-full bg-[#7A580A]/40"></div>
+            </div>
+
+            <div className="relative z-20 flex flex-col items-center text-center">
+              <Target className="w-10 h-10 text-accent mb-3 drop-shadow-sm" />
+              <h2 className="text-2xl font-extrabold font-outfit text-primary-text mb-2">Our Mission</h2>
+              <p className="text-[13px] text-secondary-text leading-relaxed">
+                To design and build high-performance industrial machinery through practical innovation under the IHRD "Earn While Learn" framework, empowering engineering talent while delivering reliable, market-ready equipment and research solutions to industry partners.
+              </p>
+            </div>
           </motion.div>
         </div>
         {/* NEW SECTION: WEBSITE STRUCTURE (PROPOSED SITE ARCHITECTURE) */}
