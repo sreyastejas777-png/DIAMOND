@@ -48,12 +48,14 @@ export default function Products() {
   return (
     <div className="w-full py-8 px-4 bg-bg min-h-screen">
       <div className="flex flex-col gap-8 w-full max-w-sm mx-auto">
-        <SectionHeading 
-          eyebrow="Hardware Catalog" 
-          title="Our Products" 
-          subtitle="Explore high-capacity post-harvest dehydration hardware." 
-          className="text-center" 
-        />
+        <div className="text-center flex flex-col gap-3 pb-2">
+          <h1 className="text-3xl sm:text-4xl font-black font-outfit text-transparent bg-clip-text bg-gradient-to-r from-accent via-yellow-500 to-secondary drop-shadow-sm pb-1">
+            Calor Tech Product Catalog
+          </h1>
+          <p className="text-[16px] sm:text-[18px] text-transparent bg-clip-text bg-gradient-to-r from-secondary-text to-accent leading-relaxed font-bold">
+            Explore our line of high-capacity post-harvest dehydration hardware. Engineered for maximum reliability and ease of use.
+          </p>
+        </div>
 
         <div className="flex flex-col gap-6">
           {products.map((product, idx) => (

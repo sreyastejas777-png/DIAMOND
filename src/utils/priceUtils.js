@@ -10,16 +10,10 @@ export const formatPriceWithUSD = (priceStr) => {
   if (numericMatch) {
     const rawNumber = parseInt(numericMatch[0].replace(/,/g, ''), 10);
     if (!isNaN(rawNumber)) {
-      const usdValue = Math.round(rawNumber / EXCHANGE_RATE);
-      // Format USD: $2,400
-      const usdFormatted = new Intl.NumberFormat('en-US', {
-        maximumFractionDigits: 0
-      }).format(usdValue);
-      
       // Clean up the original string if they had "USD" at the end as a placeholder
       let cleanPriceStr = str.replace(/\s*USD\s*$/i, '');
       
-      return `${cleanPriceStr} (${usdFormatted} USD)`;
+      return cleanPriceStr;
     }
   }
   
