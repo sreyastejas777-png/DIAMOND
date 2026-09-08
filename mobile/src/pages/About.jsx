@@ -41,6 +41,9 @@ export default function About() {
         <motion.div style={{ y: yBg3 }} className="absolute bottom-40 left-10 w-64 h-64 bg-accent/10 rounded-full blur-[60px]" />
       </div>
 
+      {/* INITIAL SNAP POINT (Locks to top on load) */}
+      <div className="absolute top-0 left-0 w-full h-10 snap-start pointer-events-none" />
+
       <div className="w-full relative z-10 flex flex-col">
         
         {/* 1. HERO & COMPANY PROFILE (Static Base) */}
@@ -96,7 +99,7 @@ export default function About() {
       </div>
 
       {/* OVERLAPPING DRAWER (Slides over Hero) */}
-      <div className="relative z-20 w-full bg-bg shadow-[0_-15px_40px_rgba(0,0,0,0.3)] rounded-t-[40px] border-t border-accent/20 pt-6 pb-32 px-4 mt-[85vh]">
+      <div className="relative z-20 w-full bg-bg shadow-[0_-15px_40px_rgba(0,0,0,0.3)] rounded-t-[40px] border-t border-accent/20 pt-6 pb-32 px-4 mt-[85vh] snap-start scroll-mt-20">
           {/* Drawer Handle */}
           <div className="w-16 h-1.5 bg-border rounded-full mx-auto mb-8 shadow-sm" />
           
