@@ -43,7 +43,7 @@ export default function About() {
         
         {/* 1. HERO & COMPANY PROFILE */}
         <motion.div 
-          className="flex flex-col gap-3 text-center"
+          className="flex flex-col gap-3 text-center min-h-[85vh] justify-center pb-12"
           {...fadeUp}
         >
           <span className="text-[12px] font-bold uppercase tracking-[0.2em] text-blue-600 dark:text-blue-400 drop-shadow-sm">
