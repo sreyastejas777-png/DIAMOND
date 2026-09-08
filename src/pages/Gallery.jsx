@@ -1,69 +1,92 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaTimes, FaChevronLeft, FaChevronRight, FaSearchPlus } from 'react-icons/fa';
 import SectionHeading from '../components/SectionHeading';
-import { galleryCategories, galleryItems } from '../data/gallery';
+import { galleryItems as staticGalleryItems } from '../data/gallery';
+import { client } from '../sanityClient';
 
 export default function Gallery() {
-  const [activeCategory, setActiveCategory] = useState('All');
+  const [images, setImages] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [lightboxIndex, setLightboxIndex] = useState(null);
 
-  const filtered =
-    activeCategory === 'All' ? galleryItems : galleryItems.filter((g) => g.category === activeCategory);
+  useEffect(() => {
+    const fetchGallery = async () => {
+      try {
+        const query = `*[_type == "gallery"][0]{
+          "images": images[]{
+            "id": _key,
+            "url": asset->url,
+            "caption": alt
+          }
+        }`;
+        const data = await client.fetch(query);
+        
+        if (data && data.images && data.images.length > 0) {
+          // Map sanity format to our component format
+          const formattedImages = data.images.map(img => ({
+            id: img.id,
+            image: img.url,
+            caption: img.caption || 'Gallery Image',
+          }));
+          setImages(formattedImages);
+        } else {
+          // Fallback to static data if no sanity document exists
+          setImages(staticGalleryItems);
+        }
+      } catch (error) {
+        console.error("Error fetching gallery from Sanity:", error);
+        setImages(staticGalleryItems);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchGallery();
+  }, []);
 
   const openLightbox = (id) => {
-    const index = filtered.findIndex((g) => g.id === id);
+    const index = images.findIndex((g) => g.id === id);
     setLightboxIndex(index);
   };
 
   const closeLightbox = () => setLightboxIndex(null);
-  const showNext = () => setLightboxIndex((lightboxIndex + 1) % filtered.length);
-  const showPrev = () => setLightboxIndex((lightboxIndex - 1 + filtered.length) % filtered.length);
+  const showNext = () => setLightboxIndex((lightboxIndex + 1) % images.length);
+  const showPrev = () => setLightboxIndex((lightboxIndex - 1 + images.length) % images.length);
 
   return (
-    <section className="mx-auto max-w-7xl px-5 py-10 md:px-8">
+    <section className="mx-auto max-w-7xl px-5 py-10 md:px-8 min-h-screen">
       <SectionHeading
         eyebrow="See It In Action"
         title="Gallery"
         subtitle="A closer look at the machine, its chamber, control panel and the produce it preserves."
       />
 
-      <div className="mb-10 flex flex-wrap justify-center gap-3">
-        {galleryCategories.map((cat) => (
-          <button
-            key={cat}
-            onClick={() => setActiveCategory(cat)}
-            className={`rounded-full px-5 py-2 text-sm font-semibold transition-colors ${
-              activeCategory === cat
-                ? 'bg-accent text-primary'
-                : 'bg-white dark:bg-white/5 text-primary/70 dark:text-paper/70 hover:text-accent'
-            }`}
-          >
-            {cat}
-          </button>
-        ))}
-      </div>
-
-      <div className="columns-1 gap-5 sm:columns-2 lg:columns-3 [&>*]:mb-5">
-        {filtered.map((item) => (
-          <motion.button
-            key={item.id}
-            layout
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            whileHover={{ scale: 1.02 }}
-            onClick={() => openLightbox(item.id)}
-            className="group relative block w-full overflow-hidden rounded-2xl shadow-soft"
-          >
-            <img src={item.image} alt={item.caption} className="w-full object-cover transition-transform duration-500 group-hover:scale-110" />
-            <div className="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-primary/80 via-primary/0 to-transparent p-4 opacity-0 transition-opacity group-hover:opacity-100">
-              <FaSearchPlus className="mb-2 text-white" />
-              <p className="text-left text-sm font-medium text-white">{item.caption}</p>
-            </div>
-          </motion.button>
-        ))}
-      </div>
+      {isLoading ? (
+        <div className="flex justify-center items-center h-64">
+          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-accent"></div>
+        </div>
+      ) : (
+        <div className="columns-1 gap-5 sm:columns-2 lg:columns-3 [&>*]:mb-5 mt-8">
+          {images.map((item) => (
+            <motion.button
+              key={item.id}
+              layout
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              whileHover={{ scale: 1.02 }}
+              onClick={() => openLightbox(item.id)}
+              className="group relative block w-full overflow-hidden rounded-2xl shadow-soft"
+            >
+              <img src={item.image} alt={item.caption} className="w-full object-cover transition-transform duration-500 group-hover:scale-110" />
+              <div className="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-primary/80 via-primary/0 to-transparent p-4 opacity-0 transition-opacity group-hover:opacity-100">
+                <FaSearchPlus className="mb-2 text-white" />
+                <p className="text-left text-sm font-medium text-white">{item.caption}</p>
+              </div>
+            </motion.button>
+          ))}
+        </div>
+      )}
 
       <AnimatePresence>
         {lightboxIndex !== null && (
@@ -92,13 +115,13 @@ export default function Gallery() {
               <FaChevronLeft />
             </button>
             <motion.img
-              key={filtered[lightboxIndex].id}
+              key={images[lightboxIndex].id}
               initial={{ scale: 0.85, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               transition={{ duration: 0.35 }}
               onClick={(e) => e.stopPropagation()}
-              src={filtered[lightboxIndex].image}
-              alt={filtered[lightboxIndex].caption}
+              src={images[lightboxIndex].image}
+              alt={images[lightboxIndex].caption}
               className="max-h-[80vh] max-w-full rounded-2xl object-contain shadow-soft"
             />
             <button
@@ -112,7 +135,7 @@ export default function Gallery() {
               <FaChevronRight />
             </button>
             <p className="absolute bottom-8 left-1/2 -translate-x-1/2 text-sm text-white/80">
-              {filtered[lightboxIndex].caption}
+              {images[lightboxIndex].caption}
             </p>
           </motion.div>
         )}

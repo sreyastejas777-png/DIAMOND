@@ -1,24 +1,57 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaTimes, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import SectionHeading from '../components/SectionHeading';
-import { galleryCategories, galleryItems } from '../data/gallery';
+import { galleryItems as staticGalleryItems } from '../data/gallery';
+import { client } from '../sanityClient';
 
 export default function Gallery() {
-  const [activeCategory, setActiveCategory] = useState('All');
+  const [images, setImages] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [lightboxIndex, setLightboxIndex] = useState(null);
 
-  const filtered =
-    activeCategory === 'All' ? galleryItems : galleryItems.filter((g) => g.category === activeCategory);
+  useEffect(() => {
+    const fetchGallery = async () => {
+      try {
+        const query = `*[_type == "gallery"][0]{
+          "images": images[]{
+            "id": _key,
+            "url": asset->url,
+            "caption": alt
+          }
+        }`;
+        const data = await client.fetch(query);
+        
+        if (data && data.images && data.images.length > 0) {
+          // Map sanity format to our component format
+          const formattedImages = data.images.map(img => ({
+            id: img.id,
+            image: img.url,
+            caption: img.caption || 'Gallery Image',
+          }));
+          setImages(formattedImages);
+        } else {
+          // Fallback to static data if no sanity document exists
+          setImages(staticGalleryItems);
+        }
+      } catch (error) {
+        console.error("Error fetching gallery from Sanity:", error);
+        setImages(staticGalleryItems);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchGallery();
+  }, []);
 
   const openLightbox = (id) => {
-    const index = filtered.findIndex((g) => g.id === id);
+    const index = images.findIndex((g) => g.id === id);
     setLightboxIndex(index);
   };
 
   const closeLightbox = () => setLightboxIndex(null);
-  const showNext = () => setLightboxIndex((lightboxIndex + 1) % filtered.length);
-  const showPrev = () => setLightboxIndex((lightboxIndex - 1 + filtered.length) % filtered.length);
+  const showNext = () => setLightboxIndex((lightboxIndex + 1) % images.length);
+  const showPrev = () => setLightboxIndex((lightboxIndex - 1 + images.length) % images.length);
 
   return (
     <section className="mx-auto w-full px-4 py-8 bg-bg min-h-screen">
@@ -29,40 +62,30 @@ export default function Gallery() {
         className="text-center"
       />
 
-      <div className="my-6 flex overflow-x-auto snap-x snap-mandatory gap-2 pb-2 -mx-4 px-4 scrollbar-hide">
-        {galleryCategories.map((cat) => (
-          <button
-            key={cat}
-            onClick={() => setActiveCategory(cat)}
-            className={`snap-center shrink-0 rounded-full px-4 py-2 text-xs font-semibold transition-colors border ${
-              activeCategory === cat
-                ? 'bg-accent text-primary border-accent'
-                : 'bg-white/50 border-border text-primary-text/70'
-            }`}
-          >
-            {cat}
-          </button>
-        ))}
-      </div>
-
-      <div className="grid grid-cols-2 gap-3 sm:gap-4">
-        {filtered.map((item, idx) => (
-          <motion.div
-            key={item.id}
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: (idx % 2) * 0.1 }}
-            onClick={() => openLightbox(item.id)}
-            className="group relative block w-full overflow-hidden rounded-2xl shadow-sm bg-white"
-          >
-            <img src={item.image} alt={item.caption} className="w-full aspect-[4/5] sm:aspect-square object-cover" />
-            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/95 via-black/50 to-transparent p-3 pt-10">
-              <p className="text-left text-xs sm:text-sm font-semibold text-white line-clamp-2 leading-snug">{item.caption}</p>
-            </div>
-          </motion.div>
-        ))}
-      </div>
+      {isLoading ? (
+        <div className="flex justify-center items-center h-64 mt-8">
+          <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-accent"></div>
+        </div>
+      ) : (
+        <div className="grid grid-cols-2 gap-3 sm:gap-4 mt-8">
+          {images.map((item, idx) => (
+            <motion.div
+              key={item.id}
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: (idx % 2) * 0.1 }}
+              onClick={() => openLightbox(item.id)}
+              className="group relative block w-full overflow-hidden rounded-2xl shadow-sm bg-white"
+            >
+              <img src={item.image} alt={item.caption} className="w-full aspect-[4/5] sm:aspect-square object-cover" />
+              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/95 via-black/50 to-transparent p-3 pt-10">
+                <p className="text-left text-xs sm:text-sm font-semibold text-white line-clamp-2 leading-snug">{item.caption}</p>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      )}
 
       <AnimatePresence>
         {lightboxIndex !== null && (
@@ -75,7 +98,7 @@ export default function Gallery() {
           >
             <div className="absolute top-0 left-0 right-0 p-4 flex justify-between items-center z-[110] bg-gradient-to-b from-black/80 to-transparent">
               <span className="text-white/80 text-sm font-medium">
-                {lightboxIndex + 1} / {filtered.length}
+                {lightboxIndex + 1} / {images.length}
               </span>
               <button
                 onClick={closeLightbox}
@@ -91,19 +114,19 @@ export default function Gallery() {
               onClick={(e) => e.stopPropagation()}
             >
               <motion.img
-                key={filtered[lightboxIndex].id}
+                key={images[lightboxIndex].id}
                 initial={{ scale: 0.95, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 transition={{ duration: 0.2 }}
-                src={filtered[lightboxIndex].image}
-                alt={filtered[lightboxIndex].caption}
+                src={images[lightboxIndex].image}
+                alt={images[lightboxIndex].caption}
                 className="max-h-[70vh] w-full object-contain"
               />
             </div>
 
             <div className="absolute bottom-0 left-0 right-0 p-6 flex flex-col items-center gap-6 bg-gradient-to-t from-black/90 to-transparent z-[110]" onClick={e => e.stopPropagation()}>
                <p className="text-center text-sm font-medium text-white px-4">
-                 {filtered[lightboxIndex].caption}
+                 {images[lightboxIndex].caption}
                </p>
                <div className="flex items-center gap-12">
                  <button onClick={showPrev} className="text-2xl text-white/80 p-4 border border-white/20 rounded-full active:bg-white/10">
