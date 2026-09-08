@@ -209,7 +209,7 @@ export default function About() {
         </motion.div>
 
         {/* NEW SECTION: TECHNICAL & DESIGN REQUIREMENTS */}
-        <motion.div style={{ y: ySpecs }} className="flex flex-col gap-8 pt-12 mt-2 border-t border-border/50">
+        <motion.div style={{ y: ySpecs }} className="flex flex-col gap-8 pt-20 mt-8 border-t border-border/50">
           <div className="text-center flex flex-col gap-3">
             <h2 className="text-3xl font-extrabold font-outfit text-primary-text">
               Technical Specs
