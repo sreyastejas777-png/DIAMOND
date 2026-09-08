@@ -19,11 +19,11 @@ export default function About() {
   };
 
   return (
-    <div className="w-full pt-16 pb-24 px-6 md:px-12 bg-bg transition-colors duration-300 min-h-screen">
+    <div className="w-full pt-6 md:pt-8 pb-24 px-6 md:px-12 bg-bg transition-colors duration-300 min-h-screen">
       <div className="max-w-[1440px] mx-auto flex flex-col gap-24">
         
         {/* LANDING SCREEN CONTAINER (Hero + Vision/Mission) */}
-        <div className="flex flex-col justify-evenly min-h-[calc(100vh-120px)] w-full">
+        <div className="flex flex-col justify-start gap-12 lg:gap-16 w-full pt-4">
           
           {/* 1. HERO & COMPANY PROFILE */}
           <motion.div 
