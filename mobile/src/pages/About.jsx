@@ -36,9 +36,9 @@ export default function About() {
       
       {/* Background Parallax Orbs (Fixed) */}
       <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
-        <motion.div style={{ y: yBg1 }} className="absolute top-20 -left-20 w-72 h-72 bg-accent/5 rounded-full blur-[60px]" />
-        <motion.div style={{ y: yBg2 }} className="absolute top-[30%] -right-32 w-[400px] h-[400px] bg-blue-500/5 rounded-full blur-[80px]" />
-        <motion.div style={{ y: yBg3 }} className="absolute bottom-40 left-10 w-64 h-64 bg-accent/10 rounded-full blur-[60px]" />
+        <motion.div style={{ y: yBg1 }} className="absolute top-20 -left-20 w-72 h-72 bg-accent/5 rounded-full blur-[60px] transform-gpu will-change-transform" />
+        <motion.div style={{ y: yBg2 }} className="absolute top-[30%] -right-32 w-[400px] h-[400px] bg-blue-500/5 rounded-full blur-[80px] transform-gpu will-change-transform" />
+        <motion.div style={{ y: yBg3 }} className="absolute bottom-40 left-10 w-64 h-64 bg-accent/10 rounded-full blur-[60px] transform-gpu will-change-transform" />
       </div>
 
       {/* INITIAL SNAP POINT (Locks to top on load) */}
@@ -105,7 +105,7 @@ export default function About() {
           
           <div className="flex flex-col gap-16 max-w-sm mx-auto">
             {/* 2. VISION & MISSION */}
-            <motion.div style={{ y: yVision }} className="flex flex-col gap-10 overflow-hidden py-4 px-2">
+            <motion.div style={{ y: yVision }} className="flex flex-col gap-10 overflow-hidden py-4 px-2 transform-gpu will-change-transform">
           
           {/* VISION BOX */}
           <motion.div 
@@ -140,7 +140,7 @@ export default function About() {
           </motion.div>
         </motion.div>
         {/* NEW SECTION: WEBSITE STRUCTURE (PROPOSED SITE ARCHITECTURE) */}
-        <motion.div style={{ y: yStructure }} className="flex flex-col gap-8 pt-6 border-t border-border/50">
+        <motion.div style={{ y: yStructure }} className="flex flex-col gap-8 pt-6 border-t border-border/50 transform-gpu will-change-transform">
           <div className="text-center flex flex-col gap-3">
             <h2 className="text-3xl font-extrabold font-outfit text-primary-text">
               Website Structure
@@ -209,7 +209,7 @@ export default function About() {
         </motion.div>
 
         {/* NEW SECTION: TECHNICAL & DESIGN REQUIREMENTS */}
-        <motion.div style={{ y: ySpecs }} className="flex flex-col gap-8 pt-20 mt-8 border-t border-border/50">
+        <motion.div style={{ y: ySpecs }} className="flex flex-col gap-8 pt-20 mt-8 border-t border-border/50 transform-gpu will-change-transform">
           <div className="text-center flex flex-col gap-3">
             <h2 className="text-3xl font-extrabold font-outfit text-primary-text">
               Technical Specs
