@@ -235,7 +235,7 @@ export default function About() {
         {/* 3. TEAM HIERARCHY & LEADERSHIP */}
         <div className="flex flex-col pt-6 border-t border-border/50 relative">
           
-          <div className="sticky top-[70px] z-20 bg-bg pt-4 pb-2 text-center flex flex-col gap-3">
+          <div className="sticky top-16 z-30 bg-bg pt-4 pb-2 text-center flex flex-col gap-3">
             <h2 className="text-3xl font-extrabold font-outfit text-primary-text">
               Leadership
             </h2>

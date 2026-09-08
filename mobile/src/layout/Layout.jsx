@@ -16,7 +16,7 @@ export default function Layout() {
   }, [location.pathname]);
 
   return (
-    <div className="min-h-screen bg-bg text-primary-text font-sans flex flex-col relative overflow-x-hidden">
+    <div className="min-h-screen bg-bg text-primary-text font-sans flex flex-col relative overflow-x-clip">
       <MobileHeader toggleMenu={() => setIsMenuOpen(!isMenuOpen)} isMenuOpen={isMenuOpen} />
       
       <main className="flex-1 w-full relative z-10 pt-16">
