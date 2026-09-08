@@ -7,11 +7,54 @@ export default function Newsletter({ className = '' }) {
   const [email, setEmail] = useState('');
   const [submitted, setSubmitted] = useState(false);
 
-  const handleSubmit = (e) => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!email) return;
-    setSubmitted(true);
-    setEmail('');
+    
+    setIsLoading(true);
+    setError(null);
+    
+    try {
+      // Get the current date and time formatted nicely
+      const timestamp = new Date().toLocaleString();
+      
+      // The Webhook URL from Google Apps Script
+      // Replace this with your actual Google Apps Script Web App URL
+      const scriptURL = import.meta.env.VITE_GOOGLE_SHEET_WEBHOOK_URL || 'YOUR_GOOGLE_SCRIPT_URL_HERE';
+      
+      if (scriptURL === 'YOUR_GOOGLE_SCRIPT_URL_HERE') {
+        console.warn('Google Sheets Webhook URL is not set. Simulating success.');
+        setTimeout(() => {
+          setSubmitted(true);
+          setIsLoading(false);
+        }, 1000);
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append('email', email);
+      formData.append('timestamp', timestamp);
+
+      const response = await fetch(scriptURL, {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (response.ok) {
+        setSubmitted(true);
+        setEmail('');
+      } else {
+        throw new Error('Network response was not ok');
+      }
+    } catch (err) {
+      console.error('Error submitting email:', err);
+      setError('Failed to subscribe. Please try again.');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -47,22 +90,25 @@ export default function Newsletter({ className = '' }) {
             <FaCheckCircle className="text-xl" /> Thank you for subscribing!
           </motion.div>
         ) : (
-          <form onSubmit={handleSubmit} className="relative z-10 mx-auto mt-6 sm:mt-10 flex w-full max-w-md flex-row items-center p-1.5 rounded-full bg-white shadow-[0_10px_30px_rgba(0,0,0,0.3)] border border-white/20 focus-within:ring-2 focus-within:ring-accent/50 transition-all">
+          <form onSubmit={handleSubmit} className="relative z-10 mx-auto mt-6 sm:mt-10 flex w-full max-w-md flex-col sm:flex-row items-center p-1.5 rounded-3xl sm:rounded-full bg-white shadow-[0_10px_30px_rgba(0,0,0,0.3)] border border-white/20 focus-within:ring-2 focus-within:ring-accent/50 transition-all gap-2 sm:gap-0">
             <input
               type="email"
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Enter your email address..."
-              className="w-full flex-1 bg-transparent px-4 py-2 text-primary text-sm sm:text-base placeholder-primary/50 outline-none"
+              disabled={isLoading}
+              className="w-full flex-1 bg-transparent px-4 py-2 text-primary text-sm sm:text-base placeholder-primary/50 outline-none disabled:opacity-50"
             />
             <button 
               type="submit" 
-              className="flex items-center justify-center p-3 bg-accent text-primary rounded-full hover:bg-secondary transition-colors shrink-0 shadow-sm"
+              disabled={isLoading}
+              className="w-full sm:w-auto flex items-center justify-center p-3 bg-accent text-primary rounded-full hover:bg-secondary transition-colors shrink-0 shadow-sm disabled:opacity-75"
               aria-label="Subscribe"
             >
-              <FaPaperPlane className="text-sm" />
+              {isLoading ? <span className="text-sm font-semibold px-2">...</span> : <FaPaperPlane className="text-sm" />}
             </button>
+            {error && <p className="absolute -bottom-8 left-0 right-0 text-red-400 text-xs font-medium">{error}</p>}
           </form>
         )}
 

@@ -7,11 +7,54 @@ export default function Newsletter({ className = '' }) {
   const [email, setEmail] = useState('');
   const [submitted, setSubmitted] = useState(false);
 
-  const handleSubmit = (e) => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!email) return;
-    setSubmitted(true);
-    setEmail('');
+    
+    setIsLoading(true);
+    setError(null);
+    
+    try {
+      // Get the current date and time formatted nicely
+      const timestamp = new Date().toLocaleString();
+      
+      // The Webhook URL from Google Apps Script
+      // Replace this with your actual Google Apps Script Web App URL
+      const scriptURL = import.meta.env.VITE_GOOGLE_SHEET_WEBHOOK_URL || 'YOUR_GOOGLE_SCRIPT_URL_HERE';
+      
+      if (scriptURL === 'YOUR_GOOGLE_SCRIPT_URL_HERE') {
+        console.warn('Google Sheets Webhook URL is not set. Simulating success.');
+        setTimeout(() => {
+          setSubmitted(true);
+          setIsLoading(false);
+        }, 1000);
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append('email', email);
+      formData.append('timestamp', timestamp);
+
+      const response = await fetch(scriptURL, {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (response.ok) {
+        setSubmitted(true);
+        setEmail('');
+      } else {
+        throw new Error('Network response was not ok');
+      }
+    } catch (err) {
+      console.error('Error submitting email:', err);
+      setError('Failed to subscribe. Please try again.');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -54,16 +97,19 @@ export default function Newsletter({ className = '' }) {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Enter your business email address..."
-              className="w-full flex-1 rounded-xl sm:rounded-full bg-transparent px-5 sm:px-6 py-3.5 sm:py-4 text-white text-base sm:text-lg placeholder-white/50 outline-none focus:placeholder-white/30"
+              disabled={isLoading}
+              className="w-full flex-1 rounded-xl sm:rounded-full bg-transparent px-5 sm:px-6 py-3.5 sm:py-4 text-white text-base sm:text-lg placeholder-white/50 outline-none focus:placeholder-white/30 disabled:opacity-50"
             />
             <Button 
               type="submit" 
               variant="accent" 
               icon={FaPaperPlane}
-              className="py-3.5 sm:py-4 px-8 text-base sm:text-lg font-bold rounded-xl sm:rounded-full shrink-0 shadow-lg shadow-accent/25 hover:shadow-accent/40"
+              disabled={isLoading}
+              className="py-3.5 sm:py-4 px-8 text-base sm:text-lg font-bold rounded-xl sm:rounded-full shrink-0 shadow-lg shadow-accent/25 hover:shadow-accent/40 disabled:opacity-75"
             >
-              Subscribe
+              {isLoading ? 'Sending...' : 'Subscribe'}
             </Button>
+            {error && <p className="absolute -bottom-8 left-0 right-0 text-red-400 text-sm font-medium">{error}</p>}
           </form>
         )}
 
