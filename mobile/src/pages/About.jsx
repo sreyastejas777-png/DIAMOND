@@ -43,10 +43,10 @@ export default function About() {
 
       <div className="w-full relative z-10 flex flex-col">
         
-        {/* 1. HERO & COMPANY PROFILE (Sticky Base) */}
-        <div className="sticky top-0 w-full px-4 z-0 pointer-events-none">
+        {/* 1. HERO & COMPANY PROFILE (Static Base) */}
+        <div className="fixed top-0 left-0 right-0 w-full h-screen flex items-center justify-center px-4 z-0 pointer-events-none pb-20">
           <motion.div 
-            className="flex flex-col gap-3 text-center min-h-[85vh] justify-center pt-8 pb-12 max-w-sm mx-auto pointer-events-auto"
+            className="flex flex-col gap-3 text-center w-full max-w-sm mx-auto pointer-events-auto"
             {...fadeUp}
           >
           <span className="text-[12px] font-bold uppercase tracking-[0.2em] text-blue-600 dark:text-blue-400 drop-shadow-sm">
@@ -96,7 +96,7 @@ export default function About() {
       </div>
 
       {/* OVERLAPPING DRAWER (Slides over Hero) */}
-      <div className="relative z-20 w-full bg-surface shadow-[0_-15px_40px_rgba(0,0,0,0.25)] rounded-t-[40px] border-t border-accent/20 pt-6 pb-32 px-4 mt-8">
+      <div className="relative z-20 w-full bg-bg shadow-[0_-15px_40px_rgba(0,0,0,0.3)] rounded-t-[40px] border-t border-accent/20 pt-6 pb-32 px-4 mt-[85vh]">
           {/* Drawer Handle */}
           <div className="w-16 h-1.5 bg-border rounded-full mx-auto mb-8 shadow-sm" />
           
