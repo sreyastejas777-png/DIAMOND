@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react';
 import { NavLink, Link } from 'react-router-dom';
-import { client } from '../sanityClient';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaBars, FaTimes, FaSun, FaMoon, FaSearch } from 'react-icons/fa';
-import { ChevronDown, Cpu, Layers, Sparkles, Compass, Info, Calendar, HelpCircle, ArrowRight, Sun, Moon } from 'lucide-react';
+import { ChevronDown, Cpu, Layers, Sparkles, Compass, Target, Users, Building2, ArrowRight, Sun, Moon } from 'lucide-react';
 import { navLinks } from '../data/navigation';
 import { useTheme } from '../context/ThemeContext';
 import Button from '../components/Button';
@@ -16,22 +15,6 @@ export default function Navbar() {
   const [mobileProductsOpen, setMobileProductsOpen] = useState(false);
   const [mobileAboutOpen, setMobileAboutOpen] = useState(false);
   const { theme, toggleTheme } = useTheme();
-  const [currentProducts, setCurrentProducts] = useState([]);
-  const [upcomingProducts, setUpcomingProducts] = useState([]);
-
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const query = `*[_type == "product"] | order(_createdAt asc) { _id, name, slug, capacity, status, badge, releaseDateText }`;
-        const data = await client.fetch(query);
-        setCurrentProducts(data.filter(p => p.status === 'current' || !p.status));
-        setUpcomingProducts(data.filter(p => p.status === 'upcoming'));
-      } catch (error) {
-        console.error("Error fetching navbar products:", error);
-      }
-    };
-    fetchProducts();
-  }, []);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -95,36 +78,56 @@ export default function Navbar() {
                 {/* Column 1: Current Models */}
                 <div className="col-span-5 flex flex-col gap-4">
                   <h4 className="text-[13px] font-black uppercase tracking-wider text-accent font-sans">Current Systems</h4>
-                  <div className="flex flex-col gap-2 max-h-[260px] overflow-y-auto pr-2 [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-primary/10 dark:[&::-webkit-scrollbar-thumb]:bg-white/10">
-                    {currentProducts.length > 0 ? currentProducts.map(product => (
-                      <Link key={product._id} to={`/products/${product.slug?.current}`} className="p-3 rounded-xl hover:bg-primary/5 dark:hover:bg-white/5 transition-all flex flex-col gap-1 border border-transparent hover:border-primary/10 dark:hover:border-white/10">
-                        <span className="text-[15px] font-bold text-primary dark:text-paper flex items-center gap-2 font-sans">
-                          <Cpu className="w-4 h-4 text-accent" />
-                          {product.name}
-                        </span>
-                        <span className="text-[12px] text-primary/60 dark:text-paper/60 font-sans">{product.capacity || 'View details'}</span>
-                      </Link>
-                    )) : (
-                      <span className="text-sm text-primary/50 italic px-2 py-1">No systems currently active.</span>
-                    )}
+                  <div className="flex flex-col gap-2">
+                    <Link to="/products/mega" className="p-3 rounded-xl hover:bg-primary/5 dark:hover:bg-white/5 transition-all flex flex-col gap-1 border border-transparent hover:border-primary/10 dark:hover:border-white/10">
+                      <span className="text-[15px] font-bold text-primary dark:text-paper flex items-center gap-2 font-sans">
+                        <Cpu className="w-4 h-4 text-accent" />
+                        Calor Mega
+                      </span>
+                      <span className="text-[12px] text-primary/60 dark:text-paper/60 font-sans">Walk-in 10x10ft insulated room. Capacity: 1200L / 24 hrs.</span>
+                    </Link>
+                    <Link to="/products/standard" className="p-3 rounded-xl hover:bg-primary/5 dark:hover:bg-white/5 transition-all flex flex-col gap-1 border border-transparent hover:border-primary/10 dark:hover:border-white/10">
+                      <span className="text-[15px] font-bold text-primary dark:text-paper flex items-center gap-2 font-sans">
+                        <Layers className="w-4 h-4 text-accent" />
+                        Calor Standard
+                      </span>
+                      <span className="text-[12px] text-primary/60 dark:text-paper/60 font-sans">Commercial drying cabinet. Capacity: 350L / 24 hrs.</span>
+                    </Link>
+                    <Link to="/products/mini" className="p-3 rounded-xl hover:bg-primary/5 dark:hover:bg-white/5 transition-all flex flex-col gap-1 border border-transparent hover:border-primary/10 dark:hover:border-white/10">
+                      <span className="text-[15px] font-bold text-primary dark:text-paper flex items-center gap-2 font-sans">
+                        <Sparkles className="w-4 h-4 text-accent" />
+                        Calor Mini
+                      </span>
+                      <span className="text-[12px] text-primary/60 dark:text-paper/60 font-sans">Precision desktop drier. Capacity: 80L / 24 hrs.</span>
+                    </Link>
                   </div>
                 </div>
 
                 {/* Column 2: Upcoming Models */}
                 <div className="col-span-4 flex flex-col gap-4 border-l border-primary/10 dark:border-white/10 pl-6">
                   <h4 className="text-[13px] font-black uppercase tracking-wider text-accent font-sans">Upcoming Releases</h4>
-                  <div className="flex flex-col gap-2 max-h-[260px] overflow-y-auto pr-2 [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-primary/10 dark:[&::-webkit-scrollbar-thumb]:bg-white/10">
-                    {upcomingProducts.length > 0 ? upcomingProducts.map(product => (
-                      <div key={product._id} className="p-3 rounded-xl bg-primary/[0.02] dark:bg-white/[0.02] flex flex-col gap-1 border border-primary/5 dark:border-white/5 select-none">
-                        <span className="text-[14px] font-bold text-primary/80 dark:text-paper/80 flex items-center justify-between font-sans">
-                          {product.name}
-                          {product.badge && <span className="text-[9px] uppercase font-black tracking-widest px-1.5 py-0.5 rounded bg-accent/15 text-accent border border-accent/20">{product.badge}</span>}
-                        </span>
-                        <span className="text-[11px] text-primary/50 dark:text-paper/50 font-sans">{product.releaseDateText}</span>
-                      </div>
-                    )) : (
-                       <span className="text-sm text-primary/50 italic px-2 py-1">No upcoming releases at this time.</span>
-                    )}
+                  <div className="flex flex-col gap-2">
+                    <div className="p-3 rounded-xl bg-primary/[0.02] dark:bg-white/[0.02] flex flex-col gap-1 border border-primary/5 dark:border-white/5 select-none">
+                      <span className="text-[14px] font-bold text-primary/80 dark:text-paper/80 flex items-center justify-between font-sans">
+                        Calor Hybrid
+                        <span className="text-[9px] uppercase font-black tracking-widest px-1.5 py-0.5 rounded bg-accent/15 text-accent border border-accent/20">Solar Tech</span>
+                      </span>
+                      <span className="text-[11px] text-primary/50 dark:text-paper/50 font-sans">Eco-friendly solar heat pump. Coming Q4 2026.</span>
+                    </div>
+                    <div className="p-3 rounded-xl bg-primary/[0.02] dark:bg-white/[0.02] flex flex-col gap-1 border border-primary/5 dark:border-white/5 select-none">
+                      <span className="text-[14px] font-bold text-primary/80 dark:text-paper/80 flex items-center justify-between font-sans">
+                        Calor Ultra
+                        <span className="text-[9px] uppercase font-black tracking-widest px-1.5 py-0.5 rounded bg-accent/15 text-accent border border-accent/20">Industrial</span>
+                      </span>
+                      <span className="text-[11px] text-primary/50 dark:text-paper/50 font-sans">Continuous belt dehydrator. Coming 2027.</span>
+                    </div>
+                    <div className="p-3 rounded-xl bg-primary/[0.02] dark:bg-white/[0.02] flex flex-col gap-1 border border-primary/5 dark:border-white/5 select-none">
+                      <span className="text-[14px] font-bold text-primary/80 dark:text-paper/80 flex items-center justify-between font-sans">
+                        Calor Nano
+                        <span className="text-[9px] uppercase font-black tracking-widest px-1.5 py-0.5 rounded bg-accent/15 text-accent border border-accent/20">Botanical</span>
+                      </span>
+                      <span className="text-[11px] text-primary/50 dark:text-paper/50 font-sans">Microscale precision dryer. Coming Q1 2027.</span>
+                    </div>
                   </div>
                 </div>
 
@@ -205,9 +208,9 @@ export default function Navbar() {
                 {/* Column 1: Core Mission Statement */}
                 <div className="col-span-5 flex flex-col gap-3">
                   <span className="text-[11px] font-black uppercase tracking-wider text-accent font-sans">Our Mission</span>
-                  <h4 className="text-[15px] font-black text-primary dark:text-paper leading-tight font-sans">Preserving Yields, Eliminating Waste</h4>
+                  <h4 className="text-[15px] font-black text-primary dark:text-paper leading-tight font-sans">Student-Led Industrial Engineering</h4>
                   <p className="text-[12px] text-primary/60 dark:text-paper/60 leading-relaxed font-sans">
-                    CalorTech Systems designs high-efficiency drying equipment that allows cooperatives and family farms to add long-term value to their harvests.
+                    To design and build high-performance industrial machinery through practical innovation under the IHRD "Earn While Learn" framework.
                   </p>
                   <Link to="/about" className="inline-flex items-center gap-1 text-[12px] font-black text-accent hover:underline mt-1 font-sans">
                     Read Our Story <ArrowRight className="w-3.5 h-3.5" />
@@ -223,28 +226,28 @@ export default function Navbar() {
                         <Compass className="w-3.5 h-3.5 text-accent" />
                         Our Vision
                       </span>
-                      <span className="text-[10px] text-primary/50 dark:text-paper/50 font-sans">Agro-tech goals.</span>
+                      <span className="text-[10px] text-primary/50 dark:text-paper/50 font-sans">Pioneering innovation.</span>
                     </Link>
-                    <Link to="/about#humidity-control" className="p-2.5 rounded-xl hover:bg-primary/5 dark:hover:bg-white/5 flex flex-col gap-1 transition-all border border-transparent hover:border-primary/10 dark:hover:border-white/10">
+                    <Link to="/about#mission" className="p-2.5 rounded-xl hover:bg-primary/5 dark:hover:bg-white/5 flex flex-col gap-1 transition-all border border-transparent hover:border-primary/10 dark:hover:border-white/10">
                       <span className="text-[13px] font-bold text-primary dark:text-paper flex items-center gap-1.5 font-sans">
-                        <Info className="w-3.5 h-3.5 text-accent" />
-                        Humidity Control
+                        <Target className="w-3.5 h-3.5 text-accent" />
+                        Our Mission
                       </span>
-                      <span className="text-[10px] text-primary/50 dark:text-paper/50 font-sans">Dehumidifier loop.</span>
+                      <span className="text-[10px] text-primary/50 dark:text-paper/50 font-sans">Practical engineering.</span>
                     </Link>
-                    <Link to="/about#journey" className="p-2.5 rounded-xl hover:bg-primary/5 dark:hover:bg-white/5 flex flex-col gap-1 transition-all border border-transparent hover:border-primary/10 dark:hover:border-white/10">
+                    <Link to="/about#leadership" className="p-2.5 rounded-xl hover:bg-primary/5 dark:hover:bg-white/5 flex flex-col gap-1 transition-all border border-transparent hover:border-primary/10 dark:hover:border-white/10">
                       <span className="text-[13px] font-bold text-primary dark:text-paper flex items-center gap-1.5 font-sans">
-                        <Calendar className="w-3.5 h-3.5 text-accent" />
-                        Our Journey
+                        <Users className="w-3.5 h-3.5 text-accent" />
+                        Leadership
                       </span>
-                      <span className="text-[10px] text-primary/50 dark:text-paper/50 font-sans">Growth timeline.</span>
+                      <span className="text-[10px] text-primary/50 dark:text-paper/50 font-sans">Meet our team.</span>
                     </Link>
-                    <Link to="/about#standards" className="p-2.5 rounded-xl hover:bg-primary/5 dark:hover:bg-white/5 flex flex-col gap-1 transition-all border border-transparent hover:border-primary/10 dark:hover:border-white/10">
+                    <Link to="/about#profile" className="p-2.5 rounded-xl hover:bg-primary/5 dark:hover:bg-white/5 flex flex-col gap-1 transition-all border border-transparent hover:border-primary/10 dark:hover:border-white/10">
                       <span className="text-[13px] font-bold text-primary dark:text-paper flex items-center gap-1.5 font-sans">
-                        <HelpCircle className="w-3.5 h-3.5 text-accent" />
-                        Standards
+                        <Building2 className="w-3.5 h-3.5 text-accent" />
+                        Company Profile
                       </span>
-                      <span className="text-[10px] text-primary/50 dark:text-paper/50 font-sans">Quality certs.</span>
+                      <span className="text-[10px] text-primary/50 dark:text-paper/50 font-sans">Our background.</span>
                     </Link>
                   </div>
                 </div>
@@ -356,21 +359,19 @@ export default function Navbar() {
                 {mobileProductsOpen && (
                   <div className="flex flex-col gap-2 pl-3 pt-2 text-xs">
                     <span className="font-bold text-accent uppercase tracking-wider text-[10px]">Current Systems</span>
-                    {currentProducts.length > 0 ? currentProducts.map(product => (
-                      <Link key={product._id} to={`/products/${product.slug?.current}`} onClick={() => setMobileOpen(false)} className="flex items-center gap-2 py-1 text-primary/90 dark:text-paper/90">
-                        <Cpu className="w-3.5 h-3.5 text-accent" /> {product.name}
-                      </Link>
-                    )) : (
-                      <span className="text-xs text-primary/50 italic py-1">No systems currently active.</span>
-                    )}
+                    <Link to="/products/mega" onClick={() => setMobileOpen(false)} className="flex items-center gap-2 py-1 text-primary/90 dark:text-paper/90">
+                      <Cpu className="w-3.5 h-3.5 text-accent" /> Calor Mega
+                    </Link>
+                    <Link to="/products/standard" onClick={() => setMobileOpen(false)} className="flex items-center gap-2 py-1 text-primary/90 dark:text-paper/90">
+                      <Layers className="w-3.5 h-3.5 text-accent" /> Calor Standard
+                    </Link>
+                    <Link to="/products/mini" onClick={() => setMobileOpen(false)} className="flex items-center gap-2 py-1 text-primary/90 dark:text-paper/90">
+                      <Sparkles className="w-3.5 h-3.5 text-accent" /> Calor Mini
+                    </Link>
                     <span className="font-bold text-accent uppercase tracking-wider text-[10px] mt-2">Upcoming Releases</span>
-                    {upcomingProducts.length > 0 ? upcomingProducts.map(product => (
-                      <div key={product._id} className="py-1 text-primary/60 dark:text-paper/60">
-                        {product.name} {product.badge && `(${product.badge})`}
-                      </div>
-                    )) : (
-                       <span className="text-xs text-primary/50 italic py-1">No upcoming releases at this time.</span>
-                    )}
+                    <div className="py-1 text-primary/60 dark:text-paper/60">Calor Hybrid (Solar Tech)</div>
+                    <div className="py-1 text-primary/60 dark:text-paper/60">Calor Ultra (Industrial)</div>
+                    <div className="py-1 text-primary/60 dark:text-paper/60">Calor Nano (Botanical)</div>
                   </div>
                 )}
               </div>
@@ -435,14 +436,14 @@ export default function Navbar() {
                     <Link to="/about#vision" onClick={() => setMobileOpen(false)} className="flex items-center gap-2 py-1 text-primary/90 dark:text-paper/90">
                       <Compass className="w-3.5 h-3.5 text-accent" /> Our Vision
                     </Link>
-                    <Link to="/about#humidity-control" onClick={() => setMobileOpen(false)} className="flex items-center gap-2 py-1 text-primary/90 dark:text-paper/90">
-                      <Info className="w-3.5 h-3.5 text-accent" /> Humidity Control
+                    <Link to="/about#mission" onClick={() => setMobileOpen(false)} className="flex items-center gap-2 py-1 text-primary/90 dark:text-paper/90">
+                      <Target className="w-3.5 h-3.5 text-accent" /> Our Mission
                     </Link>
-                    <Link to="/about#journey" onClick={() => setMobileOpen(false)} className="flex items-center gap-2 py-1 text-primary/90 dark:text-paper/90">
-                      <Calendar className="w-3.5 h-3.5 text-accent" /> Our Journey
+                    <Link to="/about#leadership" onClick={() => setMobileOpen(false)} className="flex items-center gap-2 py-1 text-primary/90 dark:text-paper/90">
+                      <Users className="w-3.5 h-3.5 text-accent" /> Leadership
                     </Link>
-                    <Link to="/about#standards" onClick={() => setMobileOpen(false)} className="flex items-center gap-2 py-1 text-primary/90 dark:text-paper/90">
-                      <HelpCircle className="w-3.5 h-3.5 text-accent" /> Standards
+                    <Link to="/about#profile" onClick={() => setMobileOpen(false)} className="flex items-center gap-2 py-1 text-primary/90 dark:text-paper/90">
+                      <Building2 className="w-3.5 h-3.5 text-accent" /> Company Profile
                     </Link>
                   </div>
                 )}

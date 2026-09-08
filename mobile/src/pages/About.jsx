@@ -27,10 +27,10 @@ export default function About() {
           className="flex flex-col gap-4 text-center"
           {...fadeUp}
         >
-          <span className="text-[12px] font-bold uppercase tracking-[0.2em] text-accent">
+          <span className="text-[12px] font-bold uppercase tracking-[0.2em] text-accent" style={{ WebkitTextStroke: '0.5px black' }}>
             IHRD "Earn While Learn" Initiative
           </span>
-          <h1 className="text-4xl font-black font-outfit text-transparent bg-clip-text bg-gradient-to-r from-accent via-yellow-500 to-secondary drop-shadow-sm pb-1">
+          <h1 className="text-4xl font-black font-outfit text-transparent bg-clip-text bg-gradient-to-r from-accent via-yellow-500 to-secondary drop-shadow-sm pb-1" style={{ WebkitTextStroke: '1px black' }}>
             INNOVA TECH
           </h1>
           <p className="text-lg text-transparent bg-clip-text bg-gradient-to-r from-primary-text to-secondary-text leading-relaxed font-bold">
