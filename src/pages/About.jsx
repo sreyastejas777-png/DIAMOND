@@ -22,68 +22,72 @@ export default function About() {
     <div className="w-full pt-16 pb-24 px-6 md:px-12 bg-bg transition-colors duration-300 min-h-screen">
       <div className="max-w-[1440px] mx-auto flex flex-col gap-24">
         
-        {/* 1. HERO & COMPANY PROFILE */}
-        <motion.div 
-          className="text-center max-w-[900px] mx-auto flex flex-col gap-6"
-          {...fadeUp}
-        >
-          <span className="text-[18px] font-black uppercase tracking-[0.2em] text-blue-600 dark:text-blue-400 drop-shadow-sm">
-            IHRD "Earn While Learn" Initiative
-          </span>
-          <h1 className="text-5xl md:text-7xl font-black font-outfit text-transparent bg-clip-text bg-gradient-to-r from-slate-800 via-slate-500 to-blue-600 dark:from-slate-200 dark:via-slate-400 dark:to-blue-400 drop-shadow-md pb-2">
-            INNOVA TECH
-          </h1>
-          <p className="text-[20px] md:text-[24px] text-transparent bg-clip-text bg-gradient-to-r from-primary-text to-secondary-text leading-relaxed font-bold">
-            Industrial Machinery Manufacturing & Applied R&D
-          </p>
+        {/* LANDING SCREEN CONTAINER (Hero + Vision/Mission) */}
+        <div className="flex flex-col justify-evenly min-h-[calc(100vh-120px)] w-full">
+          
+          {/* 1. HERO & COMPANY PROFILE */}
+          <motion.div 
+            className="text-center max-w-[900px] mx-auto flex flex-col gap-4 lg:gap-6"
+            {...fadeUp}
+          >
+            <span className="text-[16px] lg:text-[18px] font-black uppercase tracking-[0.2em] text-blue-600 dark:text-blue-400 drop-shadow-sm">
+              IHRD "Earn While Learn" Initiative
+            </span>
+            <h1 className="text-5xl md:text-7xl lg:text-8xl font-black font-outfit text-transparent bg-clip-text bg-gradient-to-r from-slate-800 via-slate-500 to-blue-600 dark:from-slate-200 dark:via-slate-400 dark:to-blue-400 drop-shadow-md pb-2">
+              INNOVA TECH
+            </h1>
+            <p className="text-[18px] md:text-[24px] text-transparent bg-clip-text bg-gradient-to-r from-primary-text to-secondary-text leading-relaxed font-bold">
+              Industrial Machinery Manufacturing & Applied R&D
+            </p>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8 text-left">
-            <div className="p-6 bg-surface border border-border rounded-2xl shadow-soft flex items-start gap-4">
-              <Calendar className="w-6 h-6 text-accent mt-1" />
-              <div>
-                <strong className="block text-primary-text text-[18px] mb-1">Established</strong>
-                <span className="text-secondary-text">March 12, 2026</span>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4 lg:mt-8 text-left">
+              <div className="p-4 lg:p-6 bg-surface border border-border rounded-2xl shadow-soft flex items-start gap-4">
+                <Calendar className="w-6 h-6 text-accent mt-1 shrink-0" />
+                <div>
+                  <strong className="block text-primary-text text-[16px] lg:text-[18px] mb-1">Established</strong>
+                  <span className="text-secondary-text text-sm lg:text-base">March 12, 2026</span>
+                </div>
+              </div>
+              <div className="p-4 lg:p-6 bg-surface border border-border rounded-2xl shadow-soft flex items-start gap-4">
+                <Building2 className="w-6 h-6 text-accent mt-1 shrink-0" />
+                <div>
+                  <strong className="block text-primary-text text-[16px] lg:text-[18px] mb-1">Inaugurated By</strong>
+                  <span className="text-secondary-text text-sm lg:text-base">Dr. Arunkumar (Former Director, IHRD)</span>
+                </div>
               </div>
             </div>
-            <div className="p-6 bg-surface border border-border rounded-2xl shadow-soft flex items-start gap-4">
-              <Building2 className="w-6 h-6 text-accent mt-1" />
-              <div>
-                <strong className="block text-primary-text text-[18px] mb-1">Inaugurated By</strong>
-                <span className="text-secondary-text">Dr. Arunkumar (Former Director, IHRD)</span>
-              </div>
-            </div>
+          </motion.div>
+
+          {/* 2. VISION & MISSION */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-8 mt-6 lg:mt-0">
+            <motion.div 
+              className="p-6 lg:p-8 rounded-3xl bg-brand-light border border-accent/20 shadow-skeuo-out hover:shadow-card-hover hover:-translate-y-1 transition-all duration-300 group flex flex-col justify-center"
+              initial={fadeUp.initial}
+              whileInView={fadeUp.whileInView}
+              viewport={fadeUp.viewport}
+              transition={{ ...fadeUp.transition, delay: 0.1 }}
+            >
+              <Lightbulb className="w-10 h-10 lg:w-12 lg:h-12 text-accent mb-4 lg:mb-6 group-hover:scale-110 transition-transform duration-300" />
+              <h2 className="text-2xl lg:text-3xl font-extrabold font-outfit text-primary-text mb-3 lg:mb-4">Our Vision</h2>
+              <p className="text-[15px] lg:text-[18px] text-secondary-text leading-relaxed">
+                To emerge as a pioneer in student-led industrial engineering by developing cutting-edge machinery and advancing research-driven solutions that bridge academic innovation with global industrial standards.
+              </p>
+            </motion.div>
+
+            <motion.div 
+              className="p-6 lg:p-8 rounded-3xl bg-brand-light border border-accent/20 shadow-skeuo-out hover:shadow-card-hover hover:-translate-y-1 transition-all duration-300 group flex flex-col justify-center"
+              initial={fadeUp.initial}
+              whileInView={fadeUp.whileInView}
+              viewport={fadeUp.viewport}
+              transition={{ ...fadeUp.transition, delay: 0.2 }}
+            >
+              <Target className="w-10 h-10 lg:w-12 lg:h-12 text-accent mb-4 lg:mb-6 group-hover:scale-110 transition-transform duration-300" />
+              <h2 className="text-2xl lg:text-3xl font-extrabold font-outfit text-primary-text mb-3 lg:mb-4">Our Mission</h2>
+              <p className="text-[15px] lg:text-[18px] text-secondary-text leading-relaxed">
+                To design and build high-performance industrial machinery through practical innovation under the IHRD "Earn While Learn" framework, empowering engineering talent while delivering reliable, market-ready equipment and research solutions to industry partners.
+              </p>
+            </motion.div>
           </div>
-        </motion.div>
-
-        {/* 2. VISION & MISSION */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <motion.div 
-            className="p-8 md:p-10 rounded-3xl bg-brand-light border border-accent/20 shadow-skeuo-out hover:shadow-card-hover hover:-translate-y-1 transition-all duration-300 group"
-            initial={fadeUp.initial}
-            whileInView={fadeUp.whileInView}
-            viewport={fadeUp.viewport}
-            transition={{ ...fadeUp.transition, delay: 0.1 }}
-          >
-            <Lightbulb className="w-12 h-12 text-accent mb-6 group-hover:scale-110 transition-transform duration-300" />
-            <h2 className="text-3xl font-extrabold font-outfit text-primary-text mb-4">Our Vision</h2>
-            <p className="text-[18px] text-secondary-text leading-relaxed">
-              To emerge as a pioneer in student-led industrial engineering by developing cutting-edge machinery and advancing research-driven solutions that bridge academic innovation with global industrial standards.
-            </p>
-          </motion.div>
-
-          <motion.div 
-            className="p-8 md:p-10 rounded-3xl bg-brand-light border border-accent/20 shadow-skeuo-out hover:shadow-card-hover hover:-translate-y-1 transition-all duration-300 group"
-            initial={fadeUp.initial}
-            whileInView={fadeUp.whileInView}
-            viewport={fadeUp.viewport}
-            transition={{ ...fadeUp.transition, delay: 0.2 }}
-          >
-            <Target className="w-12 h-12 text-accent mb-6 group-hover:scale-110 transition-transform duration-300" />
-            <h2 className="text-3xl font-extrabold font-outfit text-primary-text mb-4">Our Mission</h2>
-            <p className="text-[18px] text-secondary-text leading-relaxed">
-              To design and build high-performance industrial machinery through practical innovation under the IHRD "Earn While Learn" framework, empowering engineering talent while delivering reliable, market-ready equipment and research solutions to industry partners.
-            </p>
-          </motion.div>
         </div>
         {/* NEW SECTION: WEBSITE STRUCTURE (PROPOSED SITE ARCHITECTURE) */}
         <div className="flex flex-col gap-12 pt-8 border-t border-border/50">
