@@ -32,19 +32,18 @@ export default function About() {
   };
 
   return (
-    <div className="w-full pt-8 pb-32 px-4 bg-bg min-h-screen relative overflow-clip">
+    <div className="w-full pt-4 pb-32 px-4 bg-bg min-h-screen relative overflow-clip">
       
       {/* Background Parallax Orbs */}
       <motion.div style={{ y: yBg1 }} className="absolute top-20 -left-20 w-72 h-72 bg-accent/5 rounded-full blur-[60px] pointer-events-none" />
       <motion.div style={{ y: yBg2 }} className="absolute top-[30%] -right-32 w-[400px] h-[400px] bg-blue-500/5 rounded-full blur-[80px] pointer-events-none" />
       <motion.div style={{ y: yBg3 }} className="absolute bottom-40 left-10 w-64 h-64 bg-accent/10 rounded-full blur-[60px] pointer-events-none" />
 
-      <div className="flex flex-col gap-16 max-w-sm mx-auto relative z-10">
+      <div className="flex flex-col gap-10 max-w-sm mx-auto relative z-10">
         
         {/* 1. HERO & COMPANY PROFILE */}
         <motion.div 
-          className="flex flex-col gap-4 text-center"
-          style={{ y: yHero }}
+          className="flex flex-col gap-3 text-center"
           {...fadeUp}
         >
           <span className="text-[12px] font-bold uppercase tracking-[0.2em] text-blue-600 dark:text-blue-400 drop-shadow-sm">
@@ -57,7 +56,7 @@ export default function About() {
             Industrial Machinery Manufacturing & Applied R&D
           </p>
 
-          <div className="flex flex-col gap-6 mt-8 text-left">
+          <div className="flex flex-col gap-4 mt-5 text-left">
             {/* Established Box */}
             <motion.div 
               className="p-4 bg-surface border border-border rounded-2xl shadow-soft flex items-start gap-3"
@@ -195,7 +194,7 @@ export default function About() {
         </motion.div>
 
         {/* NEW SECTION: TECHNICAL & DESIGN REQUIREMENTS */}
-        <motion.div style={{ y: ySpecs }} className="flex flex-col gap-8 pt-6 border-t border-border/50">
+        <motion.div style={{ y: ySpecs }} className="flex flex-col gap-8 pt-12 mt-2 border-t border-border/50">
           <div className="text-center flex flex-col gap-3">
             <h2 className="text-3xl font-extrabold font-outfit text-primary-text">
               Technical Specs
