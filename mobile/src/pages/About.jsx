@@ -41,8 +41,18 @@ export default function About() {
             {/* Established Box */}
             <div className="relative animate-swing origin-top">
               {/* Chains */}
-              <div className="absolute -top-4 left-6 w-0.5 h-4 bg-gradient-to-b from-slate-400 to-slate-300 dark:from-slate-600 dark:to-slate-500 rounded-full shadow-sm" />
-              <div className="absolute -top-4 right-6 w-0.5 h-4 bg-gradient-to-b from-slate-400 to-slate-300 dark:from-slate-600 dark:to-slate-500 rounded-full shadow-sm" />
+              <svg className="absolute -top-5 left-[23px] w-1.5 h-6 text-slate-400 dark:text-slate-500 drop-shadow-sm" viewBox="0 0 6 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                <rect x="1" y="0" width="4" height="8" rx="2" />
+                <rect x="1" y="6" width="4" height="8" rx="2" />
+                <rect x="1" y="12" width="4" height="8" rx="2" />
+                <rect x="1" y="18" width="4" height="8" rx="2" />
+              </svg>
+              <svg className="absolute -top-5 right-[23px] w-1.5 h-6 text-slate-400 dark:text-slate-500 drop-shadow-sm" viewBox="0 0 6 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                <rect x="1" y="0" width="4" height="8" rx="2" />
+                <rect x="1" y="6" width="4" height="8" rx="2" />
+                <rect x="1" y="12" width="4" height="8" rx="2" />
+                <rect x="1" y="18" width="4" height="8" rx="2" />
+              </svg>
               
               <div className="p-4 bg-surface border border-border rounded-2xl shadow-soft flex items-start gap-3">
                 <Calendar className="w-5 h-5 text-accent mt-0.5 shrink-0" />
@@ -56,8 +66,18 @@ export default function About() {
             {/* Inaugurated Box */}
             <div className="relative animate-[swing_3.5s_ease-in-out_infinite_reverse] origin-top">
               {/* Chains */}
-              <div className="absolute -top-4 left-6 w-0.5 h-4 bg-gradient-to-b from-slate-400 to-slate-300 dark:from-slate-600 dark:to-slate-500 rounded-full shadow-sm" />
-              <div className="absolute -top-4 right-6 w-0.5 h-4 bg-gradient-to-b from-slate-400 to-slate-300 dark:from-slate-600 dark:to-slate-500 rounded-full shadow-sm" />
+              <svg className="absolute -top-5 left-[23px] w-1.5 h-6 text-slate-400 dark:text-slate-500 drop-shadow-sm" viewBox="0 0 6 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                <rect x="1" y="0" width="4" height="8" rx="2" />
+                <rect x="1" y="6" width="4" height="8" rx="2" />
+                <rect x="1" y="12" width="4" height="8" rx="2" />
+                <rect x="1" y="18" width="4" height="8" rx="2" />
+              </svg>
+              <svg className="absolute -top-5 right-[23px] w-1.5 h-6 text-slate-400 dark:text-slate-500 drop-shadow-sm" viewBox="0 0 6 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                <rect x="1" y="0" width="4" height="8" rx="2" />
+                <rect x="1" y="6" width="4" height="8" rx="2" />
+                <rect x="1" y="12" width="4" height="8" rx="2" />
+                <rect x="1" y="18" width="4" height="8" rx="2" />
+              </svg>
               
               <div className="p-4 bg-surface border border-border rounded-2xl shadow-soft flex items-start gap-3">
                 <Building2 className="w-5 h-5 text-accent mt-0.5 shrink-0" />
