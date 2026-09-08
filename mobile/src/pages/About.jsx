@@ -1,140 +1,131 @@
 import React from 'react';
-import { Shield, Users, Landmark, Award, Milestone } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { Target, Lightbulb, CheckCircle2, User, Building2, Calendar, BookOpen, PenTool } from 'lucide-react';
 
 export default function About() {
-  const timelineEvents = [
-    { year: '2019', title: 'Company Founded', desc: 'Established by thermal engineers to reduce crop waste in farming hubs.' },
-    { year: '2021', title: 'Patented Loop', desc: 'Patented our energy-efficient heat-pump dehydration loop.' },
-    { year: '2023', title: 'Cooperative Deployments', desc: 'Deployed cabinets in 15 cooperatives, preserving 500+ tons of crops.' },
-    { year: '2026', title: 'Calor Mega Release', desc: 'Released walk-in commercial chambers for large-scale exports.' }
+  const team = [
+    { name: 'Manoj KG', role: 'Faculty In-Charge', desc: 'Institutional oversight and academic mentorship', icon: BookOpen },
+    { name: 'Ananthan PS', role: 'Team CEO', desc: 'Strategic leadership and operational execution', icon: User },
+    { name: 'Midhun Mohan', role: 'Technical Designer', desc: 'Machinery design, prototyping, and technical specifications', icon: PenTool },
+    { name: 'Swaroop S', role: 'Sales & Supply Coordinator', desc: 'Supply chain, client outreach, and vendor logistics', icon: Building2 },
+    { name: 'Aparna SK', role: 'Documentation Head', desc: 'Compliance, technical reporting, and corporate documentation', icon: CheckCircle2 }
   ];
+
+  const fadeUp = {
+    initial: { opacity: 0, y: 30, scale: 0.95, filter: "blur(8px)" },
+    whileInView: { opacity: 1, y: 0, scale: 1, filter: "blur(0px)" },
+    viewport: { once: true, margin: "-50px" },
+    transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] }
+  };
 
   return (
     <div className="w-full py-8 px-4 bg-bg min-h-screen">
-      <div className="flex flex-col gap-10 max-w-sm mx-auto">
+      <div className="flex flex-col gap-16 max-w-sm mx-auto">
         
-        {/* 1. VISION & MISSION HERO */}
+        {/* 1. HERO & COMPANY PROFILE */}
         <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
           className="flex flex-col gap-4 text-center"
+          {...fadeUp}
         >
-          <span className="text-[12px] font-bold uppercase text-accent tracking-wider">
-            Engineering Better Yields
+          <span className="text-[12px] font-bold uppercase tracking-[0.2em] text-accent">
+            IHRD "Earn While Learn" Initiative
           </span>
-          <h1 className="text-3xl font-black font-outfit text-primary-text leading-tight">
-            About CalorTech
+          <h1 className="text-4xl font-black font-outfit text-transparent bg-clip-text bg-gradient-to-r from-accent via-yellow-500 to-secondary drop-shadow-sm pb-1">
+            INNOVA TECH
           </h1>
-          <p className="text-base text-primary-text font-semibold">
-            We engineer high-efficiency, robust dehumidification systems that bridge the gap between harvests and markets.
+          <p className="text-lg text-transparent bg-clip-text bg-gradient-to-r from-primary-text to-secondary-text leading-relaxed font-bold">
+            Industrial Machinery Manufacturing & Applied R&D
           </p>
-          <p className="text-sm text-secondary-text">
-            Our simple-to-operate commercial dehydrators empower farmers and cooperatives to eliminate crop waste, preserve nutrients, and maximize yield value.
-          </p>
+
+          <div className="flex flex-col gap-3 mt-4 text-left">
+            <div className="p-4 bg-surface border border-border rounded-2xl shadow-soft flex items-start gap-3">
+              <Calendar className="w-5 h-5 text-accent mt-0.5 shrink-0" />
+              <div>
+                <strong className="block text-primary-text text-sm mb-0.5">Established</strong>
+                <span className="text-secondary-text text-xs">March 12, 2026</span>
+              </div>
+            </div>
+            <div className="p-4 bg-surface border border-border rounded-2xl shadow-soft flex items-start gap-3">
+              <Building2 className="w-5 h-5 text-accent mt-0.5 shrink-0" />
+              <div>
+                <strong className="block text-primary-text text-sm mb-0.5">Inaugurated By</strong>
+                <span className="text-secondary-text text-xs">Dr. Arunkumar (Former Director, IHRD)</span>
+              </div>
+            </div>
+          </div>
         </motion.div>
 
-        {/* Interactive Wireframe Column (Mobile scaled) */}
-        <div className="flex justify-center items-center h-[200px] perspective-[800px] select-none opacity-80">
-          <div className="w-[100px] h-[140px] relative transform-style-3d wireframe-box-animate">
-            <div className="absolute w-[100px] h-[140px] border border-accent/40 bg-accent/5 transform rotate-y-0 translate-z-[50px] flex items-center justify-center text-[8px] text-accent/80 font-mono">FRONT</div>
-            <div className="absolute w-[100px] h-[140px] border border-accent/40 bg-accent/5 transform rotate-y-180 translate-z-[50px] flex items-center justify-center text-[8px] text-accent/80 font-mono">BACK</div>
-            <div className="absolute w-[100px] h-[140px] border border-accent/40 bg-accent/5 transform rotate-y-[-90deg] translate-z-[50px]"></div>
-            <div className="absolute w-[100px] h-[140px] border border-accent/40 bg-accent/5 transform rotate-y-[90deg] translate-z-[50px]"></div>
-            <div className="absolute w-[100px] h-[100px] border border-accent/40 bg-accent/5 transform rotate-x-[90deg] translate-z-[50px]"></div>
-            <div className="absolute w-[100px] h-[100px] border border-accent/40 bg-accent/5 transform rotate-x-[-90deg] translate-z-[90px]"></div>
-          </div>
+        {/* 2. VISION & MISSION */}
+        <div className="flex flex-col gap-6">
+          <motion.div 
+            className="p-6 rounded-3xl bg-brand-light border border-accent/20 shadow-soft"
+            initial={fadeUp.initial}
+            whileInView={fadeUp.whileInView}
+            viewport={fadeUp.viewport}
+            transition={{ ...fadeUp.transition, delay: 0.1 }}
+          >
+            <Lightbulb className="w-10 h-10 text-accent mb-4" />
+            <h2 className="text-2xl font-extrabold font-outfit text-primary-text mb-3">Our Vision</h2>
+            <p className="text-sm text-secondary-text leading-relaxed">
+              To emerge as a pioneer in student-led industrial engineering by developing cutting-edge machinery and advancing research-driven solutions that bridge academic innovation with global industrial standards.
+            </p>
+          </motion.div>
+
+          <motion.div 
+            className="p-6 rounded-3xl bg-brand-light border border-accent/20 shadow-soft"
+            initial={fadeUp.initial}
+            whileInView={fadeUp.whileInView}
+            viewport={fadeUp.viewport}
+            transition={{ ...fadeUp.transition, delay: 0.2 }}
+          >
+            <Target className="w-10 h-10 text-accent mb-4" />
+            <h2 className="text-2xl font-extrabold font-outfit text-primary-text mb-3">Our Mission</h2>
+            <p className="text-sm text-secondary-text leading-relaxed">
+              To design and build high-performance industrial machinery through practical innovation under the IHRD "Earn While Learn" framework, empowering engineering talent while delivering reliable, market-ready equipment and research solutions to industry partners.
+            </p>
+          </motion.div>
         </div>
 
-        {/* 2. WHY HUMIDITY CONTROL MATTERS */}
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="p-5 rounded-3xl bg-brand-light border border-border shadow-sm flex flex-col gap-6"
-        >
-          <div className="flex flex-col gap-2">
-            <h2 className="text-2xl font-extrabold font-outfit text-primary-text">
-              Why Humidity Matters
+        {/* 3. TEAM HIERARCHY & LEADERSHIP */}
+        <div className="flex flex-col gap-8 pt-6 border-t border-border/50">
+          <div className="text-center flex flex-col gap-3">
+            <h2 className="text-3xl font-extrabold font-outfit text-primary-text">
+              Leadership
             </h2>
             <p className="text-sm text-secondary-text">
-              Traditional drying uses high heat, damaging crop nutrients. CalorTech uses low-temp **Heat-Pump Dehumidification** to safely extract moisture.
+              The dedicated team driving innovation under the IHRD framework.
             </p>
           </div>
-          
+
           <div className="flex flex-col gap-4">
-            <div className="p-4 bg-surface border border-border rounded-2xl flex gap-4">
-              <Shield className="w-6 h-6 text-accent shrink-0" />
-              <div>
-                <strong className="text-sm text-primary-text block font-bold">100% Nutrient Retention</strong>
-                <span className="text-xs text-secondary-text">Preserves vitamins, color, and aromas.</span>
-              </div>
-            </div>
-            <div className="p-4 bg-surface border border-border rounded-2xl flex gap-4">
-              <Award className="w-6 h-6 text-accent shrink-0" />
-              <div>
-                <strong className="text-sm text-primary-text block font-bold">Longer Shelf Stability</strong>
-                <span className="text-xs text-secondary-text">Maintains a stable 5% moisture baseline.</span>
-              </div>
-            </div>
+            {team.map((member, idx) => {
+              const Icon = member.icon;
+              return (
+                <motion.div
+                  key={idx}
+                  className="p-5 rounded-2xl bg-surface border border-border shadow-soft flex flex-col gap-3"
+                  initial={fadeUp.initial}
+                  whileInView={fadeUp.whileInView}
+                  viewport={fadeUp.viewport}
+                  transition={{ ...fadeUp.transition, delay: idx * 0.1 }}
+                >
+                  <div className="w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center text-accent">
+                    <Icon className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-bold font-outfit text-primary-text mb-1">{member.name}</h3>
+                    <span className="text-xs font-black uppercase tracking-wider text-accent block mb-2">
+                      {member.role}
+                    </span>
+                    <p className="text-secondary-text text-sm leading-relaxed">
+                      {member.desc}
+                    </p>
+                  </div>
+                </motion.div>
+              );
+            })}
           </div>
-        </motion.div>
-
-        {/* 3. QUALITY & STANDARDS */}
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="flex flex-col gap-4"
-        >
-          <div className="text-center flex flex-col gap-2 mb-2">
-            <h2 className="text-2xl font-extrabold font-outfit text-primary-text">Standards</h2>
-            <p className="text-sm text-secondary-text">Built using food-grade materials.</p>
-          </div>
-
-          <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-4 -mx-4 px-4 scrollbar-hide">
-            <div className="min-w-[240px] snap-center p-5 rounded-2xl bg-surface border border-border shadow-sm text-center flex flex-col gap-3 items-center">
-              <Users className="w-8 h-8 text-accent" />
-              <h3 className="text-lg font-bold text-primary-text font-outfit">Local Support</h3>
-              <p className="text-sm text-secondary-text">On-site training and 24/7 hotline.</p>
-            </div>
-            <div className="min-w-[240px] snap-center p-5 rounded-2xl bg-surface border border-border shadow-sm text-center flex flex-col gap-3 items-center">
-              <Landmark className="w-8 h-8 text-accent" />
-              <h3 className="text-lg font-bold text-primary-text font-outfit">Eco Certified</h3>
-              <p className="text-sm text-secondary-text">Zero ozone depletion potential.</p>
-            </div>
-          </div>
-        </motion.div>
-
-        {/* 4. COMPANY TIMELINE */}
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="flex flex-col gap-8 border-t border-border pt-8"
-        >
-          <h2 className="text-2xl font-extrabold font-outfit text-primary-text text-center">
-            Our Journey
-          </h2>
-
-          <div className="relative flex flex-col gap-8 before:content-[''] before:absolute before:left-3 before:top-2 before:bottom-2 before:w-0.5 before:bg-border before:z-0">
-            {timelineEvents.map((event, idx) => (
-              <div key={idx} className="relative pl-10 z-10 flex flex-col gap-1">
-                <div className="absolute left-0 top-1 w-6 h-6 rounded-full bg-bg border-[3px] border-accent flex items-center justify-center shadow-sm">
-                  <Milestone className="w-3 h-3 text-accent" />
-                </div>
-                <div>
-                  <span className="text-accent text-sm font-black">{event.year}</span>
-                  <h3 className="text-lg font-bold text-primary-text font-outfit">{event.title}</h3>
-                </div>
-                <p className="text-sm text-secondary-text">
-                  {event.desc}
-                </p>
-              </div>
-            ))}
-          </div>
-        </motion.div>
+        </div>
 
       </div>
     </div>
