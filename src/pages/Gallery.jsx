@@ -6,14 +6,21 @@ import { galleryItems as staticGalleryItems } from '../data/gallery';
 import { client } from '../sanityClient';
 
 export default function Gallery() {
-  const [images, setImages] = useState([]);
+  const [allImages, setAllImages] = useState([]);
+  const [categories, setCategories] = useState(['All']);
+  const [activeCategory, setActiveCategory] = useState('All');
   const [isLoading, setIsLoading] = useState(true);
   const [lightboxIndex, setLightboxIndex] = useState(null);
+
+  const images = activeCategory === 'All' 
+    ? allImages 
+    : allImages.filter(img => img.category === activeCategory);
 
   useEffect(() => {
     const fetchGallery = async () => {
       try {
-        const query = `*[_type == "gallery"][0]{
+        const query = `*[_type == "gallery"]{
+          title,
           "images": images[]{
             "id": _key,
             "url": asset->url,
@@ -22,21 +29,41 @@ export default function Gallery() {
         }`;
         const data = await client.fetch(query);
         
-        if (data && data.images && data.images.length > 0) {
-          // Map sanity format to our component format
-          const formattedImages = data.images.map(img => ({
-            id: img.id,
-            image: img.url,
-            caption: img.caption || 'Gallery Image',
-          }));
-          setImages(formattedImages);
+        if (data && data.length > 0) {
+          let fetchedImages = [];
+          let fetchedCategories = ['All'];
+
+          data.forEach(doc => {
+            const catName = doc.title || 'Uncategorized';
+            if (!fetchedCategories.includes(catName)) {
+              fetchedCategories.push(catName);
+            }
+            if (doc.images && doc.images.length > 0) {
+              doc.images.forEach(img => {
+                fetchedImages.push({
+                  id: img.id,
+                  image: img.url,
+                  caption: img.caption || 'Gallery Image',
+                  category: catName
+                });
+              });
+            }
+          });
+
+          setCategories(fetchedCategories);
+          setAllImages(fetchedImages);
         } else {
           // Fallback to static data if no sanity document exists
-          setImages(staticGalleryItems);
+          setAllImages(staticGalleryItems);
+          const staticCats = ['All', ...new Set(staticGalleryItems.map(i => i.category).filter(Boolean))];
+          setCategories(staticCats);
         }
       } catch (error) {
         console.error("Error fetching gallery from Sanity:", error);
-        setImages(staticGalleryItems);
+        setAllImages(staticGalleryItems);
+        // Extract unique categories from static fallback data if it has any, otherwise just 'All'
+        const staticCats = ['All', ...new Set(staticGalleryItems.map(i => i.category).filter(Boolean))];
+        setCategories(staticCats);
       } finally {
         setIsLoading(false);
       }
@@ -66,7 +93,26 @@ export default function Gallery() {
           <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-accent"></div>
         </div>
       ) : (
-        <div className="columns-1 gap-5 sm:columns-2 lg:columns-3 [&>*]:mb-5 mt-8">
+        <>
+          {categories.length > 1 && (
+            <div className="mb-10 flex flex-wrap justify-center gap-3 mt-8">
+              {categories.map((cat) => (
+                <button
+                  key={cat}
+                  onClick={() => setActiveCategory(cat)}
+                  className={`rounded-full px-5 py-2 text-sm font-semibold transition-colors ${
+                    activeCategory === cat
+                      ? 'bg-accent text-primary'
+                      : 'bg-white dark:bg-white/5 text-primary/70 dark:text-paper/70 hover:text-accent'
+                  }`}
+                >
+                  {cat}
+                </button>
+              ))}
+            </div>
+          )}
+          
+          <div className="columns-1 gap-5 sm:columns-2 lg:columns-3 [&>*]:mb-5 mt-4">
           {images.map((item) => (
             <motion.button
               key={item.id}
@@ -85,7 +131,8 @@ export default function Gallery() {
               </div>
             </motion.button>
           ))}
-        </div>
+          </div>
+        </>
       )}
 
       <AnimatePresence>

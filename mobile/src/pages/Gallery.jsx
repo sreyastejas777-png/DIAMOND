@@ -6,14 +6,21 @@ import { galleryItems as staticGalleryItems } from '../data/gallery';
 import { client } from '../sanityClient';
 
 export default function Gallery() {
-  const [images, setImages] = useState([]);
+  const [allImages, setAllImages] = useState([]);
+  const [categories, setCategories] = useState(['All']);
+  const [activeCategory, setActiveCategory] = useState('All');
   const [isLoading, setIsLoading] = useState(true);
   const [lightboxIndex, setLightboxIndex] = useState(null);
+
+  const images = activeCategory === 'All' 
+    ? allImages 
+    : allImages.filter(img => img.category === activeCategory);
 
   useEffect(() => {
     const fetchGallery = async () => {
       try {
-        const query = `*[_type == "gallery"][0]{
+        const query = `*[_type == "gallery"]{
+          title,
           "images": images[]{
             "id": _key,
             "url": asset->url,
@@ -22,21 +29,40 @@ export default function Gallery() {
         }`;
         const data = await client.fetch(query);
         
-        if (data && data.images && data.images.length > 0) {
-          // Map sanity format to our component format
-          const formattedImages = data.images.map(img => ({
-            id: img.id,
-            image: img.url,
-            caption: img.caption || 'Gallery Image',
-          }));
-          setImages(formattedImages);
+        if (data && data.length > 0) {
+          let fetchedImages = [];
+          let fetchedCategories = ['All'];
+
+          data.forEach(doc => {
+            const catName = doc.title || 'Uncategorized';
+            if (!fetchedCategories.includes(catName)) {
+              fetchedCategories.push(catName);
+            }
+            if (doc.images && doc.images.length > 0) {
+              doc.images.forEach(img => {
+                fetchedImages.push({
+                  id: img.id,
+                  image: img.url,
+                  caption: img.caption || 'Gallery Image',
+                  category: catName
+                });
+              });
+            }
+          });
+
+          setCategories(fetchedCategories);
+          setAllImages(fetchedImages);
         } else {
           // Fallback to static data if no sanity document exists
-          setImages(staticGalleryItems);
+          setAllImages(staticGalleryItems);
+          const staticCats = ['All', ...new Set(staticGalleryItems.map(i => i.category).filter(Boolean))];
+          setCategories(staticCats);
         }
       } catch (error) {
         console.error("Error fetching gallery from Sanity:", error);
-        setImages(staticGalleryItems);
+        setAllImages(staticGalleryItems);
+        const staticCats = ['All', ...new Set(staticGalleryItems.map(i => i.category).filter(Boolean))];
+        setCategories(staticCats);
       } finally {
         setIsLoading(false);
       }
@@ -67,7 +93,26 @@ export default function Gallery() {
           <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-accent"></div>
         </div>
       ) : (
-        <div className="grid grid-cols-2 gap-3 sm:gap-4 mt-8">
+        <>
+          {categories.length > 1 && (
+            <div className="my-6 flex overflow-x-auto snap-x snap-mandatory gap-2 pb-2 -mx-4 px-4 scrollbar-hide">
+              {categories.map((cat) => (
+                <button
+                  key={cat}
+                  onClick={() => setActiveCategory(cat)}
+                  className={`snap-center shrink-0 rounded-full px-4 py-2 text-xs font-semibold transition-colors border ${
+                    activeCategory === cat
+                      ? 'bg-accent text-primary border-accent'
+                      : 'bg-white/50 border-border text-primary-text/70'
+                  }`}
+                >
+                  {cat}
+                </button>
+              ))}
+            </div>
+          )}
+          
+          <div className="grid grid-cols-2 gap-3 sm:gap-4 mt-4">
           {images.map((item, idx) => (
             <motion.div
               key={item.id}
@@ -84,7 +129,8 @@ export default function Gallery() {
               </div>
             </motion.div>
           ))}
-        </div>
+          </div>
+        </>
       )}
 
       <AnimatePresence>
